@@ -1,0 +1,74 @@
+defmodule Tcp do
+  @moduledoc """
+  A module to open a TCP socket, accept any connection and
+  echo back any binary message received.
+  """
+
+  @doc """
+  Creates a TCP socket and starts listening for connections.
+  """
+  def start(port) do
+    options = [:binary, reuseaddr: true, active: false, backlog: 5]
+    {:ok, lsocket} = :gen_tcp.listen(port, options)
+    accept_loop(lsocket)
+  end
+
+  @doc """
+  Accept any incoming connection. We spawn a new process everytime.
+  """
+  def accept_loop(lsocket) do
+    case :gen_tcp.accept(lsocket) do
+      {:ok, socket} ->
+        spawn(fn -> client_loop(socket) end)
+        accept_loop(lsocket)
+      {:error, reason} ->
+        IO.puts "tcp accept failed on:"
+        IO.inspect(reason)
+    end
+  end
+
+  @doc """
+  client_loop tries to receive as much data as possible and
+  echoes it back to the sender.
+  """
+  def client_loop(socket) do
+    case :gen_tcp.recv(socket, 0) do
+      {:ok, message} ->
+        :gen_tcp.send(socket, message)
+        client_loop(socket)
+      otherwise ->
+        IO.inspect(otherwise)
+    end
+  end
+
+end
+
+defmodule Udp do
+  @moduledoc """
+  Opens a UDP socket and use it to send back any message received.
+  """
+
+  @doc """
+  Opens a UDP socket.
+  """
+  def start(port) do
+    options = [:binary, reuseaddr: true, active: false]
+    {:ok, socket} = :gen_udp.open(port, options)
+    recv_loop(socket)
+  end
+
+  @doc """
+  recv_loop receives as much data as possible and sends it
+  back to the sender.
+  """
+  def recv_loop(socket) do
+    case :gen_udp.recv(socket, 0) do
+      {:ok, {address, port, message}}  ->
+        :gen_udp.send(socket, address, port, message)
+        recv_loop(socket)
+      {:error, reason} ->
+        IO.puts "Udp server failed:"
+        IO.inspect reason.
+    end
+  end
+end
