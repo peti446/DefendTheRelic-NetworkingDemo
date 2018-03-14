@@ -27,7 +27,7 @@
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-network.so" />
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-system.so" />
 					<Add library="lib/libjpeg.so.8.4.0" />
-					<Add library="lib/TGUI-0.7.6/lib/libtgui.so" />
+					<Add library="lib/TGUI-0.7.6/libtgui.so" />
 					<Add directory="/usr/local/SFML-2.2/lib" />
 					<Add directory="lib" />
 				</Linker>
