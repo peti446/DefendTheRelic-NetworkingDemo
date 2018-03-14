@@ -994,3 +994,12 @@
 
 1516366668 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/StringHelpers.inl
 
+1516367022 source:/run/media/s6073335/Petric's Hard Drive/2º Year/Networking/ICA-NetworkingGame/client/main.cpp
+	<iostream>
+	<cstring>
+	"Game.h"
+	<SFML/Network.hpp>
+
+1521019570 /run/media/s6073335/Petric's Hard Drive/2º Year/Networking/ICA-NetworkingGame/client/include/Game.h
+	<SFML/Graphics.hpp>
+

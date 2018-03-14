@@ -12,14 +12,18 @@ defmodule Router do
     {:ok, []}
   end
 
-  def stop(reason \\ :normal, timeout \\ :infinity) do
-    GenServer.stop(@pName, reason, timeout)
-  end
-
   def terminate(reason, state) do
     IO.puts "Router closed, reason #{inspect reason} with state #{inspect state}"
   end
 
+  #API Calls
+  def stop(reason \\ :normal, timeout \\ :infinity) do
+    GenServer.stop(@pName, reason, timeout)
+  end
+
+  def send_msg(msg) do
+    send(@pName, msg)
+  end
   #Handle messages functions
 
 end

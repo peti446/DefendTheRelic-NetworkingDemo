@@ -15,6 +15,7 @@ public:
 protected:
 
 private:
+    void                    Setup();
     void					processEvents();
     void					update(sf::Time elapsedTime);
     void					render();

@@ -33,6 +33,7 @@ Game::Game()
 
 void Game::run()
 {
+    Setup();
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (mWindow.isOpen())
@@ -50,6 +51,13 @@ void Game::run()
         updateStatistics(elapsedTime);
         render();
     }
+}
+
+void Game::Setup()
+{
+    //Set up TCP and UDP thread
+
+    //Open MainMenu
 }
 
 void Game::processEvents()

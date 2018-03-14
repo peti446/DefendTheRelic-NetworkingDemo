@@ -9,6 +9,7 @@ defmodule GlobalSupervisor do
       children = [
         worker(Router, [], restart: :transient),
         worker(UDP, [], restart: :transient),
+		    worker(TCP, [], restart: :transient),
         worker(TcpSupervisor, [], restart: :transient, shutdown: :infinity)
       ]
 
@@ -25,7 +26,7 @@ defmodule TcpSupervisor do
 
   def init(_args) do
     children = [
-      worker(TCP, [], restart: :transient)
+      worker(TCP, [], restart: :transient, function: :tcp_client_loop),
     ]
     supervise(children ,strategy: :simple_one_for_one, extra_arguments: [restart: :transient]);
   end
