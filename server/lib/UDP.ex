@@ -5,17 +5,19 @@ defmodule UDP do
     options = [:binary, reuseaddr: true, active: false]
     case :gen_udp.open(port, options) do
         {:ok, socket} ->
-          recv_loop(socket)
+          pid = spawn_link(__MODULE__, :recv_loop, [socket])
+          IO.puts("Started UDP over the port #{inspect port} with options #{inspect options}")
+          {:ok, pid}
         {:error, reason} ->
           IO.puts("Could not start the UDP socket, reason #{inspect reason}")
-          throw("UDP Opening Socket error")
+          {:error, "Error starting UDP server (Opening)"}
     end
   end
 
   def recv_loop(socket) do
     case :gen_udp.recv(socket, 0) do
       {:ok, {address, port, message}}  ->
-        
+
         recv_loop(socket)
       {:error, reason} ->
         IO.puts "Udp server failed:"

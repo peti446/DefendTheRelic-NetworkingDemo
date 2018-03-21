@@ -2,6 +2,7 @@ defmodule GlobalSupervisor do
     use Supervisor
 
     def start_link(arg) do
+      IO.puts("Starting Global Supervisor")
       Supervisor.start_link(__MODULE__, arg, name: __MODULE__)
     end
 
@@ -10,7 +11,7 @@ defmodule GlobalSupervisor do
         worker(Router, [], restart: :transient),
         worker(UDP, [], restart: :transient),
 		    worker(TCP, [], restart: :transient),
-        worker(TcpSupervisor, [], restart: :transient, shutdown: :infinity)
+        supervisor(TcpSupervisor, [], restart: :transient, shutdown: :infinity)
       ]
 
       supervise(children, strategy: :one_for_one);
@@ -20,13 +21,14 @@ end
 defmodule TcpSupervisor do
   use Supervisor
 
-  def start_link(arg) do
-    Supervisor.start_link(__MODULE__, arg, name: __MODULE__);
+  def start_link() do
+    IO.puts("Starting TCP Client Supervisor")
+    Supervisor.start_link(__MODULE__, [], name: __MODULE__);
   end
 
   def init(_args) do
     children = [
-      worker(TCP, [], restart: :transient, function: :tcp_client_loop),
+      worker(TCP, [], restart: :transient, function: :start_tcp_client_loop),
     ]
     supervise(children ,strategy: :simple_one_for_one, extra_arguments: [restart: :transient]);
   end
