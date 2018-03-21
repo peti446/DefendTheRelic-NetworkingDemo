@@ -5,7 +5,7 @@ defmodule UDP do
     options = [:binary, reuseaddr: true, active: false]
     case :gen_udp.open(port, options) do
         {:ok, socket} ->
-          pid = spawn_link(__MODULE__, :recv_loop, [socket])
+          pid = spawn(__MODULE__, :recv_loop, [socket])
           IO.puts("Started UDP over the port #{inspect port} with options #{inspect options}")
           {:ok, pid}
         {:error, reason} ->

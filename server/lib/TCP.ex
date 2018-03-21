@@ -5,7 +5,7 @@ defmodule TCP do
     options = [:binary, reuseaddr: true, active: :once, backlog: 5]
     case :gen_tcp.listen(port, options) do
   		{:ok, socket} ->
-  			pid = spawn_link(__MODULE__, :accept_loop, [socket])
+  			pid = spawn(__MODULE__, :accept_loop, [socket])
         IO.puts("Started TCP server over the port #{inspect port} and options #{inspect options}")
         {:ok, pid}
       {:error, reason} ->
@@ -18,8 +18,12 @@ defmodule TCP do
     case :gen_tcp.accept(listening_socket) do
       {:ok, client_socket} ->
         IO.puts("Socket #{inspect client_socket} connected ok. Creating child process")
-        TcpSupervisor.add_child([client_socket])
-        accept_loop(listening_socket)
+
+        case TcpSupervisor.add_child([client_socket]) do
+          {:ok, pid} ->
+            :gen_tcp.controlling_process(client_socket, pid)
+            accept_loop(listening_socket)
+        end
       {:error, reason} ->
         IO.puts("Could not accept socket reason: #{inspect reason}")
         throw("Error acceping connection")
@@ -27,11 +31,11 @@ defmodule TCP do
   end
 
   def start_tcp_client_loop(client_socket) do
-    {:ok, spawn_link(__MODULE__, :tcp_client_loop, [client_socket])}
+    pid = spawn(__MODULE__, :tcp_client_loop, [client_socket])
+    {:ok, pid}
   end
 
 	def tcp_client_loop(socket) do
-    IO.puts("Starting Reciveing over socket #{inspect socket}")
     receive do
      {:tcp, socket, data} ->
          :inet.setopts(socket, [active: :once])

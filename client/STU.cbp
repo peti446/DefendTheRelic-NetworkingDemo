@@ -65,10 +65,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/Game.h" />
+		<Unit filename="include/Network.h" />
 		<Unit filename="include/StringHelpers.inl" />
 		<Unit filename="include/Stringhelpers.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/Network.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
