@@ -551,13 +551,13 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1516367022 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/main.cpp
+1524044995 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/main.cpp
 	<iostream>
 	<cstring>
 	"Game.h"
 	<SFML/Network.hpp>
 
-1516366971 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Game.h
+1521019570 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Game.h
 	<SFML/Graphics.hpp>
 
 1435661976 /usr/local/SFML-2.2/include/SFML/Graphics.hpp
@@ -984,15 +984,15 @@
 	<SFML/Network/Socket.hpp>
 	<vector>
 
-1519209903 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Game.cpp
+1521023296 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Game.cpp
 	"Game.h"
 	"Stringhelpers.h"
 
-1516366620 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Stringhelpers.h
+1524045610 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Stringhelpers.h
 	<sstream>
 	"StringHelpers.inl"
 
-1516366668 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/StringHelpers.inl
+1524045457 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/StringHelpers.inl
 
 1516367022 source:/run/media/s6073335/Petric's Hard Drive/2º Year/Networking/ICA-NetworkingGame/client/main.cpp
 	<iostream>
@@ -1002,4 +1002,9 @@
 
 1521019570 /run/media/s6073335/Petric's Hard Drive/2º Year/Networking/ICA-NetworkingGame/client/include/Game.h
 	<SFML/Graphics.hpp>
+
+1521623697 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Network.cpp
+	"Network.h"
+
+1521623614 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Network.h
 

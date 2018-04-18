@@ -1,15 +1,14 @@
 defmodule TCP do
-
+  @tcp_port 13002
   def start_link() do
-    port = 13000
     options = [:binary, reuseaddr: true, active: :once, backlog: 5]
-    case :gen_tcp.listen(port, options) do
+    case :gen_tcp.listen(@tcp_port, options) do
   		{:ok, socket} ->
   			pid = spawn(__MODULE__, :accept_loop, [socket])
-        IO.puts("Started TCP server over the port #{inspect port} and options #{inspect options}")
+        IO.puts("Started TCP server over the port #{inspect @tcp_port} and options #{inspect options}")
         {:ok, pid}
       {:error, reason} ->
-  			IO.puts("Could not listen on tcp port #{inspect port} with options #{inspect options}. Returned error: #{inspect reason}")
+  			IO.puts("Could not listen on tcp port #{inspect @tcp_port} with options #{inspect options}. Returned error: #{inspect reason}")
         {:error, "Error starting TCP server (Start listening)"}
     end
   end

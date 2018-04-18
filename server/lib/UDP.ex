@@ -17,7 +17,7 @@ defmodule UDP do
   def recv_loop(socket) do
     case :gen_udp.recv(socket, 0) do
       {:ok, {address, port, message}}  ->
-
+        IO.puts("Recived msg from #{inspect address} on udp port #{inspect port}, with msg #{inspect message}")
         recv_loop(socket)
       {:error, reason} ->
         IO.puts "Udp server failed:"

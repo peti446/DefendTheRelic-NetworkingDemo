@@ -30,6 +30,7 @@
 					<Add library="lib/TGUI-0.7.6/libtgui.so" />
 					<Add directory="/usr/local/SFML-2.2/lib" />
 					<Add directory="lib" />
+					<Add directory="lib/TGUI-0.7.6" />
 				</Linker>
 			</Target>
 			<Target title="Windows">

@@ -25,7 +25,8 @@ int main()
 
     // SENDING
     // TCP socket
-    sf::TcpSocket tcp_socket;
+
+    /*sf::TcpSocket tcp_socket;
     sf::Socket::Status status = tcp_socket.connect("127.0.0.1", 13000);
     if (status != sf::Socket::Done)
     {
@@ -73,7 +74,7 @@ int main()
         std::cerr << "Udp receive failed." << std::endl;
     }
     std::cout << "Received " << received << " bytes from " << sender << " on port " << port << std::endl;
-    std::cout << buffer_in << std::endl;
+    std::cout << buffer_in << std::endl;*/
 
 
     std::cout << "Finished" << std::endl;
