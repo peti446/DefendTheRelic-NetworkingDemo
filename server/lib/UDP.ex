@@ -1,12 +1,14 @@
 defmodule UDP do
 
+  @udp_port 13001
+  def port, do: @udp_port
+
   def start_link() do
-    port = 13001
     options = [:binary, reuseaddr: true, active: false]
-    case :gen_udp.open(port, options) do
+    case :gen_udp.open(@udp_port, options) do
         {:ok, socket} ->
           pid = spawn(__MODULE__, :recv_loop, [socket])
-          IO.puts("Started UDP over the port #{inspect port} with options #{inspect options}")
+          IO.puts("Started UDP over the port #{inspect @udp_port} with options #{inspect options}")
           {:ok, pid}
         {:error, reason} ->
           IO.puts("Could not start the UDP socket, reason #{inspect reason}")
@@ -14,16 +16,25 @@ defmodule UDP do
     end
   end
 
-  def recv_loop(socket) do
+  defp recv_loop(socket) do
     case :gen_udp.recv(socket, 0) do
       {:ok, {address, port, message}}  ->
-        IO.puts("Recived msg from #{inspect address} on udp port #{inspect port}, with msg #{inspect message}")
+        messageList = Utility.packetStringSplitter(Utility.packetToString(message));
+        Router.server_handle_msg({socket, address, port, messageList})
         recv_loop(socket)
       {:error, reason} ->
         IO.puts "Udp server failed:"
-        IO.inspect reason.
+        IO.inspect reason
+        :gen_udp.close(socket)
         throw("UDP error trying to recive")
     end
+    :gen_udp.close(socket)
+  end
+
+
+## Server Api function calls
+  def send_udp_msg(socket, address, port, msg) do
+    :gen_udp.send(socket, address, port, msg)
   end
 
 end

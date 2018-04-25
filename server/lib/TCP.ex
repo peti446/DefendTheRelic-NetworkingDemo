@@ -1,5 +1,7 @@
 defmodule TCP do
   @tcp_port 13002
+  def port, do: @tcp_port
+
   def start_link() do
     options = [:binary, reuseaddr: true, active: :once, backlog: 5]
     case :gen_tcp.listen(@tcp_port, options) do
@@ -13,7 +15,7 @@ defmodule TCP do
     end
   end
 
-  def accept_loop(listening_socket) do
+  defp accept_loop(listening_socket) do
     case :gen_tcp.accept(listening_socket) do
       {:ok, client_socket} ->
         IO.puts("Socket #{inspect client_socket} connected ok. Creating child process")
@@ -29,12 +31,13 @@ defmodule TCP do
     end
   end
 
+##Client loops to accept messages
   def start_tcp_client_loop(client_socket) do
     pid = spawn(__MODULE__, :tcp_client_loop, [client_socket])
     {:ok, pid}
   end
 
-	def tcp_client_loop(socket) do
+	defp tcp_client_loop(socket) do
     receive do
      {:tcp, socket, data} ->
          :inet.setopts(socket, [active: :once])
@@ -46,4 +49,10 @@ defmodule TCP do
           IO.puts("Could not handle msg")
     end
   end
+
+
+  ##API to be accesed by the client
+    def send_tpc_message(socket, msg) do
+      :gen_tcp.send(socket, msg)
+    end
 end

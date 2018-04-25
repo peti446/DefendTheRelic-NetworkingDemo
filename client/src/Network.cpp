@@ -21,11 +21,11 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
 
     //Create the packet to send over to the server
     sf::Packet server_find_packet;
-    server_find_packet << "hello server";
+    server_find_packet << "notify-::-me-::-server";
 
     //Send Message to the server
     std::cout << "Broadcasting to find server" << std::endl;
-    if(m_udpSocket.send(server_find_packet, IPOfServer, port) != sf::Socket::Done)
+    if(m_udpSocket.send(server_find_packet.getData(), server_find_packet.getDataSize()(), IPOfServer, port) != sf::Socket::Done)
     {
         std::cout << "Could not send the first packet to find the server" << std::endl;
         return false;
@@ -78,6 +78,18 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     }
 
     //Send data to set up the player in the server
+    sf::Packet player_register_packet;
+    sf::IpAddress myAdress = (IPOfServer == sf::IpAddress::Broadcast) ? sf::IpAddress::getLocalAddress() : sf::IpAddress::getPublicAddress();
+    player_register_packet << "reg-::-" << myAdress.toString() << m_udpSocket.getLocalPort();
+
+
+    if(m_tcpSocket.send(player_register_packet) != sf::Socket::Done)
+    {
+        std::cout << "Failed to send register command" << std::endl;
+        return false;
+    }
+
+
 
     return true;
 }

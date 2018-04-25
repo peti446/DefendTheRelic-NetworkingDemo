@@ -19,6 +19,7 @@ class Network
     private:
         sf::UdpSocket m_udpSocket;
         sf::TcpSocket m_tcpSocket;
+        std::string m_registredName;
 };
 
 #endif // NETWORK_H
