@@ -3,5 +3,16 @@ defmodule Server do
 
   def start(_type, _args) do
     GlobalSupervisor.start_link([])
+    commandParse()
+  end
+
+  def commandParse() do
+    case IO.gets("Enter command: ") do
+      "stop\n" ->
+      Router.stop()
+      {:ok, :normal}
+      _->
+        commandParse()
+    end
   end
 end

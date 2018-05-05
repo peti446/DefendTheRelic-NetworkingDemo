@@ -16,10 +16,11 @@ defmodule UDP do
     end
   end
 
-  defp recv_loop(socket) do
+  def recv_loop(socket) do
     case :gen_udp.recv(socket, 0) do
       {:ok, {address, port, message}}  ->
-        messageList = Utility.packetStringSplitter(Utility.packetToString(message));
+        IO.puts("Recived #{inspect message}")
+        messageList = Utility.networkStringSplitter(Utility.packetToString(message));
         Router.server_handle_msg({socket, address, port, messageList})
         recv_loop(socket)
       {:error, reason} ->
@@ -28,7 +29,6 @@ defmodule UDP do
         :gen_udp.close(socket)
         throw("UDP error trying to recive")
     end
-    :gen_udp.close(socket)
   end
 
 

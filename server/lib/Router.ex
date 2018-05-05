@@ -8,7 +8,7 @@ defmodule Router do
   end
 
   def init(:ok) do
-    {:ok, %{nextRegID: 0, players: %{}, games: %{}, lobbies: %{}}}
+    {:ok, %{nextRegID: 0, prefixReg: Utility.random_string(6), players: %{}, games: %{}, lobbies: %{}, rsa: RSA.generate_keyPair()}}
   end
 
   def terminate(reason, state) do
@@ -23,19 +23,40 @@ defmodule Router do
   def server_handle_msg(msg) do
     GenServer.call(@pName, msg)
   end
+
   #Handle messages functions
-  def handle_call({socket, address, port, ["notify", "me", "server"]}, _from, _state) do
-    UDP.send_udp_msg(socket, address, port, TCP.port)
+  def handle_call({socket, ["st", "hsk"]}, _from, state) do
+    {pubstr, _} = state.rsa
+    TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(pubstr)))
+    {:reply ,state, state}
   end
 
-  def handle_call({socket, ["reg", udpAddress, udpPort]}, _from, state) do
+  def handle_call({socket, address, port, ["notify", "me", "server"]}, _from, state) do
+    UDP.send_udp_msg(socket, address, port, <<TCP.port::big-16>>)
+    {:reply ,state, state}
+  end
+
+  def handle_call({socket, ["aesReg", encryptedKey]}, _from, state) do
+      ##Get the aes key and IV
+      {_, pri} = state.rsa;
+      {:ok, rsaChipher} = Base.decode64(encryptedKey, ignore: :whitespace)
+      [key, udpAddress, udpPort] = Utility.networkStringSplitter(RSA.decrypt(rsaChipher, pri))
+
       ##Get the current ID and increase it by on
-      {currentID,_} = Map.get_and_update(state, :nextRegID, fn current_value -> {current_value, current_value+1} end)
-
+      {currentID, newMap} = Map.get_and_update(state, :nextRegID, fn current_value -> {current_value, current_value+1} end)
+      currentID = state.prefixReg <>  "_" <> to_string(currentID);
+      state = newMap
       ##Create a player entri in the map
-      Kernel.put_in(state, [:players, currentID], [tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, display_name: ""]);
+      displayName = Utility.random_string_32encode(8)
+      state = Kernel.put_in(state, [:players, currentID], [tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName])
+
       ##Send back the tcp response
-      TCP.send_tpc_message(socket, "ok-::-"+currentID);
+      TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(AES.encrypt("ok-::-" <>  currentID <> "-::-" <> displayName, key))))
+      {:reply ,state, state}
   end
 
+  def handle_call(msg, _from, state) do
+    IO.puts("Could not handle message #{inspect msg}")
+    {:reply ,state, state}
+  end
 end

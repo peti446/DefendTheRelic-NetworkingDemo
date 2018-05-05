@@ -15,7 +15,7 @@ defmodule TCP do
     end
   end
 
-  defp accept_loop(listening_socket) do
+  def accept_loop(listening_socket) do
     case :gen_tcp.accept(listening_socket) do
       {:ok, client_socket} ->
         IO.puts("Socket #{inspect client_socket} connected ok. Creating child process")
@@ -37,11 +37,13 @@ defmodule TCP do
     {:ok, pid}
   end
 
-	defp tcp_client_loop(socket) do
+	def tcp_client_loop(socket) do
     receive do
      {:tcp, socket, data} ->
          :inet.setopts(socket, [active: :once])
          IO.puts("Recived #{inspect data}")
+         messageList = Utility.networkStringSplitter(Utility.packetToString(Utility.packetToString(data)));
+         Router.server_handle_msg({socket, messageList})
          tcp_client_loop(socket)
      {:tcp_closed, socket} ->
           IO.puts("Socket closing #{inspect socket}")
@@ -53,6 +55,6 @@ defmodule TCP do
 
   ##API to be accesed by the client
     def send_tpc_message(socket, msg) do
-      :gen_tcp.send(socket, msg)
+      :gen_tcp.send(socket, Utility.add_header_to_str(msg))
     end
 end
