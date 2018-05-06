@@ -41,7 +41,6 @@ defmodule TCP do
     receive do
      {:tcp, ^socket, data} ->
          :inet.setopts(socket, [active: :once])
-         IO.puts("Recived #{inspect data}")
          messageList = Utility.networkStringSplitter(Utility.packetToString(Utility.packetToString(data)));
          case Router.server_handle_msg({socket, messageList}) do
           {:user_rg, name}->

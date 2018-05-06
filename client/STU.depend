@@ -1490,7 +1490,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1525567987 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525570555 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1501,10 +1501,11 @@
 	"AESHelper.hpp"
 	"RSAHelper.hpp"
 
-1525564403 e:\2º year\networking\ica-networkinggame\client\include\network.h
+1525571766 e:\2º year\networking\ica-networkinggame\client\include\network.h
 	<SFML/Network.hpp>
 	<Cryptopp/aes.h>
 	<Cryptopp/modes.h>
+	<thread>
 
 1525453007 source:e:\2º year\networking\ica-networkinggame\client\src\scenemanager.cpp
 	"SceneManager.hpp"

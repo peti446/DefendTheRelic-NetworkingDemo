@@ -31,7 +31,7 @@ defmodule Router do
   #Handle messages functions
 
   ##Cast Handles
-  def handle_cast({:tcp_conn_closed, name}, _from, state) do
+  def handle_cast({:tcp_conn_closed, name}, state) do
     IO.puts("Trying to destroy #{inspect name}")
     case Map.pop(state.players, name) do
        {nil, _} ->
@@ -39,12 +39,12 @@ defmodule Router do
         {:noreply, state}
       {_, newmap} ->
         state = Map.replace!(state, :players, newmap)
-        IO.puts "Destroyed! New State: #{inspect state}"
+        IO.puts "Destroyed!"
         {:noreply, state}
     end
   end
 
-  def handle_cast(msg, _from, state) do
+  def handle_cast(msg, state) do
     IO.puts("Could not handle cast message #{inspect msg}")
     {:noreply, state}
   end
@@ -74,6 +74,9 @@ defmodule Router do
       ##Create a player entri in the map
       displayName = Utility.random_string_32encode(8)
       state = Kernel.put_in(state, [:players, currentID], [tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName])
+
+      ##For debug porpuses
+      IO.puts("Registered user: #{inspect currentID}")
 
       ##Send back the tcp response
       TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(AES.encrypt("ok-::-" <>  currentID <> "-::-" <> displayName, key))))

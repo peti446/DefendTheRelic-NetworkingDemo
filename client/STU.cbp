@@ -6,7 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Core Systems\;Networking\;Networking\Messages\;Networking\Messages\SubMessages\;" />
+		<Option virtualFolders="Helpers\Encryption\;Helpers\;Networking\;Core Systems\;" />
 		<Build>
 			<Target title="Linux">
 				<Option output="bin/Linux/RockPaperScissors" prefix_auto="1" extension_auto="1" />
@@ -72,27 +72,48 @@
 			<Add option="-std=c++1y" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/AESHelper.hpp" />
-		<Unit filename="include/Base64Helper.hpp" />
-		<Unit filename="include/Game.h" />
+		<Unit filename="include/AESHelper.hpp">
+			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="include/Base64Helper.hpp">
+			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="include/ConcurrentQueue.hpp" />
+		<Unit filename="include/Game.h">
+			<Option virtualFolder="Core Systems/" />
+		</Unit>
 		<Unit filename="include/Network.h">
 			<Option virtualFolder="Networking/" />
+		</Unit>
+		<Unit filename="include/RSAHelper.hpp">
+			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
 		<Unit filename="include/SceneManager.hpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
-		<Unit filename="include/StringHelpers.hpp" />
+		<Unit filename="include/StringHelpers.hpp">
+			<Option virtualFolder="Helpers/" />
+		</Unit>
 		<Unit filename="main.cpp" />
-		<Unit filename="src/AESHelper.cpp" />
-		<Unit filename="src/Base64Helper.cpp" />
-		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/AESHelper.cpp">
+			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="src/Base64Helper.cpp">
+			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="src/ConcurrentQueue.cpp" />
+		<Unit filename="src/Game.cpp">
+			<Option virtualFolder="Core Systems/" />
+		</Unit>
 		<Unit filename="src/Network.cpp">
 			<Option virtualFolder="Networking/" />
+		</Unit>
+		<Unit filename="src/RSAHelper.cpp">
+			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
 		<Unit filename="src/SceneManager.cpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
-		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

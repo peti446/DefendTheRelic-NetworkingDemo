@@ -4,6 +4,7 @@
 #include <SFML/Network.hpp>
 #include <Cryptopp/aes.h>
 #include <Cryptopp/modes.h>
+#include <thread>
 
 class Network
 {
@@ -34,6 +35,8 @@ class Network
         std::string m_displayName;
         ServerDetails m_serverData;
         CryptoPP::SecByteBlock m_aesKey;
+        std::thread m_tcpReciveThread;
+        std::thread m_udpReciveThread;
 };
 
 #endif // NETWORK_H

@@ -19,7 +19,6 @@ defmodule UDP do
   def recv_loop(socket) do
     case :gen_udp.recv(socket, 0) do
       {:ok, {address, port, message}}  ->
-        IO.puts("Recived #{inspect message}")
         messageList = Utility.networkStringSplitter(Utility.packetToString(message));
         Router.server_handle_msg({socket, address, port, messageList})
         recv_loop(socket)

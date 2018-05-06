@@ -14,6 +14,10 @@ Network::Network()
 
 Network::~Network()
 {
+    if(m_udpReciveThread.joinable())
+        m_udpReciveThread.joind();
+    if(m_tcpReciveThread.joinable())
+        m_tcpReciveThread.joind();
 }
 
 bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, size_t amoutOfConnectionAttempts)
@@ -154,7 +158,6 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     m_registredName = returnTokens[1];
     m_displayName = returnTokens[2];
     std::cout << "Displayname: " << m_displayName << ". Server Identifier Name: " << m_registredName << std::endl;
-
 
     return true;
 }

@@ -7,7 +7,7 @@ defmodule Server do
   end
 
   def commandParse() do
-    case IO.gets("Enter command: ") do
+    case IO.gets("> ") do
       "stop\n" ->
       Router.stop()
       {:ok, :normal}
