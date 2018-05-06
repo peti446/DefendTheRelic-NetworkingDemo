@@ -1,9 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-
 #include <SFML/Graphics.hpp>
-
+#include "Network.h"
 class Game
 {
 public:
@@ -37,6 +36,7 @@ private:
     bool					mIsMovingDown;
     bool					mIsMovingRight;
     bool					mIsMovingLeft;
+    Network                 m_network;
 };
 
 #endif // GAME_H

@@ -24,8 +24,33 @@ defmodule Router do
     GenServer.call(@pName, msg)
   end
 
+  def server_user_disconected(name) do
+    GenServer.cast(@pName, {:tcp_conn_closed, name})
+  end
+
   #Handle messages functions
-  def handle_call({socket, ["st", "hsk"]}, _from, state) do
+
+  ##Cast Handles
+  def handle_cast({:tcp_conn_closed, name}, _from, state) do
+    IO.puts("Trying to destroy #{inspect name}")
+    case Map.pop(state.players, name) do
+       {nil, _} ->
+        IO.puts("Could not destroy it")
+        {:noreply, state}
+      {_, newmap} ->
+        state = Map.replace!(state, :players, newmap)
+        IO.puts "Destroyed! New State: #{inspect state}"
+        {:noreply, state}
+    end
+  end
+
+  def handle_cast(msg, _from, state) do
+    IO.puts("Could not handle cast message #{inspect msg}")
+    {:noreply, state}
+  end
+
+  ##Call handles
+  def handle_call({socket, ["st", "hsk"]},_from, state) do
     {pubstr, _} = state.rsa
     TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(pubstr)))
     {:reply ,state, state}
@@ -52,11 +77,11 @@ defmodule Router do
 
       ##Send back the tcp response
       TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(AES.encrypt("ok-::-" <>  currentID <> "-::-" <> displayName, key))))
-      {:reply ,state, state}
+      {:reply , {:user_rg, currentID}, state}
   end
 
   def handle_call(msg, _from, state) do
-    IO.puts("Could not handle message #{inspect msg}")
+    IO.puts("Could not handle call message #{inspect msg}")
     {:reply ,state, state}
   end
 end

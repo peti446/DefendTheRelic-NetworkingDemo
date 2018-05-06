@@ -6,6 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="Core Systems\;Networking\;Networking\Messages\;Networking\Messages\SubMessages\;" />
 		<Build>
 			<Target title="Linux">
 				<Option output="bin/Linux/RockPaperScissors" prefix_auto="1" extension_auto="1" />
@@ -18,7 +19,7 @@
 					<Add option="-g" />
 					<Add directory="/usr/local/SFML-2.2/include" />
 					<Add directory="include" />
-					<Add directory="lib/TGUI-0.7.6/include" />
+					<Add directory="lib/TGUI/include" />
 				</Compiler>
 				<Linker>
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-audio.so" />
@@ -27,10 +28,10 @@
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-network.so" />
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-system.so" />
 					<Add library="lib/libjpeg.so.8.4.0" />
-					<Add library="lib/TGUI-0.7.6/libtgui.so" />
+					<Add library="lib/TGUI/libtgui.so" />
 					<Add directory="/usr/local/SFML-2.2/lib" />
 					<Add directory="lib" />
-					<Add directory="lib/TGUI-0.7.6" />
+					<Add directory="lib/TGUI" />
 				</Linker>
 			</Target>
 			<Target title="Windows">
@@ -42,8 +43,10 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="Windows/SFML/include" />
 					<Add directory="include" />
+					<Add directory="Windows/SFML/include" />
+					<Add directory="Windows/TGUI/include" />
+					<Add directory="Windows/Cryptopp/include" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-network" />
@@ -54,8 +57,12 @@
 					<Add library="opengl32" />
 					<Add library="freetype" />
 					<Add library="jpeg" />
+					<Add library="tgui" />
+					<Add library="libcryptopp" />
 					<Add directory="Windows/SFML/lib" />
 					<Add directory="Windows/SFML/bin" />
+					<Add directory="Windows/TGUI/lib" />
+					<Add directory="Windows/Cryptopp/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -65,17 +72,37 @@
 			<Add option="-std=c++1y" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/AESHelper.hpp" />
+		<Unit filename="include/Base64Helper.hpp" />
 		<Unit filename="include/Game.h" />
-		<Unit filename="include/Network.h" />
-		<Unit filename="include/StringHelpers.inl" />
-		<Unit filename="include/Stringhelpers.h" />
+		<Unit filename="include/Network.h">
+			<Option virtualFolder="Networking/" />
+		</Unit>
+		<Unit filename="include/SceneManager.hpp">
+			<Option virtualFolder="Core Systems/" />
+		</Unit>
+		<Unit filename="include/StringHelpers.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/AESHelper.cpp" />
+		<Unit filename="src/Base64Helper.cpp" />
 		<Unit filename="src/Game.cpp" />
-		<Unit filename="src/Network.cpp" />
+		<Unit filename="src/Network.cpp">
+			<Option virtualFolder="Networking/" />
+		</Unit>
+		<Unit filename="src/SceneManager.cpp">
+			<Option virtualFolder="Core Systems/" />
+		</Unit>
+		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
 			<envvars />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" use_define="0" update_manifest="0" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+			</AutoVersioning>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
