@@ -6,7 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Helpers\Encryption\;Helpers\;Networking\;Core Systems\;" />
+		<Option virtualFolders="Helpers\Encryption\;Helpers\;Networking\;Core Systems\;Data Structures\;" />
 		<Build>
 			<Target title="Linux">
 				<Option output="bin/Linux/RockPaperScissors" prefix_auto="1" extension_auto="1" />
@@ -17,9 +17,10 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="Linux/Cryptopp/include" />
 					<Add directory="/usr/local/SFML-2.2/include" />
+					<Add directory="Linux/TGUI/include" />
 					<Add directory="include" />
-					<Add directory="lib/TGUI/include" />
 				</Compiler>
 				<Linker>
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-audio.so" />
@@ -27,11 +28,13 @@
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-window.so" />
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-network.so" />
 					<Add library="/usr/local/SFML-2.2/lib/libsfml-system.so" />
-					<Add library="lib/libjpeg.so.8.4.0" />
-					<Add library="lib/TGUI/libtgui.so" />
+					<Add library="Linux/libjpeg.so.8.4.0" />
+					<Add library="Linux/TGUI/libtgui.so" />
+					<Add library="Linux/Cryptopp/lib/libcryptopp.so" />
+					<Add directory="Linux/Cryptopp/lib" />
 					<Add directory="/usr/local/SFML-2.2/lib" />
-					<Add directory="lib" />
-					<Add directory="lib/TGUI" />
+					<Add directory="Linux/TGUI" />
+					<Add directory="Linux" />
 				</Linker>
 			</Target>
 			<Target title="Windows">
@@ -43,10 +46,10 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="include" />
+					<Add directory="Windows/Cryptopp/include" />
 					<Add directory="Windows/SFML/include" />
 					<Add directory="Windows/TGUI/include" />
-					<Add directory="Windows/Cryptopp/include" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-network" />
@@ -59,10 +62,10 @@
 					<Add library="jpeg" />
 					<Add library="tgui" />
 					<Add library="libcryptopp" />
+					<Add directory="Windows/Cryptopp/lib" />
 					<Add directory="Windows/SFML/lib" />
 					<Add directory="Windows/SFML/bin" />
 					<Add directory="Windows/TGUI/lib" />
-					<Add directory="Windows/Cryptopp/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -78,10 +81,13 @@
 		<Unit filename="include/Base64Helper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
-		<Unit filename="include/ConcurrentQueue.hpp" />
+		<Unit filename="include/ConcurrentQueue.hpp">
+			<Option virtualFolder="Data Structures/" />
+		</Unit>
 		<Unit filename="include/Game.h">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
+		<Unit filename="include/NetMessage.hpp" />
 		<Unit filename="include/Network.h">
 			<Option virtualFolder="Networking/" />
 		</Unit>
@@ -101,10 +107,10 @@
 		<Unit filename="src/Base64Helper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
-		<Unit filename="src/ConcurrentQueue.cpp" />
 		<Unit filename="src/Game.cpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
+		<Unit filename="src/NetMessage.cpp" />
 		<Unit filename="src/Network.cpp">
 			<Option virtualFolder="Networking/" />
 		</Unit>

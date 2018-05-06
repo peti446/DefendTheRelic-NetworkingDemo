@@ -5,6 +5,8 @@
 #include <Cryptopp/aes.h>
 #include <Cryptopp/modes.h>
 #include <thread>
+#include "ConcurrentQueue.hpp"
+#include "NetMessage.hpp"
 
 class Network
 {
@@ -17,9 +19,13 @@ class Network
         //but you can pass it an IP(lan or public) and a port to connect to a server directly wich is not limited to be on the lan network.
         bool ConnectToServer(sf::IpAddress IPOfServer = sf::IpAddress::Broadcast, unsigned short port = 13001, size_t amoutOfConnectionAttempts = 3);
 
-    protected:
+        void Disconnect();
+        const ConcurrentQueue<NetMessage>& getQueue();
 
     private:
+        void tcp_recive();
+        void udp_recive();
+
         struct ServerDetails
         {
             sf::IpAddress IP;
@@ -37,6 +43,8 @@ class Network
         CryptoPP::SecByteBlock m_aesKey;
         std::thread m_tcpReciveThread;
         std::thread m_udpReciveThread;
+        ConcurrentQueue<NetMessage> m_queue;
+        bool m_runRecive;
 };
 
 #endif // NETWORK_H

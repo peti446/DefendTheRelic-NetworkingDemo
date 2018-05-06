@@ -1490,7 +1490,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1525570555 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525628798 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1501,11 +1501,13 @@
 	"AESHelper.hpp"
 	"RSAHelper.hpp"
 
-1525571766 e:\2º year\networking\ica-networkinggame\client\include\network.h
+1525618134 e:\2º year\networking\ica-networkinggame\client\include\network.h
 	<SFML/Network.hpp>
 	<Cryptopp/aes.h>
 	<Cryptopp/modes.h>
 	<thread>
+	"ConcurrentQueue.hpp"
+	"NetMessage.hpp"
 
 1525453007 source:e:\2º year\networking\ica-networkinggame\client\src\scenemanager.cpp
 	"SceneManager.hpp"
@@ -1903,4 +1905,25 @@
 1523180831 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\dsa.h
 	"cryptlib.h"
 	"gfpcrypt.h"
+
+1525626260 e:\2º year\networking\ica-networkinggame\client\include\concurrentqueue.hpp
+	<queue>
+	<mutex>
+	<condition_variable>
+
+1525611398 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
+
+1525611398 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
+	"NetMessage.hpp"
+
+1525628860 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
+	"Logger.hpp"
+
+1525629055 e:\2º year\networking\ica-networkinggame\client\include\logger.hpp
+	<mutex>
+	<thread>
+	<sstream>
+	<string>
+	<iostream>
+	"ConcurrentQueue.hpp"
 

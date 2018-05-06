@@ -5,7 +5,7 @@ const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game()
-    : mWindow(sf::VideoMode(640, 480), "SFML Application", sf::Style::Close)
+    : mWindow(sf::VideoMode(1280, 720), "", sf::Style::Close)
     , mTexture()
     , mPlayer()
     , mFont()

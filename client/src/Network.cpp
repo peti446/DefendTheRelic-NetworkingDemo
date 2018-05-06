@@ -8,16 +8,17 @@
 #include "AESHelper.hpp"
 #include "RSAHelper.hpp"
 
-Network::Network()
+Network::Network() : m_runRecive(true)
 {
 }
 
 Network::~Network()
 {
+    Disconnect();
     if(m_udpReciveThread.joinable())
-        m_udpReciveThread.joind();
+        m_udpReciveThread.join();
     if(m_tcpReciveThread.joinable())
-        m_tcpReciveThread.joind();
+        m_tcpReciveThread.join();
 }
 
 bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, size_t amoutOfConnectionAttempts)
@@ -159,5 +160,43 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     m_displayName = returnTokens[2];
     std::cout << "Displayname: " << m_displayName << ". Server Identifier Name: " << m_registredName << std::endl;
 
+    m_tcpReciveThread = std::thread(&Network::tcp_recive, this);
+    m_udpReciveThread = std::thread(&Network::udp_recive, this);
+
     return true;
+}
+void Network::Disconnect()
+{
+    m_runRecive = false;
+}
+
+const ConcurrentQueue<NetMessage>& Network::getQueue()
+{
+    return m_queue;
+}
+
+void Network::tcp_recive()
+{
+    sf::Packet p;
+    while(m_runRecive)
+    {
+        p.clear();
+        if(m_tcpSocket.receive(p) == sf::Socket::Done)
+        {
+
+        }
+    }
+}
+
+void Network::udp_recive()
+{
+    sf::Packet p;
+    Network::ServerDetails incomingDT;
+    while(m_runRecive)
+    {
+        p.clear();
+        if(m_udpSocket.receive(p, incomingDT.IP, incomingDT.udp_port) == sf::Socket::Done && incomingDT.IP == m_serverData.IP && incomingDT.udp_port == m_serverData.udp_port)
+        {
+        }
+    }
 }
