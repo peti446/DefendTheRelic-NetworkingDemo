@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Logger.hpp"
+#include <SFML/Window/Event.hpp>
 
 class Scene
 {

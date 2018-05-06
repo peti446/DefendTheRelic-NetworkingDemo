@@ -1008,7 +1008,7 @@
 
 1521623614 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Network.h
 
-1525535265 source:e:\2º year\networking\ica-networkinggame\client\main.cpp
+1525629260 source:e:\2º year\networking\ica-networkinggame\client\main.cpp
 	"Game.h"
 	"Network.h"
 
@@ -1016,7 +1016,7 @@
 	<SFML/Graphics.hpp>
 	"Network.h"
 
-1525534853 source:e:\2º year\networking\ica-networkinggame\client\src\game.cpp
+1525629775 source:e:\2º year\networking\ica-networkinggame\client\src\game.cpp
 	"Game.h"
 	"StringHelpers.hpp"
 
@@ -1512,7 +1512,7 @@
 1525453007 source:e:\2º year\networking\ica-networkinggame\client\src\scenemanager.cpp
 	"SceneManager.hpp"
 
-1525453159 e:\2º year\networking\ica-networkinggame\client\include\scenemanager.hpp
+1525629480 e:\2º year\networking\ica-networkinggame\client\include\scenemanager.hpp
 	<list>
 
 1523180831 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\aes.h
@@ -1916,10 +1916,10 @@
 1525611398 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
 	"NetMessage.hpp"
 
-1525628860 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
+1525629198 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
 	"Logger.hpp"
 
-1525629055 e:\2º year\networking\ica-networkinggame\client\include\logger.hpp
+1525629174 e:\2º year\networking\ica-networkinggame\client\include\logger.hpp
 	<mutex>
 	<thread>
 	<sstream>

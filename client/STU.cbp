@@ -6,7 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Helpers\Encryption\;Helpers\;Networking\;Core Systems\;Data Structures\;" />
+		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\GameLobby\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;" />
 		<Build>
 			<Target title="Linux">
 				<Option output="bin/Linux/RockPaperScissors" prefix_auto="1" extension_auto="1" />
@@ -87,12 +87,39 @@
 		<Unit filename="include/Game.h">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
-		<Unit filename="include/NetMessage.hpp" />
+		<Unit filename="include/GameEngine.hpp">
+			<Option virtualFolder="Core Systems/" />
+		</Unit>
+		<Unit filename="include/GameLobbyScene.hpp">
+			<Option virtualFolder="SceneManagement/Scenes/Game/" />
+		</Unit>
+		<Unit filename="include/GameScene.hpp">
+			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
+		</Unit>
+		<Unit filename="include/GameSystemsAccesor.hpp" />
+		<Unit filename="include/GlobalLobbyScene.hpp">
+			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
+		</Unit>
+		<Unit filename="include/Logger.hpp">
+			<Option virtualFolder="Helpers/Logger/" />
+		</Unit>
+		<Unit filename="include/MainMenuScene.hpp">
+			<Option virtualFolder="SceneManagement/Scenes/MainMenu/" />
+		</Unit>
+		<Unit filename="include/NetMessage.hpp">
+			<Option virtualFolder="Networking/Message/" />
+		</Unit>
 		<Unit filename="include/Network.h">
 			<Option virtualFolder="Networking/" />
 		</Unit>
+		<Unit filename="include/OptionsScene.hpp">
+			<Option virtualFolder="SceneManagement/Scenes/Options/" />
+		</Unit>
 		<Unit filename="include/RSAHelper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="include/Scene.hpp">
+			<Option virtualFolder="SceneManagement/" />
 		</Unit>
 		<Unit filename="include/SceneManager.hpp">
 			<Option virtualFolder="Core Systems/" />
@@ -110,12 +137,39 @@
 		<Unit filename="src/Game.cpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
-		<Unit filename="src/NetMessage.cpp" />
+		<Unit filename="src/GameEngine.cpp">
+			<Option virtualFolder="Core Systems/" />
+		</Unit>
+		<Unit filename="src/GameLobbyScene.cpp">
+			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
+		</Unit>
+		<Unit filename="src/GameScene.cpp">
+			<Option virtualFolder="SceneManagement/Scenes/Game/" />
+		</Unit>
+		<Unit filename="src/GameSystemsAccesor.cpp" />
+		<Unit filename="src/GlobalLobbyScene.cpp">
+			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
+		</Unit>
+		<Unit filename="src/Logger.cpp">
+			<Option virtualFolder="Helpers/Logger/" />
+		</Unit>
+		<Unit filename="src/MainMenuScene.cpp">
+			<Option virtualFolder="SceneManagement/Scenes/MainMenu/" />
+		</Unit>
+		<Unit filename="src/NetMessage.cpp">
+			<Option virtualFolder="Networking/Message/" />
+		</Unit>
 		<Unit filename="src/Network.cpp">
 			<Option virtualFolder="Networking/" />
 		</Unit>
+		<Unit filename="src/OptionsScene.cpp">
+			<Option virtualFolder="SceneManagement/Scenes/Options/" />
+		</Unit>
 		<Unit filename="src/RSAHelper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="src/Scene.cpp">
+			<Option virtualFolder="SceneManagement/" />
 		</Unit>
 		<Unit filename="src/SceneManager.cpp">
 			<Option virtualFolder="Core Systems/" />
