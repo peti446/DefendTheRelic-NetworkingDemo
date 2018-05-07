@@ -96,7 +96,7 @@ void GameEngine::GameLoop()
                 s->HandleInput(e);
             }
             //Update the scene
-            s->Update(TimePerFrame.asSeconds());
+            s->Update(TimePerFrame);
         }
 
         //Update the statistics

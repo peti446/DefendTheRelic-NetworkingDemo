@@ -1,5 +1,5 @@
         void Draw(sf::RenderWindow& rw) final override;
-        void Update(const float ur) final override;
+        void Update(const sf::Time& ur) final override;
         void HandleInput(const sf::Event& event) final override;
         const std::string Name() const final override;
 
@@ -16,7 +16,7 @@ void MainMenuScene::Draw(sf::RenderWindow& rw)
 {
 }
 
-void MainMenuScene::Update(const float ur)
+void MainMenuScene::Update(const sf::Time& ur)
 {
 
 }

@@ -1,5 +1,6 @@
 #include "ConnectingToServerScene.h"
 #include <chrono>
+#include "MainMenuScene.hpp"
 
 ConnectingToServerScene::ConnectingToServerScene(sf::IpAddress ip, unsigned short port): m_ip(ip), m_port(port)
 {
@@ -15,14 +16,42 @@ void ConnectingToServerScene::Draw(sf::RenderWindow& rw)
     m_gui.draw();
 }
 
-void ConnectingToServerScene::Update(const float ur)
+void ConnectingToServerScene::Update(const sf::Time& ur)
 {
     if(m_connectToServer.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
     {
-        //Load game scene
+        if(m_connectToServer.get())
+        {
+            //Change to game lobby scene
+        }
+        else
+        {
+            //Change to main screen
+            GameEngine::Instance().getSceneManager().setActiveScene(*new MainMenuScene());
+        }
         return;
     }
+    m_secondsPassed += ur.asSeconds();
+    if(m_secondsPassed >= 1.0f)
+    {
+        m_secondsPassed = 0;
+        std::string t = Title->getText();
+        if(t.size() == m_textSize){
+            m_textDir = 1;
+        } else if(t.size() == m_textSize+3){
+            m_textDir = -1;
+        }
 
+        if(m_textDir == 1)
+        {
+            t += ".";
+        }else
+        {
+            t = t.substr(0, t.size()-1);
+        }
+
+        Title->setText(t);
+    }
 }
 
 void ConnectingToServerScene::HandleInput(const sf::Event& event)
@@ -42,8 +71,8 @@ bool ConnectingToServerScene::LoadScene()
     *  Create a TGUI theme
     */
     m_theme = tgui::Theme::create("Media/Widgets/Black.txt");
-    int windowWidth = GameEngine::Instance().getRenderWindow().getSize().x;
-    int windowHeight = GameEngine::Instance().getRenderWindow().getSize().y;
+    auto windowWidth = tgui::bindWidth(m_gui);
+    auto windowHeight = tgui::bindHeight(m_gui);
     /*
     *  Import background image and apply it.
     */
@@ -55,12 +84,14 @@ bool ConnectingToServerScene::LoadScene()
     *   Create tiitle Label and add it to the gui
     *   Position it in the middle of the screen
     */
-    tgui::Label::Ptr Title = m_theme->load("Label");
+    Title = m_theme->load("Label");
     Title->setAutoSize(true);
-    Title->setTextSize(windowWidth*75/1280);
+    Title->setTextSize(GameEngine::Instance().getRenderWindow().getSize().x*50/1280);
     Title->setTextColor(sf::Color::White);
     Title->setText("Connecting to server... Please wait.");
-    Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*3.5f/1280.f), windowHeight/2.f);
+    m_textDir = 1;
+    m_textSize = Title->getText().toAnsiString().size();
+    Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*4.5f/1280.f), windowHeight/2.f);
     this->m_gui.add(Title);
 
     m_connectToServer = std::async(std::launch::async, &Network::ConnectToServer, &GameEngine::Instance().getNetworkManager(), m_ip, m_port, 4);

@@ -1,4 +1,5 @@
 #include "MainMenuScene.hpp"
+#include "ConnectingToServerScene.h"
 
 MainMenuScene::MainMenuScene()
 {
@@ -13,7 +14,7 @@ void MainMenuScene::Draw(sf::RenderWindow& rw)
     m_gui.draw();
 }
 
-void MainMenuScene::Update(const float ur)
+void MainMenuScene::Update(const sf::Time& ur)
 {
 }
 
@@ -33,8 +34,9 @@ bool MainMenuScene::LoadScene()
     *  Create a TGUI theme
     */
     m_theme = tgui::Theme::create("Media/Widgets/Black.txt");
-    int windowWidth = GameEngine::Instance().getRenderWindow().getSize().x;
-    int windowHeight = GameEngine::Instance().getRenderWindow().getSize().y;
+    auto windowWidth = tgui::bindWidth(m_gui);
+    auto windowHeight = tgui::bindHeight(m_gui);
+    int windowHeightINT = GameEngine::Instance().getRenderWindow().getSize().y;
     /*
     *  Import background image and apply it.
     */
@@ -48,7 +50,7 @@ bool MainMenuScene::LoadScene()
     */
     tgui::Label::Ptr Title = m_theme->load("Label");
     Title->setAutoSize(true);
-    Title->setTextSize(windowWidth*75/1280);
+    Title->setTextSize(GameEngine::Instance().getRenderWindow().getSize().x*75/1280);
     Title->setTextColor(sf::Color::White);
     Title->setText("~ Defend the Relic ~");
     Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*3.5f/1280.f), windowHeight*80.f/720.f);
@@ -69,18 +71,18 @@ bool MainMenuScene::LoadScene()
     /*
     *   Create the Lan Server Button and add it to the gui
     */
-    bs.y += 60.f*windowHeight/720.f;
+    bs.y += 60.f*windowHeightINT/720.f;
     tgui::Button::Ptr LanServer = m_theme->load("Button");
     LanServer->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     LanServer->setPosition(bs.x, bs.y);
     LanServer->setText("LAN Server");
     m_gui.add(LanServer);
-    //closeButton->connect("pressed", [&](){ GameEngine::Instance().stop(); });
+    LanServer->connect("pressed", &MainMenuScene::OnClickLanServer, this);
 
     /*
     *   Create the Online Button and add it to the gui
     */
-    bs.y += 60.f*windowHeight/720.f;
+    bs.y += 60.f*windowHeightINT/720.f;
     tgui::Button::Ptr OnlineButton = m_theme->load("Button");
     OnlineButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     OnlineButton->setPosition(bs.x, bs.y);
@@ -91,7 +93,7 @@ bool MainMenuScene::LoadScene()
     /*
     *   Create the Option Button and add it to the gui
     */
-    bs.y += 60.f*windowHeight/720.f;
+    bs.y += 60.f*windowHeightINT/720.f;
     tgui::Button::Ptr OptionButton = m_theme->load("Button");
     OptionButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     OptionButton->setPosition(bs.x, bs.y);
@@ -102,7 +104,7 @@ bool MainMenuScene::LoadScene()
     /*
     *   Create the Close Button and add it to the gui
     */
-    bs.y += 60.f*windowHeight/720.f;
+    bs.y += 60.f*windowHeightINT/720.f;
     tgui::Button::Ptr closeButton = m_theme->load("Button");
     closeButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     closeButton->setPosition(bs.x, bs.y);
@@ -115,4 +117,9 @@ bool MainMenuScene::LoadScene()
 bool MainMenuScene::UnloadScene()
 {
     return true;
+}
+
+void MainMenuScene::OnClickLanServer()
+{
+    GameEngine::Instance().getSceneManager().setActiveScene(*new ConnectingToServerScene());
 }

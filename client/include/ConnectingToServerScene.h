@@ -12,7 +12,7 @@ class ConnectingToServerScene : public Scene
         virtual ~ConnectingToServerScene();
 
         void Draw(sf::RenderWindow& rw) final override;
-        void Update(const float ur) final override;
+        void Update(const sf::Time& ur) final override;
         void HandleInput(const sf::Event& event) final override;
         const std::string Name() const final override;
 
@@ -24,6 +24,10 @@ class ConnectingToServerScene : public Scene
         std::future<bool> m_connectToServer;
         sf::IpAddress m_ip;
         unsigned short m_port;
+        size_t m_textSize;
+        tgui::Label::Ptr Title;
+        float m_secondsPassed;
+        short m_textDir;
 };
 
 #endif // CONNECTINGTOSERVERSCENE_H

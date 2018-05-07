@@ -11,10 +11,11 @@ class MainMenuScene : public Scene
         virtual ~MainMenuScene();
 
         void Draw(sf::RenderWindow& rw) final override;
-        void Update(const float ur) final override;
+        void Update(const sf::Time& ur) final override;
         void HandleInput(const sf::Event& event) final override;
         const std::string Name() const final override;
 
+        void OnClickLanServer();
     protected:
 
     private:

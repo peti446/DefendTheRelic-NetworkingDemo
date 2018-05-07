@@ -706,14 +706,14 @@
 	<vector>
 	<iostream>
 
-1525652915 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
+1525659902 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
 	"GameEngine.hpp"
 	"Logger.hpp"
 	"Scene.hpp"
 	"MainMenuScene.hpp"
 	"StringHelpers.hpp"
 
-1525652155 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
+1525659920 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
 	<string>
 	<SFML/Window/Event.hpp>
 	<SFML/Graphics.hpp>
@@ -993,7 +993,7 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\tooltip.hpp
 	<TGUI/Widgets/Label.hpp>
 
-1525648794 e:\2º year\networking\ica-networkinggame\client\include\mainmenuscene.hpp
+1525659944 e:\2º year\networking\ica-networkinggame\client\include\mainmenuscene.hpp
 	<Scene.hpp>
 
 1525633259 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyscene.cpp
@@ -1238,14 +1238,16 @@
 	"Scene.hpp"
 	<algorithm>
 
-1525656359 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
+1525660455 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
 	"MainMenuScene.hpp"
+	"ConnectingToServerScene.h"
 
-1525658181 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
+1525660334 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
 	"ConnectingToServerScene.h"
 	<chrono>
+	"MainMenuScene.hpp"
 
-1525657650 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
+1525660610 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
 	<Scene.hpp>
 	<future>
 
