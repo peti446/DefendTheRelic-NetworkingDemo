@@ -14,13 +14,14 @@ class MainMenuScene : public Scene
         void Update(const sf::Time& ur) final override;
         void HandleInput(const sf::Event& event) final override;
         const std::string Name() const final override;
-
-        void OnClickLanServer();
     protected:
 
     private:
         bool LoadScene() final override;
         bool UnloadScene() final override;
+
+        void OnClickLanServer();
+        void onClickOnlineServer();
 };
 
 #endif // MAINMENUSCENE_H

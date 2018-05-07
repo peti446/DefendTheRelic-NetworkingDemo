@@ -1,5 +1,6 @@
 #include "MainMenuScene.hpp"
 #include "ConnectingToServerScene.h"
+#include "ConnectToOnlineServer.hpp"
 
 MainMenuScene::MainMenuScene()
 {
@@ -54,7 +55,7 @@ bool MainMenuScene::LoadScene()
     Title->setTextColor(sf::Color::White);
     Title->setText("~ Defend the Relic ~");
     Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*3.5f/1280.f), windowHeight*80.f/720.f);
-    this->m_gui.add(Title);
+    m_gui.add(Title);
 
     /*
     *   Create the Single Button and add it to the gui
@@ -63,7 +64,7 @@ bool MainMenuScene::LoadScene()
     PlayButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     PlayButton->setPosition(windowWidth/2.95f, windowHeight/3.6f);
     PlayButton->setText("Singleplayer");
-    this->m_gui.add(PlayButton);
+    m_gui.add(PlayButton);
     //PlayButton->connect("pressed", &MainMenuScene::newSnakeGame, this);
 
     sf::Vector2f bs = PlayButton->getPosition();
@@ -88,7 +89,7 @@ bool MainMenuScene::LoadScene()
     OnlineButton->setPosition(bs.x, bs.y);
     OnlineButton->setText("Online Server");
     m_gui.add(OnlineButton);
-    //closeButton->connect("pressed", [&](){ GameEngine::Instance().stop(); });
+    OnlineButton->connect("pressed", &MainMenuScene::onClickOnlineServer, this);
 
     /*
     *   Create the Option Button and add it to the gui
@@ -122,4 +123,9 @@ bool MainMenuScene::UnloadScene()
 void MainMenuScene::OnClickLanServer()
 {
     GameEngine::Instance().getSceneManager().setActiveScene(*new ConnectingToServerScene());
+}
+
+void MainMenuScene::onClickOnlineServer()
+{
+    GameEngine::Instance().getSceneManager().setActiveScene(*new ConnectToOnlineServer());
 }

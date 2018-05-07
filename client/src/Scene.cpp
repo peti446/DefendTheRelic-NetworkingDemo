@@ -41,3 +41,10 @@ void Scene::Unload()
 
     Log(l_WARN) << "Scene " << Name() << " could not been unloaded successfully";
 }
+
+bool Scene::isLoaded() const
+{
+    return m_loaded;
+}
+
+

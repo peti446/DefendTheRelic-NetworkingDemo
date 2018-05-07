@@ -706,20 +706,21 @@
 	<vector>
 	<iostream>
 
-1525659902 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
+1525690468 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
 	"GameEngine.hpp"
 	"Logger.hpp"
 	"Scene.hpp"
 	"MainMenuScene.hpp"
 	"StringHelpers.hpp"
 
-1525659920 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
+1525692943 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
 	<string>
 	<SFML/Window/Event.hpp>
 	<SFML/Graphics.hpp>
 	<TGUI/TGUI.hpp>
 	"Logger.hpp"
 	"GameEngine.hpp"
+	"StringHelpers.hpp"
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\tgui.hpp
 	<TGUI/Clipboard.hpp>
@@ -993,25 +994,25 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\tooltip.hpp
 	<TGUI/Widgets/Label.hpp>
 
-1525659944 e:\2º year\networking\ica-networkinggame\client\include\mainmenuscene.hpp
+1525690399 e:\2º year\networking\ica-networkinggame\client\include\mainmenuscene.hpp
 	<Scene.hpp>
 
-1525633259 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyscene.cpp
+1525693910 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyscene.cpp
 	"GameLobbyScene.hpp"
 
-1525633275 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
+1525694069 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
 	<Scene.hpp>
 
-1525633343 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
+1525693902 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
 	"GameScene.hpp"
 
-1525633343 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
+1525693818 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
 	<Scene.hpp>
 
-1525633231 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
+1525693945 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
 	"GlobalLobbyScene.hpp"
 
-1525633230 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
+1525693957 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
 	<Scene.hpp>
 
 1525636687 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
@@ -1219,17 +1220,17 @@
 	"cryptlib.h"
 	"gfpcrypt.h"
 
-1525633415 source:e:\2º year\networking\ica-networkinggame\client\src\optionsscene.cpp
+1525693883 source:e:\2º year\networking\ica-networkinggame\client\src\optionsscene.cpp
 	"OptionsScene.hpp"
 
-1525633149 e:\2º year\networking\ica-networkinggame\client\include\optionsscene.hpp
+1525693895 e:\2º year\networking\ica-networkinggame\client\include\optionsscene.hpp
 	<Scene.hpp>
 
 1525556209 source:e:\2º year\networking\ica-networkinggame\client\src\rsahelper.cpp
 	"RSAHelper.hpp"
 	<Cryptopp/osrng.h>
 
-1525653589 source:e:\2º year\networking\ica-networkinggame\client\src\scene.cpp
+1525690048 source:e:\2º year\networking\ica-networkinggame\client\src\scene.cpp
 	"Scene.hpp"
 
 1525649931 source:e:\2º year\networking\ica-networkinggame\client\src\scenemanager.cpp
@@ -1238,16 +1239,27 @@
 	"Scene.hpp"
 	<algorithm>
 
-1525660455 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
+1525690642 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
 	"MainMenuScene.hpp"
 	"ConnectingToServerScene.h"
+	"ConnectToOnlineServer.hpp"
 
-1525660334 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
+1525694078 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
 	"ConnectingToServerScene.h"
 	<chrono>
 	"MainMenuScene.hpp"
+	"ConnectToOnlineServer.hpp"
+	"GameLobbyScene.hpp"
 
-1525660610 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
+1525692548 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
 	<Scene.hpp>
 	<future>
+
+1525693275 source:e:\2º year\networking\ica-networkinggame\client\src\connecttoonlineserver.cpp
+	"ConnectToOnlineServer.hpp"
+	"MainMenuScene.hpp"
+	"ConnectingToServerScene.h"
+
+1525693125 e:\2º year\networking\ica-networkinggame\client\include\connecttoonlineserver.hpp
+	<Scene.hpp>
 

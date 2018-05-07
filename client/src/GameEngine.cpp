@@ -69,13 +69,14 @@ void GameEngine::GameLoop()
         Scene* s = m_sceneManager.getCurrentActiveScene();
         //Scene is null call aux renderer and handler so the app does not stall#
         //Could directly exit, but im keeping it open and leave it up to the user to decide
-        if(s == nullptr)
+        if(s == nullptr || !s->isLoaded())
         {
             UpdateStatistics(elapsedTime);
             auxDraw();
             auxEventHandler();
             continue;
         }
+
 
         //At this point scene is not null so just execute the normal game loop, using the scenes functions.
         //Updatate once for every #tickintervalNumber seconds, based on the time that has passed since the last update was executed(timeSinceLastUpdate)

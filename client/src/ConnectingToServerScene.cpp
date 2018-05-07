@@ -1,8 +1,10 @@
 #include "ConnectingToServerScene.h"
 #include <chrono>
 #include "MainMenuScene.hpp"
+#include "ConnectToOnlineServer.hpp"
+#include "GameLobbyScene.hpp"
 
-ConnectingToServerScene::ConnectingToServerScene(sf::IpAddress ip, unsigned short port): m_ip(ip), m_port(port)
+ConnectingToServerScene::ConnectingToServerScene(sf::IpAddress ip, unsigned short port,  bool retrunOnline): m_ip(ip), m_port(port), m_returnToOnline(retrunOnline)
 {
 
 }
@@ -22,12 +24,16 @@ void ConnectingToServerScene::Update(const sf::Time& ur)
     {
         if(m_connectToServer.get())
         {
+            GameEngine::Instance().getSceneManager().setActiveScene(*new GameLobbyScene());
             //Change to game lobby scene
         }
         else
         {
             //Change to main screen
-            GameEngine::Instance().getSceneManager().setActiveScene(*new MainMenuScene());
+            if(m_returnToOnline)
+                GameEngine::Instance().getSceneManager().setActiveScene(*new ConnectToOnlineServer(m_ip, m_port));
+            else
+                GameEngine::Instance().getSceneManager().setActiveScene(*new MainMenuScene());
         }
         return;
     }
@@ -92,7 +98,7 @@ bool ConnectingToServerScene::LoadScene()
     m_textDir = 1;
     m_textSize = Title->getText().toAnsiString().size();
     Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*4.5f/1280.f), windowHeight/2.f);
-    this->m_gui.add(Title);
+    m_gui.add(Title);
 
     m_connectToServer = std::async(std::launch::async, &Network::ConnectToServer, &GameEngine::Instance().getNetworkManager(), m_ip, m_port, 4);
 

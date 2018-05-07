@@ -7,6 +7,7 @@
 #include <TGUI/TGUI.hpp>
 #include "Logger.hpp"
 #include "GameEngine.hpp"
+#include "StringHelpers.hpp"
 
 class Scene
 {
@@ -20,6 +21,8 @@ class Scene
         virtual const std::string Name() const = 0;
         void Load();
         void Unload();
+
+        bool isLoaded() const;
     protected:
         bool m_loaded{false};
         tgui::Gui m_gui;

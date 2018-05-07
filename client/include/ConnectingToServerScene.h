@@ -8,7 +8,7 @@
 class ConnectingToServerScene : public Scene
 {
     public:
-        ConnectingToServerScene(sf::IpAddress ip = sf::IpAddress::Broadcast, unsigned short port = 13001);
+        ConnectingToServerScene(sf::IpAddress ip = sf::IpAddress::Broadcast, unsigned short port = 13001, bool retrunOnline = false);
         virtual ~ConnectingToServerScene();
 
         void Draw(sf::RenderWindow& rw) final override;
@@ -28,6 +28,7 @@ class ConnectingToServerScene : public Scene
         tgui::Label::Ptr Title;
         float m_secondsPassed;
         short m_textDir;
+        bool m_returnToOnline;
 };
 
 #endif // CONNECTINGTOSERVERSCENE_H

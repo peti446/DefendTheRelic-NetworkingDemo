@@ -9,3 +9,32 @@ GameScene::~GameScene()
 {
     //dtor
 }
+
+void GameScene::Draw(sf::RenderWindow& rw)
+{
+}
+
+void GameScene::Update(const sf::Time& ur)
+{
+
+}
+
+void GameScene::HandleInput(const sf::Event& event)
+{
+
+}
+
+const std::string GameScene::Name() const
+{
+    return "Game";
+}
+
+bool GameScene::LoadScene()
+{
+    return true;
+}
+
+bool GameScene::UnloadScene()
+{
+    return true;
+}

@@ -10,9 +10,16 @@ class OptionsScene : public Scene
         OptionsScene();
         virtual ~OptionsScene();
 
+        void Draw(sf::RenderWindow& rw) final override;
+        void Update(const sf::Time& ur) final override;
+        void HandleInput(const sf::Event& event) final override;
+        const std::string Name() const final override;
+
     protected:
 
     private:
+        bool LoadScene() final override;
+        bool UnloadScene() final override;
 };
 
 #endif // OPTIONSSCENE_H

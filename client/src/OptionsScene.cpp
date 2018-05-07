@@ -10,3 +10,33 @@ OptionsScene::~OptionsScene()
 {
     //dtor
 }
+
+
+void OptionsScene::Draw(sf::RenderWindow& rw)
+{
+}
+
+void OptionsScene::Update(const sf::Time& ur)
+{
+
+}
+
+void OptionsScene::HandleInput(const sf::Event& event)
+{
+
+}
+
+const std::string OptionsScene::Name() const
+{
+    return "Options";
+}
+
+bool OptionsScene::LoadScene()
+{
+    return true;
+}
+
+bool OptionsScene::UnloadScene()
+{
+    return true;
+}
