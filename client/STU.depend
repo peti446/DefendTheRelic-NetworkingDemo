@@ -1011,9 +1011,10 @@
 1525693818 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
 	<Scene.hpp>
 
-1525709823 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
+1525733141 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
 	"GlobalLobbyScene.hpp"
 	"MainMenuScene.hpp"
+	"ChangeDisplayNameScene.hpp"
 
 1525707611 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
 	<Scene.hpp>
@@ -1026,7 +1027,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525729815 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525731301 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1269,8 +1270,9 @@
 1525693125 e:\2º year\networking\ica-networkinggame\client\include\connecttoonlineserver.hpp
 	<Scene.hpp>
 
-1525724758 source:e:\2º year\networking\ica-networkinggame\client\src\displaynameupdate.cpp
+1525733224 source:e:\2º year\networking\ica-networkinggame\client\src\displaynameupdate.cpp
 	"DisplayNameUpdate.hpp"
+	"StringHelpers.hpp"
 
 1525730012 e:\2º year\networking\ica-networkinggame\client\include\displaynameupdate.hpp
 	<NetMessage.hpp>
@@ -1280,4 +1282,13 @@
 
 1525722414 e:\2º year\networking\ica-networkinggame\client\include\emptynetmessage.hpp
 	<NetMessage.hpp>
+
+1525730049 source:e:\2º year\networking\ica-networkinggame\client\src\changedisplaynamescene.cpp
+	"ChangeDisplayNameScene.hpp"
+	"GlobalLobbyScene.hpp"
+	"MainMenuScene.hpp"
+	"DisplayNameUpdate.hpp"
+
+1525729971 e:\2º year\networking\ica-networkinggame\client\include\changedisplaynamescene.hpp
+	<Scene.hpp>
 

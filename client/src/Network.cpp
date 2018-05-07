@@ -186,7 +186,7 @@ bool Network::send_tcp(NetMessage* message, bool encrypt)
 
     bool br = true;
     sf::Packet pToSend;
-    pToSend << m_registredName << message->BuildEncryptPacket(m_aesKey);
+    pToSend << m_registredName <<  "-::-1" << << message->BuildEncryptPacket(m_aesKey);
     if(m_tcpSocket.send(pToSend) != sf::Socket::Done)
     {
         Log(l_CRITICAL) << "Could not send tcp packet to the server";
@@ -202,7 +202,7 @@ bool Network::send_udp(NetMessage* message, bool encrypt)
 
     bool br = true;
     sf::Packet pToSend;
-    pToSend << m_registredName << message->BuildEncryptPacket(m_aesKey);
+    pToSend << m_registredName << "-::-1" << message->BuildEncryptPacket(m_aesKey);
     if(m_udpSocket.send(pToSend, m_serverData.IP, m_serverData.udp_port) != sf::Socket::Done)
     {
         Log(l_CRITICAL) << "Could not send udp packet to the server";

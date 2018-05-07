@@ -43,10 +43,10 @@ defmodule TCP do
          :inet.setopts(socket, [active: :once])
          messageList = Utility.networkStringSplitter(Utility.packetToString(Utility.packetToString(data)));
          case Router.server_handle_msg({socket, messageList}) do
-          {:user_rg, name}->
-            tcp_client_loop(socket, name)
+          {:user_rg, usrname}->
+            tcp_client_loop(socket, usrname)
           _->
-            tcp_client_loop(socket)
+            tcp_client_loop(socket, name)
          end
      {:tcp_closed, ^socket} ->
           IO.puts("Socket closing #{inspect socket}")
@@ -62,5 +62,10 @@ defmodule TCP do
   ##API to be accesed by the client
     def send_tpc_message(socket, msg) do
       :gen_tcp.send(socket, Utility.add_header_to_str(msg))
+    end
+
+    def send_tpc_message(socket, type, msg) do
+      <<type::unsigned-big-integer-16>> = type
+      :gen_tcp.send(socket, Utility.add_header_to_str(type <> msg))
     end
 end

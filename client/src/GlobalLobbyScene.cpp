@@ -1,5 +1,6 @@
 #include "GlobalLobbyScene.hpp"
 #include "MainMenuScene.hpp"
+#include "ChangeDisplayNameScene.hpp"
 
 GlobalLobbyScene::GlobalLobbyScene()
 {
@@ -162,7 +163,7 @@ void GlobalLobbyScene::ScrollPanelScrolling(tgui::Panel::Ptr panel, int value)
 
 void GlobalLobbyScene::OnClickChangeDPN()
 {
-
+    GameEngine::Instance().getSceneManager().setActiveScene(*new ChangeDisplayNameScene());
 }
 
 void GlobalLobbyScene::OnClickCreateLobby()

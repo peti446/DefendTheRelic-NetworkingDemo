@@ -1,4 +1,5 @@
 #include "DisplayNameUpdate.hpp"
+#include "StringHelpers.hpp"
 
 DisplayNameUpdate::DisplayNameUpdate(const std::string& s)
 {
@@ -23,6 +24,6 @@ eNetMessageType DisplayNameUpdate::getType() const
 sf::Packet DisplayNameUpdate::BuildPacket() const
 {
     sf::Packet p;
-    p << "updateDisplayName-::-" << DisplayName;
+    p << StringHelpers::toString((sf::Uint16)getType()) << "-::-" << DisplayName;
     return p;
 }

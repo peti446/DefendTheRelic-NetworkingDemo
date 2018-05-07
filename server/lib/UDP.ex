@@ -36,4 +36,8 @@ defmodule UDP do
     :gen_udp.send(socket, address, port, msg)
   end
 
+  def send_udp_msg(socket, address, port, type, msg) do
+    <<type::unsigned-big-integer-16>> = type
+    :gen_udp.send(socket, address, port, type <> msg)
+  end
 end

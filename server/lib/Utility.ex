@@ -1,7 +1,7 @@
 defmodule Utility do
 
   def packetToString(s) do
-    <<_::binary-size(4),  message::binary>> = s;
+    <<_::binary-size(4), message::binary>> = s;
     message
   end
 

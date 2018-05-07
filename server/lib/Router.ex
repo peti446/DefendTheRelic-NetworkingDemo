@@ -50,11 +50,20 @@ defmodule Router do
   end
 
   ##Call handles
-  def handle_call({socket, ["updateDisplayName", newName]}, _from, state) do
-
+  def handle_call({socket, [userID, "2", newName]}, _from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        userMap = Map.put(userMap, :display_name, newName);
+        state = Map.put(state, :players, userMap)
+        TCP.send_tpc_message(socket, 2, Utility.add_header_to_str(newName));
+        {:reply ,state, state}
+      :error ->
+        IO.puts("Could not change the displayname to #{inspect newName} from #{inspect userID}. Player is not regisrted????? This should not be possible!! Maybe MIA??")
+        {:reply ,state, state}
+    end
   end
 
-  def handle_call({socket, ["st", "hsk"]},_from, state) do
+  def handle_call({socket, ["st", "hsk"]}, _from, state) do
     {pubstr, _} = state.rsa
     TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(pubstr)))
     {:reply ,state, state}

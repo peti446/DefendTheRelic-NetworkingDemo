@@ -69,7 +69,7 @@ bool ChangeDisplayNameScene::LoadScene()
     Title->setTextSize(windowWidthINT*75/1280);
     Title->setTextColor(sf::Color::White);
     Title->setText("Change Name");
-    Title->setPosition((windowWidth/2.0f)-(Title->getSize().x), windowHeight*25.f/720.f);
+    Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*2.0f/720.f), windowHeight*25.f/720.f);
     m_gui.add(Title);
     sf::Vector2f titlePos = Title->getPosition();
 
@@ -126,17 +126,17 @@ bool ChangeDisplayNameScene::UnloadScene()
 }
 void ChangeDisplayNameScene::onChangeClick(std::string newName)
 {
-    m_changeButton->disable();
-    m_exitButton->disable();
-    m_textBox->disable();
+    //m_changeButton->disable();
+    //m_exitButton->disable();
+    //m_textBox->disable();
     m_couldChange = GameEngine::Instance().getNetworkManager().send_tcp(new DisplayNameUpdate(newName));
     if(!m_couldChange)
     {
         m_error->setText("Could not start the server!");
-        m_changeButton->enable();
-        m_exitButton->enable();
+       // m_changeButton->enable();
+       // m_exitButton->enable();
         m_exitButton->setText("Return to Main Menu");
-        m_textBox->enable();
+      //  m_textBox->enable();
     } else
     {
         m_error->setText("Changing name ...");
