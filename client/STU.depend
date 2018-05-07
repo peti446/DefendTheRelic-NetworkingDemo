@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1525645662 source:e:\2º year\networking\ica-networkinggame\client\main.cpp
+1525697031 source:e:\2º year\networking\ica-networkinggame\client\main.cpp
 	"Logger.hpp"
 	"GameEngine.hpp"
 
@@ -413,12 +413,12 @@
 	<queue>
 	<deque>
 
-1525566880 source:e:\2º year\networking\ica-networkinggame\client\src\aeshelper.cpp
+1525722873 source:e:\2º year\networking\ica-networkinggame\client\src\aeshelper.cpp
 	"AESHelper.hpp"
 	<Cryptopp/osrng.h>
 	<Cryptopp/modes.h>
 
-1525560003 e:\2º year\networking\ica-networkinggame\client\include\aeshelper.hpp
+1525713450 e:\2º year\networking\ica-networkinggame\client\include\aeshelper.hpp
 	<string>
 	<Cryptopp/aes.h>
 
@@ -616,11 +616,10 @@
 	<SFML/Graphics.hpp>
 	"Network.h"
 
-1525657645 e:\2º year\networking\ica-networkinggame\client\include\network.h
+1525729606 e:\2º year\networking\ica-networkinggame\client\include\network.h
 	<SFML/Network.hpp>
-	<Cryptopp/aes.h>
-	<Cryptopp/modes.h>
 	<thread>
+	"AESHelper.hpp"
 	"ConcurrentQueue.hpp"
 	"NetMessage.hpp"
 
@@ -699,7 +698,9 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1525611398 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
+1525722608 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
+	<SFML/Network.hpp>
+	"AESHelper.hpp"
 
 1525567591 e:\2º year\networking\ica-networkinggame\client\include\stringhelpers.hpp
 	<sstream>
@@ -713,7 +714,7 @@
 	"MainMenuScene.hpp"
 	"StringHelpers.hpp"
 
-1525692943 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
+1525725582 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
 	<string>
 	<SFML/Window/Event.hpp>
 	<SFML/Graphics.hpp>
@@ -721,6 +722,7 @@
 	"Logger.hpp"
 	"GameEngine.hpp"
 	"StringHelpers.hpp"
+	"NetMessage.hpp"
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\tgui.hpp
 	<TGUI/Clipboard.hpp>
@@ -1009,29 +1011,33 @@
 1525693818 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
 	<Scene.hpp>
 
-1525693945 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
+1525709823 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
 	"GlobalLobbyScene.hpp"
+	"MainMenuScene.hpp"
 
-1525693957 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
+1525707611 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
 	<Scene.hpp>
 
 1525636687 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
 	"Logger.hpp"
 
-1525611398 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
+1525722858 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
 	"NetMessage.hpp"
+	<Cryptopp/filters.h>
+	"Base64Helper.hpp"
 
-1525657870 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525729815 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
 	<Cryptopp/osrng.h>
-	<Cryptopp/base64.h>
 	"StringHelpers.hpp"
 	"Base64Helper.hpp"
 	"AESHelper.hpp"
 	"RSAHelper.hpp"
 	"Logger.hpp"
+	"EmptyNetMessage.hpp"
+	"DisplayNameUpdate.hpp"
 
 1523180832 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\rsa.h
 	"cryptlib.h"
@@ -1230,7 +1236,7 @@
 	"RSAHelper.hpp"
 	<Cryptopp/osrng.h>
 
-1525690048 source:e:\2º year\networking\ica-networkinggame\client\src\scene.cpp
+1525725627 source:e:\2º year\networking\ica-networkinggame\client\src\scene.cpp
 	"Scene.hpp"
 
 1525649931 source:e:\2º year\networking\ica-networkinggame\client\src\scenemanager.cpp
@@ -1239,17 +1245,17 @@
 	"Scene.hpp"
 	<algorithm>
 
-1525690642 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
+1525707619 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
 	"MainMenuScene.hpp"
 	"ConnectingToServerScene.h"
 	"ConnectToOnlineServer.hpp"
 
-1525694078 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
+1525697901 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
 	"ConnectingToServerScene.h"
 	<chrono>
 	"MainMenuScene.hpp"
 	"ConnectToOnlineServer.hpp"
-	"GameLobbyScene.hpp"
+	"GlobalLobbyScene.hpp"
 
 1525692548 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
 	<Scene.hpp>
@@ -1262,4 +1268,16 @@
 
 1525693125 e:\2º year\networking\ica-networkinggame\client\include\connecttoonlineserver.hpp
 	<Scene.hpp>
+
+1525724758 source:e:\2º year\networking\ica-networkinggame\client\src\displaynameupdate.cpp
+	"DisplayNameUpdate.hpp"
+
+1525730012 e:\2º year\networking\ica-networkinggame\client\include\displaynameupdate.hpp
+	<NetMessage.hpp>
+
+1525718437 source:e:\2º year\networking\ica-networkinggame\client\src\emptynetmessage.cpp
+	"EmptyNetMessage.hpp"
+
+1525722414 e:\2º year\networking\ica-networkinggame\client\include\emptynetmessage.hpp
+	<NetMessage.hpp>
 

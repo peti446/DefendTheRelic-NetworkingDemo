@@ -2,12 +2,13 @@
 #include <iostream>
 #include <Cryptopp/rsa.h>
 #include <Cryptopp/osrng.h>
-#include <Cryptopp/base64.h>
 #include "StringHelpers.hpp"
 #include "Base64Helper.hpp"
 #include "AESHelper.hpp"
 #include "RSAHelper.hpp"
 #include "Logger.hpp"
+#include "EmptyNetMessage.hpp"
+#include "DisplayNameUpdate.hpp"
 
 Network::Network()
 {
@@ -27,6 +28,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     //Bind to any port available so the server can respond us back with a message
     if(m_udpSocket.bind(sf::Socket::AnyPort) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Could not bind to a port";
         return false;
     }
@@ -39,6 +41,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     Log(l_INFO) << "Broadcasting to find server";
     if(m_udpSocket.send(server_find_packet, IPOfServer, port) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Could not send the first packet to find the server";
         return false;
     }
@@ -63,6 +66,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
             //we will check if its done or nor
             if(m_udpSocket.receive(server_udp_recive, m_serverData.IP, m_serverData.udp_port) != sf::Socket::Done)
             {
+                Disconnect();
                 Log(l_CRITICAL) << "Recive failed. It really should not happend but it did ):";
                 return false;
             }
@@ -72,6 +76,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
                 server_udp_recive >> m_serverData.tcp_port;
                 if(m_serverData.tcp_port == 0)
                 {
+                    Disconnect();
                     Log(l_CRITICAL) << "Did not recive responce from server with UDP port in it, waiting for more messages";
                     continue;
                 }
@@ -86,11 +91,13 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     //If we did not receive
     if(m_serverData.IP == sf::IpAddress::None)
     {
+        Disconnect();
         Log(l_WARN) << "Did not recive a response after " << amoutOfConnectionAttempts << " attempts, server is not online!";
         return false;
     }
     if(m_tcpSocket.connect(m_serverData.IP, m_serverData.tcp_port) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Could not establish a tcp socket connection";
         return false;
     }
@@ -100,6 +107,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     handShake << "st-::-hsk";
     if(m_tcpSocket.send(handShake) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Could not start encryption data interchange";
         return false;
     }
@@ -107,6 +115,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     sf::Packet pub_key_packet;
     if(m_tcpSocket.receive(pub_key_packet) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Did not receive the servers pub pey";
         return false;
     }
@@ -132,6 +141,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     encryptedAREKey << "aesReg-::-" + base64Key;
     if(m_tcpSocket.send(encryptedAREKey) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Could not send AES key";
         return false;
     }
@@ -139,6 +149,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     sf::Packet serverAESEncryptedInfo;
     if(m_tcpSocket.receive(serverAESEncryptedInfo) != sf::Socket::Done)
     {
+        Disconnect();
         Log(l_CRITICAL) << "Could not recive player identifier number";
         return false;
     }
@@ -150,6 +161,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     std::vector<std::string> returnTokens = StringHelpers::splitString(serverResponse, "-::-");
     if(returnTokens.size() != 3 && returnTokens[0] != "ok")
     {
+        Disconnect();
         Log(l_CRITICAL) << "Did not recive ecxpected message when waiting for response after AES key sended";
         return false;
     }
@@ -167,9 +179,46 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     return true;
 }
 
-bool Network::IsConnected() const
+bool Network::send_tcp(NetMessage* message, bool encrypt)
 {
-    return m_connected;
+    if(message == nullptr)
+        return false;
+
+    bool br = true;
+    sf::Packet pToSend;
+    pToSend << m_registredName << message->BuildEncryptPacket(m_aesKey);
+    if(m_tcpSocket.send(pToSend) != sf::Socket::Done)
+    {
+        Log(l_CRITICAL) << "Could not send tcp packet to the server";
+    }
+    delete message;
+    return br;
+}
+
+bool Network::send_udp(NetMessage* message, bool encrypt)
+{
+    if(message == nullptr)
+        return false;
+
+    bool br = true;
+    sf::Packet pToSend;
+    pToSend << m_registredName << message->BuildEncryptPacket(m_aesKey);
+    if(m_udpSocket.send(pToSend, m_serverData.IP, m_serverData.udp_port) != sf::Socket::Done)
+    {
+        Log(l_CRITICAL) << "Could not send udp packet to the server";
+        br = false;
+    }
+    delete message;
+    return br;
+}
+
+void Network::HandleChangeDN(DisplayNameUpdate* m)
+{
+    if(m == nullptr)
+        return;
+
+    m_displayName = m->DisplayName;
+    delete m;
 }
 
 
@@ -180,9 +229,19 @@ void Network::Disconnect()
     m_udpSocket.unbind();
 }
 
-const ConcurrentQueue<NetMessage>& Network::getQueue()
+ConcurrentQueue<NetMessage*>& Network::getQueue()
 {
     return m_queue;
+}
+
+bool Network::IsConnected() const
+{
+    return m_connected;
+}
+
+const std::string& Network::getDisplayName() const
+{
+    return m_displayName;
 }
 
 void Network::tcp_recive()
@@ -193,7 +252,7 @@ void Network::tcp_recive()
         p.clear();
         if(m_tcpSocket.receive(p) == sf::Socket::Done)
         {
-
+            m_queue.push(unwrap_msg(p));
         }
     }
 }
@@ -207,6 +266,36 @@ void Network::udp_recive()
         p.clear();
         if(m_udpSocket.receive(p, incomingDT.IP, incomingDT.udp_port) == sf::Socket::Done && incomingDT.IP == m_serverData.IP && incomingDT.udp_port == m_serverData.udp_port)
         {
+            m_queue.push(unwrap_msg(p));
         }
     }
 }
+NetMessage* Network::unwrap_msg(sf::Packet p) const
+{
+    NetMessage* returnM = nullptr;
+    sf::Uint16 type;
+    p >> type;
+    switch((eNetMessageType)type)
+    {
+    case eNetMessageType::eEncrypted:
+        {
+            std::string chiper;
+            p >> chiper;
+            Base64Helper::decode(chiper, chiper);
+            sf::Packet decryptedP;
+            std::string plain = AESHelper::decryptCombinedIV(m_aesKey, chiper);
+            decryptedP.append((void*)&plain, plain.size());
+            returnM = unwrap_msg(decryptedP);
+            break;
+        }
+    case eNetMessageType::eDisplayNameUpdate:
+        {
+            returnM = new DisplayNameUpdate();
+            returnM->BuildMessage(p);
+            break;
+        }
+    }
+
+    return (returnM != nullptr) ? returnM : new EmptyNetMessage();
+}
+

@@ -20,6 +20,14 @@ class GlobalLobbyScene : public Scene
     private:
         bool LoadScene() final override;
         bool UnloadScene() final override;
+
+        void ScrollPanelScrolling(tgui::Panel::Ptr panel, int value);
+        void OnClickChangeDPN();
+        void OnClickCreateLobby();
+        void OnClickReturnMenu();
+
+        int m_previousScrollbarValue{0};
+
 };
 
 #endif // GLOBALLOBBYSCENE_H

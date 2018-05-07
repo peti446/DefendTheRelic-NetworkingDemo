@@ -2,7 +2,7 @@
 #include <chrono>
 #include "MainMenuScene.hpp"
 #include "ConnectToOnlineServer.hpp"
-#include "GameLobbyScene.hpp"
+#include "GlobalLobbyScene.hpp"
 
 ConnectingToServerScene::ConnectingToServerScene(sf::IpAddress ip, unsigned short port,  bool retrunOnline): m_ip(ip), m_port(port), m_returnToOnline(retrunOnline)
 {
@@ -24,7 +24,7 @@ void ConnectingToServerScene::Update(const sf::Time& ur)
     {
         if(m_connectToServer.get())
         {
-            GameEngine::Instance().getSceneManager().setActiveScene(*new GameLobbyScene());
+            GameEngine::Instance().getSceneManager().setActiveScene(*new GlobalLobbyScene());
             //Change to game lobby scene
         }
         else

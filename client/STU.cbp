@@ -6,7 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\GameLobby\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;" />
+		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\GameLobby\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;Networking\Message\DisplayNameUpdate\;" />
 		<Build>
 			<Target title="Linux">
 				<Option output="bin/Linux/RockPaperScissors" prefix_auto="1" extension_auto="1" />
@@ -114,6 +114,7 @@
 		<Unit filename="include/Base64Helper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
+		<Unit filename="include/ChangeDisplayNameScene.hpp" />
 		<Unit filename="include/ConcurrentQueue.hpp">
 			<Option virtualFolder="Data Structures/" />
 		</Unit>
@@ -123,17 +124,20 @@
 		<Unit filename="include/ConnectingToServerScene.h">
 			<Option virtualFolder="SceneManagement/Scenes/ServerConnection/" />
 		</Unit>
-		<Unit filename="include/Game.h">
-			<Option virtualFolder="Core Systems/" />
+		<Unit filename="include/DisplayNameUpdate.hpp">
+			<Option virtualFolder="Networking/Message/DisplayNameUpdate/" />
+		</Unit>
+		<Unit filename="include/EmptyNetMessage.hpp">
+			<Option virtualFolder="Networking/Message/Empty/" />
 		</Unit>
 		<Unit filename="include/GameEngine.hpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
 		<Unit filename="include/GameLobbyScene.hpp">
-			<Option virtualFolder="SceneManagement/Scenes/Game/" />
+			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
 		</Unit>
 		<Unit filename="include/GameScene.hpp">
-			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
+			<Option virtualFolder="SceneManagement/Scenes/Game/" />
 		</Unit>
 		<Unit filename="include/GlobalLobbyScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
@@ -172,14 +176,18 @@
 		<Unit filename="src/Base64Helper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
+		<Unit filename="src/ChangeDisplayNameScene.cpp" />
 		<Unit filename="src/ConnectToOnlineServer.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/ServerConnection/" />
 		</Unit>
 		<Unit filename="src/ConnectingToServerScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/ServerConnection/" />
 		</Unit>
-		<Unit filename="src/Game.cpp">
-			<Option virtualFolder="Core Systems/" />
+		<Unit filename="src/DisplayNameUpdate.cpp">
+			<Option virtualFolder="Networking/Message/DisplayNameUpdate/" />
+		</Unit>
+		<Unit filename="src/EmptyNetMessage.cpp">
+			<Option virtualFolder="Networking/Message/Empty/" />
 		</Unit>
 		<Unit filename="src/GameEngine.cpp">
 			<Option virtualFolder="Core Systems/" />

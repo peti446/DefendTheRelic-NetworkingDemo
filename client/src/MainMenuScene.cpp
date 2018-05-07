@@ -129,3 +129,4 @@ void MainMenuScene::onClickOnlineServer()
 {
     GameEngine::Instance().getSceneManager().setActiveScene(*new ConnectToOnlineServer());
 }
+

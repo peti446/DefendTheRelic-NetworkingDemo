@@ -1,11 +1,17 @@
 #include "Scene.hpp"
-Scene::Scene(): m_gui()
+Scene::Scene()
 {
 }
 
 Scene::~Scene()
 {
 }
+
+void Scene::HandleNetworkInput(NetMessage* msg)
+{
+    delete msg;
+}
+
 void Scene::Load()
 {
     if(m_loaded)

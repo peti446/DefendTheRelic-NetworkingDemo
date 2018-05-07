@@ -8,6 +8,7 @@
 #include "Logger.hpp"
 #include "GameEngine.hpp"
 #include "StringHelpers.hpp"
+#include "NetMessage.hpp"
 
 class Scene
 {
@@ -19,6 +20,7 @@ class Scene
         virtual void Update(const sf::Time& ur) = 0;
         virtual void HandleInput(const sf::Event& event) = 0;
         virtual const std::string Name() const = 0;
+        virtual void HandleNetworkInput(NetMessage* msg);
         void Load();
         void Unload();
 

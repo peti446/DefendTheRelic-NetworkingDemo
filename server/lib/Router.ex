@@ -50,6 +50,10 @@ defmodule Router do
   end
 
   ##Call handles
+  def handle_call({socket, ["updateDisplayName", newName]}, _from, state) do
+
+  end
+
   def handle_call({socket, ["st", "hsk"]},_from, state) do
     {pubstr, _} = state.rsa
     TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(pubstr)))

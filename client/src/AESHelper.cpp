@@ -33,6 +33,15 @@ std::string AESHelper::encrypt(const CryptoPP::SecByteBlock& key, const std::str
     return out;
 }
 
+std::string AESHelper::encryptCombineIV(const CryptoPP::SecByteBlock& key, const std::string& msgToEncrypt)
+{
+    CryptoPP::SecByteBlock iv;
+    std::string encrypted = AESHelper::encrypt(key, msgToEncrypt, iv);
+    std::string ivString;
+    CryptoPP::ArraySource as(iv, iv.size(), true, new CryptoPP::StringSink(ivString));
+    return ivString + encrypted;
+}
+
 std::string AESHelper::decrypt(const CryptoPP::SecByteBlock& key, const std::string& msgToDecrypt, const CryptoPP::SecByteBlock& IV)
 {
     CryptoPP::CTR_Mode<CryptoPP::AES>::Decryption decryptor(key, key.size(), IV);

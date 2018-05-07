@@ -2,11 +2,12 @@
 #define NETWORK_H
 
 #include <SFML/Network.hpp>
-#include <Cryptopp/aes.h>
-#include <Cryptopp/modes.h>
 #include <thread>
+#include "AESHelper.hpp"
 #include "ConcurrentQueue.hpp"
 #include "NetMessage.hpp"
+
+class DisplayNameUpdate;
 
 class Network
 {
@@ -19,14 +20,17 @@ class Network
         //but you can pass it an IP(lan or public) and a port to connect to a server directly wich is not limited to be on the lan network.
         bool ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, size_t amoutOfConnectionAttempts = 3);
 
-        bool IsConnected() const;
+        bool send_tcp(NetMessage* message, bool encrypt = true);
+        bool send_udp(NetMessage* message, bool encrypt = true);
         void Disconnect();
-        const ConcurrentQueue<NetMessage>& getQueue();
-
+        void HandleChangeDN(DisplayNameUpdate* m);
+        ConcurrentQueue<NetMessage*>& getQueue();
+        bool IsConnected() const;
+        const std::string& getDisplayName() const;
     private:
         void tcp_recive();
         void udp_recive();
-
+        NetMessage* unwrap_msg(sf::Packet p) const;
         struct ServerDetails
         {
             sf::IpAddress IP;
@@ -38,13 +42,13 @@ class Network
 
         sf::UdpSocket m_udpSocket;
         sf::TcpSocket m_tcpSocket;
-        std::string m_registredName{""};
-        std::string m_displayName{""};
+        std::string m_registredName {""};
+        std::string m_displayName {""};
         ServerDetails m_serverData;
         CryptoPP::SecByteBlock m_aesKey;
         std::thread m_tcpReciveThread;
         std::thread m_udpReciveThread;
-        ConcurrentQueue<NetMessage> m_queue;
+        ConcurrentQueue<NetMessage*> m_queue;
         bool m_connected{false};
 };
 
