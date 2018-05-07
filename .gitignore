@@ -1,2 +1,4 @@
 client/obj/
 client/bin/
+*.o
+!.gitignore
