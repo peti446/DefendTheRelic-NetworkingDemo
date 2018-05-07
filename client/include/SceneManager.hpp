@@ -1,7 +1,9 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
-#include <list>
+#include <queue>
+#include <deque>
+class Scene;
 
 class SceneManager
 {
@@ -9,17 +11,18 @@ class SceneManager
         SceneManager();
         virtual ~SceneManager();
 
-        //void changeActiveScene(Scene* newScene);
-        //void changeActiveScene(Scene* newScene, bool deleteOldScene);
-        //Scene* getCurrentActiveScene();
-        //void deleteAllScenes();
-       //void garbageSceneColection();
+        Scene* setActiveScene(Scene& newScene, bool deleteOldScene = true);
+        Scene* getCurrentActiveScene();
+        void deleteScene(Scene* scene);
+        void deleteAllScenes();
+        void garbageCollection();
 
     protected:
 
     private:
-        //std::list<Scene*> m_activeScenes;
-        //std::list<Scene*> m_sceneToDelete;
+        Scene* m_CurrentActiveScene;
+        std::deque<Scene*> m_backgroundScenes;
+        std::queue<Scene*> m_sceneToDelete;
 };
 
 #endif // SCENEMANAGER_H

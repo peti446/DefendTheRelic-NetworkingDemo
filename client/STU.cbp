@@ -96,7 +96,6 @@
 		<Unit filename="include/GameScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
 		</Unit>
-		<Unit filename="include/GameSystemsAccesor.hpp" />
 		<Unit filename="include/GlobalLobbyScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
 		</Unit>
@@ -146,7 +145,6 @@
 		<Unit filename="src/GameScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Game/" />
 		</Unit>
-		<Unit filename="src/GameSystemsAccesor.cpp" />
 		<Unit filename="src/GlobalLobbyScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
 		</Unit>

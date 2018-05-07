@@ -7,8 +7,9 @@
 #include "Base64Helper.hpp"
 #include "AESHelper.hpp"
 #include "RSAHelper.hpp"
+#include "Logger.hpp"
 
-Network::Network() : m_runRecive(true)
+Network::Network()
 {
 }
 
@@ -26,7 +27,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     //Bind to any port available so the server can respond us back with a message
     if(m_udpSocket.bind(sf::Socket::AnyPort) != sf::Socket::Done)
     {
-        std::cout << "Could not bind to a port" << std::endl;
+        Log(l_CRITICAL) << "Could not bind to a port";
         return false;
     }
 
@@ -35,10 +36,10 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     server_find_packet << "notify-::-me-::-server";
 
     //Send Message to the server
-    std::cout << "Broadcasting to find server" << std::endl;
+    Log(l_INFO) << "Broadcasting to find server";
     if(m_udpSocket.send(server_find_packet, IPOfServer, port) != sf::Socket::Done)
     {
-        std::cout << "Could not send the first packet to find the server" << std::endl;
+        Log(l_CRITICAL) << "Could not send the first packet to find the server";
         return false;
     }
 
@@ -52,9 +53,9 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     socket_selector.add(m_udpSocket);
 
     //Loop to attempt to recive from the socket up to X time specified when startiing the function
-    for(size_t i = 0; i <= amoutOfConnectionAttempts; i++)
+    for(size_t i = 0; i < amoutOfConnectionAttempts; i++)
     {
-        std::cout << "Attempt to get response from the server " << (i + 1) << std::endl;
+        Log(l_DEBUG) << "Attempt to get response from the server " << (i + 1);
         //Wait for 3 seconds to recive data
         if(socket_selector.wait(sf::seconds(3)))
         {
@@ -62,7 +63,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
             //we will check if its done or nor
             if(m_udpSocket.receive(server_udp_recive, m_serverData.IP, m_serverData.udp_port) != sf::Socket::Done)
             {
-                std::cout << "Recive failed. It really should not happend but it did ):" << std::endl;
+                Log(l_CRITICAL) << "Recive failed. It really should not happend but it did ):";
                 return false;
             }
             else
@@ -71,7 +72,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
                 server_udp_recive >> m_serverData.tcp_port;
                 if(m_serverData.tcp_port == 0)
                 {
-                    std::cout << "Did not recive responce from server with UDP port in it, waiting for more messages" << std::endl;
+                    Log(l_CRITICAL) << "Did not recive responce from server with UDP port in it, waiting for more messages";
                     continue;
                 }
                 break;
@@ -84,15 +85,13 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
 
     //If we did not receive
     if(m_serverData.IP == sf::IpAddress::None)
-
-    //Set up tcp connection
     {
-        std::cout << "Did not recive a response after " << amoutOfConnectionAttempts << " attempts, server is not online!" << std::endl;
+        Log(l_WARN) << "Did not recive a response after " << amoutOfConnectionAttempts << " attempts, server is not online!";
         return false;
     }
     if(m_tcpSocket.connect(m_serverData.IP, m_serverData.tcp_port) != sf::Socket::Done)
     {
-        std::cout << "Could not establish a tcp socket connection" << std::endl;
+        Log(l_CRITICAL) << "Could not establish a tcp socket connection";
         return false;
     }
 
@@ -101,14 +100,14 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     handShake << "st-::-hsk";
     if(m_tcpSocket.send(handShake) != sf::Socket::Done)
     {
-        std::cout << "Could not start encryption data interchange" << std::endl;
+        Log(l_CRITICAL) << "Could not start encryption data interchange";
         return false;
     }
 
     sf::Packet pub_key_packet;
     if(m_tcpSocket.receive(pub_key_packet) != sf::Socket::Done)
     {
-        std::cout << "Did not receive the servers pub pey" << std::endl;
+        Log(l_CRITICAL) << "Did not receive the servers pub pey";
         return false;
     }
 
@@ -133,14 +132,14 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     encryptedAREKey << "aesReg-::-" + base64Key;
     if(m_tcpSocket.send(encryptedAREKey) != sf::Socket::Done)
     {
-        std::cout << "Could not send AES key" << std::endl;
+        Log(l_CRITICAL) << "Could not send AES key";
         return false;
     }
 
     sf::Packet serverAESEncryptedInfo;
     if(m_tcpSocket.receive(serverAESEncryptedInfo) != sf::Socket::Done)
     {
-        std::cout << "Could not recive player identifier number" << std::endl;
+        Log(l_CRITICAL) << "Could not recive player identifier number";
         return false;
     }
 
@@ -151,23 +150,34 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     std::vector<std::string> returnTokens = StringHelpers::splitString(serverResponse, "-::-");
     if(returnTokens.size() != 3 && returnTokens[0] != "ok")
     {
-        std::cout << "Did not recive ecxpected message when waiting for response after AES key sended" << std::endl;
+        Log(l_CRITICAL) << "Did not recive ecxpected message when waiting for response after AES key sended";
         return false;
     }
 
     //Get the data out
     m_registredName = returnTokens[1];
     m_displayName = returnTokens[2];
-    std::cout << "Displayname: " << m_displayName << ". Server Identifier Name: " << m_registredName << std::endl;
+    Log(l_INFO) << "Displayname: " << m_displayName << ". Server Identifier Name: " << m_registredName;
+
+    m_connected = true;
 
     m_tcpReciveThread = std::thread(&Network::tcp_recive, this);
     m_udpReciveThread = std::thread(&Network::udp_recive, this);
 
     return true;
 }
+
+bool Network::IsConnected() const
+{
+    return m_connected;
+}
+
+
 void Network::Disconnect()
 {
-    m_runRecive = false;
+    m_connected = false;
+    m_tcpSocket.disconnect();
+    m_udpSocket.unbind();
 }
 
 const ConcurrentQueue<NetMessage>& Network::getQueue()
@@ -178,7 +188,7 @@ const ConcurrentQueue<NetMessage>& Network::getQueue()
 void Network::tcp_recive()
 {
     sf::Packet p;
-    while(m_runRecive)
+    while(m_connected)
     {
         p.clear();
         if(m_tcpSocket.receive(p) == sf::Socket::Done)
@@ -192,7 +202,7 @@ void Network::udp_recive()
 {
     sf::Packet p;
     Network::ServerDetails incomingDT;
-    while(m_runRecive)
+    while(m_connected)
     {
         p.clear();
         if(m_udpSocket.receive(p, incomingDT.IP, incomingDT.udp_port) == sf::Socket::Done && incomingDT.IP == m_serverData.IP && incomingDT.udp_port == m_serverData.udp_port)

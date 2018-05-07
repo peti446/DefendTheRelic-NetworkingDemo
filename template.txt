@@ -1,0 +1,42 @@
+        void Draw(sf::RenderWindow& rw) final override;
+        void Update(const float ur) final override;
+        void HandleInput(const sf::Event& event) final override;
+        const std::string Name() const final override;
+
+    protected:
+
+    private:
+        bool LoadScene() final override;
+        bool UnloadScene() final override;
+
+
+
+
+void MainMenuScene::Draw(sf::RenderWindow& rw)
+{
+}
+
+void MainMenuScene::Update(const float ur)
+{
+
+}
+
+void MainMenuScene::HandleInput(const sf::Event& event)
+{
+
+}
+
+const std::string MainMenuScene::Name() const
+{
+    return "Main Menu";
+}
+
+bool MainMenuScene::LoadScene()
+{
+    return true;
+}
+
+bool MainMenuScene::UnloadScene()
+{
+    return true;
+}

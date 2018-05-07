@@ -84,7 +84,7 @@ void Logger::log(eLogType level, std::string msg)
 
 void Logger::SetLogerLevel(eLogType type)
 {
-    Logger::Instance().m_displayType = type;
+    m_displayType = type;
 }
 
 void Logger::printToConsoleLoop()

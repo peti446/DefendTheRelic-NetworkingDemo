@@ -40,9 +40,14 @@ class Logger
         //Destructor
         ~Logger();
 
-        //---- Static functions (Instance will be called inside to make it easier to use)
+        //---- Static Singleton
         static Logger& Instance();
+        //-----
+        /*
+        *   Function to get a LoggerOSStream, its static so we can easly access it
+        */
         static LoggerOSStream Get(eLogType type = l_DEBUG);
+
         /*
         *   Sets what type of log messages should be printed and wich ones should not.
         *   By default the level is set to DEBUG,  which means that every logged msg will be printed.
@@ -55,10 +60,8 @@ class Logger
         *   - l_INFO
         *   - l_DEBUG
         */
-        static void SetLogerLevel(eLogType type);
+        void SetLogerLevel(eLogType type);
 
-
-        //Non static function, to call them you need to call Instance() first;
         void log(eLogType level, std::string msg);
     private:
         //Functions
@@ -76,4 +79,9 @@ class Logger
         std::thread m_printThread;
         eLogType m_displayType{eLogType::l_DEBUG};
 };
+
+//Define
+typedef Logger Log;
+#define Log(level) Logger::Get(level)
+
 #endif // LOGGER_H

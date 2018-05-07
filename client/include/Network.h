@@ -17,8 +17,9 @@ class Network
         //Connects to the server to set up everything neede.
         //By default it will try to find the server on the local network by using broadcast and the port 13001,
         //but you can pass it an IP(lan or public) and a port to connect to a server directly wich is not limited to be on the lan network.
-        bool ConnectToServer(sf::IpAddress IPOfServer = sf::IpAddress::Broadcast, unsigned short port = 13001, size_t amoutOfConnectionAttempts = 3);
+        bool ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, size_t amoutOfConnectionAttempts = 3);
 
+        bool IsConnected() const;
         void Disconnect();
         const ConcurrentQueue<NetMessage>& getQueue();
 
@@ -37,14 +38,14 @@ class Network
 
         sf::UdpSocket m_udpSocket;
         sf::TcpSocket m_tcpSocket;
-        std::string m_registredName;
-        std::string m_displayName;
+        std::string m_registredName{""};
+        std::string m_displayName{""};
         ServerDetails m_serverData;
         CryptoPP::SecByteBlock m_aesKey;
         std::thread m_tcpReciveThread;
         std::thread m_udpReciveThread;
         ConcurrentQueue<NetMessage> m_queue;
-        bool m_runRecive;
+        bool m_connected{false};
 };
 
 #endif // NETWORK_H
