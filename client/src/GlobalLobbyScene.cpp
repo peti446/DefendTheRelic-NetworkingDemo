@@ -217,7 +217,7 @@ void GlobalLobbyScene::OnClickReturnMenu()
 
 LobbyInfoDisplay::LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::Theme::Ptr theme, CreateGameLobbyNetMessage* gameLobbymsg, int width)
 {
-    int panelHeight = 150;
+    int panelHeight = 180;
     m_identifier = gameLobbymsg->Identifier;
 
     tgui::Panel::Ptr panel = theme->load("Panel");
@@ -287,6 +287,7 @@ LobbyInfoDisplay::LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::The
     }
 
     m_layout->add(panel);
+    m_layout->setFixedSize(panel, panelHeight);
 }
 
 LobbyInfoDisplay::~LobbyInfoDisplay()
