@@ -1,6 +1,8 @@
 #include "GlobalLobbyScene.hpp"
 #include "MainMenuScene.hpp"
 #include "ChangeDisplayNameScene.hpp"
+#include "GameLobbyUpdateNetMessage.hpp"
+#include "GameLobbyStatusChangedNetMessage.h"
 
 GlobalLobbyScene::GlobalLobbyScene()
 {
@@ -36,20 +38,26 @@ void GlobalLobbyScene::HandleNetworkInput(NetMessage* msg)
         {
             break;
         }
-        case eNetMessageType::eCreateGameLobby:
-        {
-            std::string s = ((CreateGameLobbyNetMessage*)msg)->Identifier;
-            m_lobbies[s] = (LobbyInfoDisplay(m_layout, m_theme, (CreateGameLobbyNetMessage*)msg, m_lobbySize));
-            m_layout->addSpace(0.1);
-            Log() << "Created";
-            break;
-        }
         case eNetMessageType::eGameLobbyUpdated:
         {
-            break;
-        }
-        case eNetMessageType::eJoinGameLobby:
-        {
+            GameLobbyUpdateNetMessage* cglm = (GameLobbyUpdateNetMessage*)msg;
+            if(m_lobbies.find(cglm->Identifier) == m_lobbies.end())
+            {
+                m_lobbies[cglm->Identifier] = LobbyInfoDisplay(m_layout, m_theme, (GameLobbyUpdateNetMessage*)msg, m_lobbySize);
+                m_layout->addSpace(0.1);
+                m_scroll->setMaximum(m_layout->getSize().y);
+            }
+            else
+            {
+                if (!m_lobbies[cglm->Identifier].updateStatus(cglm->t1_p1, cglm->t1_p2, cglm->t2_p1, cglm->t2_p2))
+                {
+                    m_layout->remove(m_lobbies[cglm->Identifier].getPanel());
+                    m_layout->setSize(m_layout->getSize().x, m_layout->getSize().y - m_lobbySize);
+                    m_scroll->setMaximum(m_layout->getSize().y);
+                    m_lobbies.erase(cglm->Identifier);
+                }
+            }
+
             break;
         }
     }
@@ -96,31 +104,30 @@ bool GlobalLobbyScene::LoadScene()
     *   Create panel for the lobbies
     */
     tgui::Panel::Ptr panel = m_theme->load("Panel");
-    panel->setSize(windowWidth * (2.f/3.f), windowHeight * (2.f/3.f));
     panel->setPosition(windowWidth*40.f/1280.f, windowHeight * ((1.f/3.f)/2.f));
+    panel->setSize(windowWidth * (2.f/3.f), windowHeight * (2.f/3.f) + panel->getPosition().y);
     panel->setBackgroundColor(sf::Color(80,80,80,150));
     m_gui.add(panel);
 
     m_layout = tgui::VerticalLayout::create();
-    m_layout->setSize(panel->getSize());
-    m_layout->setPosition(panel->getPosition());
+    m_layout->setSize(panel->getSize().x, 0);
     m_lobbySize = panel->getSize().x - 10;
-    m_gui.add(m_layout);
+    panel->add(m_layout);
 
     /*
     *   Create a scroll bar
     */
-    tgui::Scrollbar::Ptr scrollbar = m_theme->load("Scrollbar");
-    scrollbar->setAutoHide(true);
-    scrollbar->setSize(20, panel->getSize().y);
-    scrollbar->setPosition(panel->getPosition() + sf::Vector2f(panel->getSize().x, 0));
-    scrollbar->setArrowScrollAmount(30);
-    scrollbar->setLowValue(panel->getSize().y);
-    scrollbar->setMaximum(panel->getSize().y);
-    scrollbar->connect("valuechanged", &GlobalLobbyScene::ScrollPanelScrolling, this, panel, std::bind(&tgui::Scrollbar::getValue, scrollbar));
-    m_gui.add(scrollbar);
+    m_scroll = m_theme->load("Scrollbar");
+    m_scroll->setAutoHide(true);
+    m_scroll->setSize(20, panel->getSize().y);
+    m_scroll->setPosition(panel->getPosition() + sf::Vector2f(panel->getSize().x, 0));
+    m_scroll->setArrowScrollAmount(30);
+    m_scroll->setLowValue(panel->getSize().y);
+    m_scroll->setMaximum(m_layout->getSize().y);
+    m_scroll->connect("ValueChanged", &GlobalLobbyScene::ScrollPanelScrolling, this, std::bind(&tgui::Scrollbar::getValue, m_scroll));
+    m_gui.add(m_scroll);
 
-    sf::Vector2f leftPos = panel->getPosition() + sf::Vector2f(panel->getSize().x + 10, 0);
+    sf::Vector2f leftPos = panel->getPosition() + sf::Vector2f(panel->getSize().x + 30, 0);
     int leftSizeX = windowWidthINT - leftPos.x - 15;
     /*
     *   Create display name tgui
@@ -187,12 +194,12 @@ bool GlobalLobbyScene::UnloadScene()
 }
 
 
-void GlobalLobbyScene::ScrollPanelScrolling(tgui::Panel::Ptr panel, int value)
+void GlobalLobbyScene::ScrollPanelScrolling(unsigned int value)
 {
     int distanceToMove = m_previousScrollbarValue - value;
 
     // Move all widgets that are inside the panel
-    for (auto& widget : panel->getWidgets())
+    for (auto& widget : m_layout->getWidgets())
         widget->setPosition(widget->getPosition().x, widget->getPosition().y + distanceToMove);
 
     m_previousScrollbarValue = value;
@@ -205,7 +212,7 @@ void GlobalLobbyScene::OnClickChangeDPN()
 
 void GlobalLobbyScene::OnClickCreateLobby()
 {
-    GameEngine::Instance().getNetworkManager().send_tcp(new CreateGameLobbyNetMessage(true, GameEngine::Instance().getNetworkManager().getDisplayName()));
+    GameEngine::Instance().getNetworkManager().send_tcp(new GameLobbyUpdateNetMessage(true, GameEngine::Instance().getNetworkManager().getDisplayName()));
 }
 
 void GlobalLobbyScene::OnClickReturnMenu()
@@ -215,79 +222,87 @@ void GlobalLobbyScene::OnClickReturnMenu()
 }
 
 
-LobbyInfoDisplay::LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::Theme::Ptr theme, CreateGameLobbyNetMessage* gameLobbymsg, int width)
+LobbyInfoDisplay::LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::Theme::Ptr theme, GameLobbyUpdateNetMessage* gameLobbymsg, int width)
 {
     int panelHeight = 180;
     m_identifier = gameLobbymsg->Identifier;
 
-    tgui::Panel::Ptr panel = theme->load("Panel");
-    panel->setBackgroundColor(sf::Color(0, 191, 255, 180));
-    panel->setSize(width,115);
+    m_panel = theme->load("Panel");
+    m_panel->setBackgroundColor(sf::Color(0, 191, 255, 180));
+    m_panel->setSize(width,115);
 
 
     tgui::Label::Ptr Title = theme->load("Label");
     Title->setAutoSize(true);
+    Title->setTextColor(sf::Color::Black);
+    Title->setTextSize(18);
     Title->setText("Game Lobby");
     Title->setPosition(width/2.f - (Title->getSize().x/2.f), 15.f);
-    panel->add(Title);
+    m_panel->add(Title);
 
 
     tgui::Label::Ptr team1 = theme->load("Label");
     team1->setAutoSize(true);
+    team1->setTextColor(sf::Color::Black);
     team1->setText("Attacker team (2 Players MAX)");
     team1->setPosition(20.f, 45.f);
-    panel->add(team1);
+    m_panel->add(team1);
 
     m_team1_p1 = theme->load("Label");
     m_team1_p1->setAutoSize(true);
+    m_team1_p1->setTextColor(sf::Color::Black);
     m_team1_p1->setText(gameLobbymsg->t1_p1);
     m_team1_p1->setPosition(20.f, 75.f);
-    panel->add(m_team1_p1);
+    m_panel->add(m_team1_p1);
 
     m_team1_p2 = theme->load("Label");
     m_team1_p2->setAutoSize(true);
+    m_team1_p2->setTextColor(sf::Color::Black);
     m_team1_p2->setText(gameLobbymsg->t1_p2);
     m_team1_p2->setPosition(20.f, 115.f);
-    panel->add(m_team1_p2);
+    m_panel->add(m_team1_p2);
 
 
     tgui::Label::Ptr team2 = theme->load("Label");
     team2->setAutoSize(true);
     team2->setText("Defender team (2 Players MAX)");
+    team2->setTextColor(sf::Color::Black);
     team2->setPosition(width/2.f, 45.f);
-    panel->add(team2);
+    m_panel->add(team2);
 
     m_team2_p1 = theme->load("Label");
     m_team2_p1->setAutoSize(true);
+    m_team2_p1->setTextColor(sf::Color::Black);
     m_team2_p1->setText(gameLobbymsg->t2_p1);
     m_team2_p1->setPosition(width/2.f, 75.f);
-    panel->add(m_team2_p1);
+    m_panel->add(m_team2_p1);
 
-    m_team2_p1 = theme->load("Label");
-    m_team2_p1->setAutoSize(true);
-    m_team2_p1->setText(gameLobbymsg->t2_p2);
-    m_team2_p1->setPosition(width/2.f, 115.f);
-    panel->add(m_team2_p1);
+    m_team2_p2 = theme->load("Label");
+    m_team2_p2->setAutoSize(true);
+    m_team2_p2->setTextColor(sf::Color::Black);
+    m_team2_p2->setText(gameLobbymsg->t2_p2);
+    m_team2_p2->setPosition(width/2.f, 115.f);
+    m_panel->add(m_team2_p2);
 
     m_joinButton = theme->load("Button");
     m_joinButton->setSize(width/3.f, 30);
-    m_joinButton->setPosition(width - m_joinButton->getSize().x - 5, panelHeight - 5);
+    m_joinButton->setPosition(width - m_joinButton->getSize().x - 5, panelHeight - 30 - 5);
     m_joinButton->setText("Join!");
-    m_joinButton->connect("pressed", &LobbyInfoDisplay::onClickJoin, this);
-    panel->add(m_joinButton);
+    m_joinButton->connect("pressed", &LobbyInfoDisplay::onClickJoin, this, std::bind(tgui::Button::getText, m_joinButton));
+    m_panel->add(m_joinButton);
 
-    if(m_team1_p1->getText() != "NONE" && m_team1_p2->getText() != "NONE" && m_team2_p1->getText() != "NONE" && m_team2_p2->getText() != "NONE")
-    {
-        m_joinButton->disable();
-        m_joinButton->setText("Full");
-    } else
-    {
-        m_joinButton->enable();
-        m_joinButton->setText("Join!");
-    }
+    m_switchTeam = theme->load("Button");
+    m_switchTeam->setSize(width/3.f, 30);
+    m_switchTeam->setPosition(width - m_switchTeam->getSize().x - (width/3.f) - 15, panelHeight - 30 - 5);
+    m_switchTeam->setText("Switch Team");
+    m_switchTeam->connect("pressed", &LobbyInfoDisplay::onClickSwitch, this);
+    m_switchTeam->hide();
+    m_panel->add(m_switchTeam);
 
-    m_layout->add(panel);
-    m_layout->setFixedSize(panel, panelHeight);
+    m_layout->add(m_panel);
+    m_layout->setFixedSize(m_panel, panelHeight);
+    m_layout->setSize(m_layout->getSize() + sf::Vector2f(0, panelHeight + 10));
+    updateStatus(gameLobbymsg->t1_p1, gameLobbymsg->t1_p2, gameLobbymsg->t2_p1, gameLobbymsg->t2_p2);
 }
 
 LobbyInfoDisplay::~LobbyInfoDisplay()
@@ -295,8 +310,13 @@ LobbyInfoDisplay::~LobbyInfoDisplay()
 
 }
 
-void LobbyInfoDisplay::updateStatus(std::string team1_p1, std::string team1_p2, std::string team2_p1, std::string team2_p2)
+bool LobbyInfoDisplay::updateStatus(std::string team1_p1, std::string team1_p2, std::string team2_p1, std::string team2_p2)
 {
+    if(team1_p1 == "NONE" && team1_p2 == "NONE" && team2_p1 == "NONE" && team2_p2 == "NONE")
+    {
+        return false;
+    }
+
     m_team1_p1->setText(team1_p1);
     m_team1_p2->setText(team1_p2);
     m_team2_p1->setText(team2_p1);
@@ -305,19 +325,55 @@ void LobbyInfoDisplay::updateStatus(std::string team1_p1, std::string team1_p2, 
     {
         m_joinButton->disable();
         m_joinButton->setText("Full");
-    } else
+        m_panel->setBackgroundColor(sf::Color(255, 102, 102, 180));
+    }
+    else if(isPlayerInLobby(GameEngine::Instance().getNetworkManager().getDisplayName()))
+    {
+        m_joinButton->enable();
+        m_switchTeam->show();
+        m_joinButton->setText("Exit");
+        m_panel->setBackgroundColor(sf::Color(0, 255, 204, 180));
+
+    }
+    else
     {
         m_joinButton->enable();
         m_joinButton->setText("Join!");
+        m_panel->setBackgroundColor(sf::Color(0, 191, 255, 180));
     }
+    return true;
 }
+
+tgui::Panel::Ptr LobbyInfoDisplay::getPanel()
+{
+    return m_panel;
+}
+
 
 const std::string& LobbyInfoDisplay::getIdentifier() const
 {
     return m_identifier;
 }
-
-void LobbyInfoDisplay::onClickJoin()
+bool LobbyInfoDisplay::isPlayerInLobby(const std::string& dn) const
 {
-
+    return m_team1_p1->getText() == dn
+            || m_team1_p2->getText() == dn
+            || m_team2_p1->getText() == dn
+            || m_team2_p2->getText() == dn;
 }
+
+
+void LobbyInfoDisplay::onClickJoin(std::string s)
+{
+    Log() << m_identifier << " recived msg";
+    if(s == "Join!")
+        GameEngine::Instance().getNetworkManager().send_tcp(new GameLobbyStatusChangedNetMessage(m_identifier, GameLobbyStatusChangedNetMessage::UpdateMsg::eJoin));
+    else if(s == "Exit")
+        GameEngine::Instance().getNetworkManager().send_tcp(new GameLobbyStatusChangedNetMessage(m_identifier, GameLobbyStatusChangedNetMessage::UpdateMsg::eExit));
+}
+
+void LobbyInfoDisplay::onClickSwitch()
+{
+    GameEngine::Instance().getNetworkManager().send_tcp(new GameLobbyStatusChangedNetMessage(m_identifier, GameLobbyStatusChangedNetMessage::UpdateMsg::eSwitch));
+}
+

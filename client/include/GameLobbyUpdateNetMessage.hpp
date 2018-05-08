@@ -4,11 +4,11 @@
 #include <NetMessage.hpp>
 
 
-class CreateGameLobbyNetMessage : public NetMessage
+class GameLobbyUpdateNetMessage : public NetMessage
 {
     public:
-        CreateGameLobbyNetMessage(bool create = false, std::string player1 = "");
-        virtual ~CreateGameLobbyNetMessage();
+        GameLobbyUpdateNetMessage(bool create = false, std::string player1 = "");
+        virtual ~GameLobbyUpdateNetMessage();
 
         void BuildMessage(sf::Packet& p) final override;
         eNetMessageType getType() const final override;

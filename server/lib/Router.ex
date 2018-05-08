@@ -49,6 +49,91 @@ defmodule Router do
     {:noreply, state}
   end
 
+  ##Internal helper functions
+  def send_GameLobbyUpdate_to_all(id, players, lobbies)  do
+    case Map.fetch(lobbies, id) do
+      {:ok, lobby} ->
+        Enum.each(players, fn {_,v} ->
+          if(v.where_at  == "lobby") do
+            Router.send_GameLobbyUpdate_to_player(v, id, lobby)
+          end
+        end)
+      :error ->
+        IO.puts("There is no lobby with name #{inspect id} in the list")
+    end
+  end
+
+  def send_GameLobbyUpdate_to_player(player,  id, lobby) do
+    lobbyMSG = Utility.add_header_to_str(id) <>
+               Utility.add_header_to_str(lobby.t1_player1) <>
+               Utility.add_header_to_str(lobby.t1_player2) <>
+               Utility.add_header_to_str(lobby.t2_player1) <>
+               Utility.add_header_to_str(lobby.t2_player2) <>
+               Utility.add_header_to_str(to_string(lobby.current_status))
+    TCP.send_tpc_message(player.tcp_socker, 4, lobbyMSG)
+  end
+
+  def send_all_GameLobbies_to_player(player, lobbies) do
+    Enum.each(lobbies, fn {id, lobby} ->
+      Router.send_GameLobbyUpdate_to_player(player, id, lobby)
+    end)
+  end
+
+  def add_player_to_lobby(id, lobby, player) do
+    whereAtTemp = "GameLobby-::-" <> id
+    cond do
+      lobby.t1_player1 == "NONE" ->
+        Map.put(lobby, :t1_player1, player.display_name)
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      lobby.t1_player2 == "NONE" ->
+        Map.put(lobby, :t1_player2, player.display_name)
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      lobby.t2_player1 == "NONE" ->
+        Map.put(lobby, :t2_player1, player.display_name)
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      lobby.t2_player2 == "NONE" ->
+        Map.put(lobby, :t2_player2, player.display_name)
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      true ->
+        {lobby, player}
+    end
+  end
+
+  def remove_player_fom_lobby(lobby, player) do
+    whereAtTemp = "Lobby"
+    cond do
+      lobby.t1_player1 == player.display_name ->
+        Map.put(lobby, :t1_player1, "NONE")
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      lobby.t1_player2 == player.display_name ->
+        Map.put(lobby, :t1_player2, "NONE")
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      lobby.t2_player1 == player.display_name ->
+        Map.put(lobby, :t2_player1, "NONE")
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      lobby.t2_player2 == player.display_name ->
+        Map.put(lobby, :t2_player2, "NONE")
+        Map.put(player, :where_at, whereAtTemp)
+        {lobby, player}
+      true ->
+        {lobby, player}
+    end
+  end
+
+  def is_lobby_empty(lobby) do
+    lobby.t1_player1 == "NONE" and
+    lobby.t1_player2 == "NONE" and
+    lobby.t2_player1 == "NONE" and
+    lobby.t2_player2 == "NONE"
+  end
+
   ##Call handles
   def handle_call({socket, [userID, "1", encrpted]}, from, state) do
     case Map.fetch(state.players, userID) do
@@ -86,25 +171,116 @@ defmodule Router do
     end
   end
 
-  def handle_call({socket, [userID, "4", "-1create", t1_p1, t1_p2, t2_p1, t2_p2]}, _from, state) do
+  def handle_call({socket, [userID, "4", "-1create", t1_p1, t1_p2, t2_p1, t2_p2]}, from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
+        ##Generate a lobby
         id = Utility.random_string(16)
-        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2})
+        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2, current_status: :waiting})
+
+        ##In case the player is in a game
+        {:reply, state, state} = case Utility.networkStringSplitter(userMap.where_at) do
+          ["GameLobby", idInGame] ->
+            Router.handle_call({socket, [userID, "5", idInGame, "exit"]}, from, state)
+           _ ->
+            {:reply ,state, state}
+        end
+
+        ##Send Lobby to all
+        Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+
+        ##Update the player
         userMap = Map.put(userMap, :where_at, "GameLobby-::-" <> id)
+
+        ##Update the player map with the new user values
         playerMap = Map.put(state.players, userID, userMap)
         state = Map.put(state, :players, playerMap)
 
-        lobbyMSG = Utility.add_header_to_str(id) <> Utility.add_header_to_str(t1_p1) <> Utility.add_header_to_str(t1_p2) <> Utility.add_header_to_str(t2_p1) <> Utility.add_header_to_str(t2_p2)
-        Enum.each(state.players, fn {_,v} ->
-          if(v.where_at  == "lobby") do
-            TCP.send_tpc_message(v.tcp_socker, 4, lobbyMSG)
-          end
-        end)
-        TCP.send_tpc_message(socket, 4, lobbyMSG)
+
         {:reply, state, state}
       :error->
         IO.puts("Recived create lobby message from user #{inspect userID} but the user is not registered ?");
+        {:reply ,state, state}
+    end
+  end
+
+  def handle_call({socket, [userID, "5", id, "join"]}, from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+
+        {:reply, state, state} = case Utility.networkStringSplitter(userMap.where_at) do
+          ["GameLobby", idInGame] ->
+            Router.handle_call({socket, [userID, "5", idInGame, "exit"]}, from, state)
+           _ ->
+            {:reply ,state, state}
+        end
+
+        ##Update the new lobby map
+        state = case Map.fetch(state.lobbies, id) do
+          {:ok, lobby} ->
+            {newLobby, playerMap} = Router.add_player_to_lobby(id, lobby, userMap)
+            ##Update the player map with the new user values
+            playerMap = Map.put(state.players, userID, playerMap)
+            state = Map.put(state, :players, playerMap)
+            ##Update the state lobby
+            newLobby = Map.put(state.lobbies, id, newLobby)
+            Map.put(state, :lobbies, newLobby)
+          :error ->
+            state.lobbies
+        end
+
+        ##Send Lobby to all
+        Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+        {:reply ,state, state}
+      :error ->
+        IO.puts("Recived join a game lobby message from user #{inspect userID} but the user is not registered ?");
+        {:reply ,state, state}
+    end
+  end
+
+  def handle_call({_ocket, [userID, "5", id, "exit"]}, _from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        case Utility.networkStringSplitter(userMap.where_at) do
+          ["GameLobby", ^id] ->
+            case Map.fetch(state.lobbies, id) do
+              {:ok, lobby} ->
+                {newLobby, newPlayer} = Router.remove_player_fom_lobby(lobby, userMap)
+                  ##Update the player map with the new user values
+                  playerMap = Map.put(state.players, userID, newPlayer)
+                  state = Map.put(state, :players, playerMap)
+
+                  ##Update the state lobby
+                  newLobby = Map.put(state.lobbies, id, newLobby)
+                  Map.put(state, :lobbies, newLobby)
+
+                  ##Send Lobby to all
+                  Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+
+                  ##Delete lobby if it is emptu
+                  if(Router.is_lobby_empty(newLobby[id])) do
+                    {_, newLobby} = Map.pop(state.lobbies, id)
+                    Map.put(state, :lobbies, newLobby)
+                  end
+                  {:reply ,state, state}
+              :error ->
+                {:reply, state, state}
+            end
+           _ ->
+            {:reply, state, state}
+        end
+      :error ->
+        IO.puts("Recived join a game lobby message from user #{inspect userID} but the user is not registered ?");
+        {:reply ,state, state}
+    end
+  end
+
+  def handle_call({socket, [userID, "5", id, "switch"]}, _from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        {:reply ,state, state}
+      :error ->
+        IO.puts("Recived switch team in game lobby from user #{inspect userID} but the user is not registered ?");
         {:reply ,state, state}
     end
   end

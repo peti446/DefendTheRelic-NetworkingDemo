@@ -698,7 +698,7 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1525747529 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
+1525798539 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
 	<SFML/Network.hpp>
 	"AESHelper.hpp"
 	"Logger.hpp"
@@ -1017,14 +1017,16 @@
 1525693818 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
 	<Scene.hpp>
 
-1525754272 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
+1525806094 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
 	"GlobalLobbyScene.hpp"
 	"MainMenuScene.hpp"
 	"ChangeDisplayNameScene.hpp"
+	"GameLobbyUpdateNetMessage.hpp"
+	"GameLobbyStatusChangedNetMessage.h"
 
-1525754387 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
+1525806111 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
 	<Scene.hpp>
-	"CreateGameLobbyNetMessage.hpp"
+	"GameLobbyUpdateNetMessage.hpp"
 	<unordered_map>
 
 1525636687 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
@@ -1035,7 +1037,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525754724 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525805217 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1047,7 +1049,7 @@
 	"Logger.hpp"
 	"EmptyNetMessage.hpp"
 	"DisplayNameUpdate.hpp"
-	"CreateGameLobbyNetMessage.hpp"
+	"GameLobbyUpdateNetMessage.hpp"
 
 1523180832 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\rsa.h
 	"cryptlib.h"
@@ -1306,4 +1308,16 @@
 
 1525753103 source:e:\2º year\networking\ica-networkinggame\client\src\creategamelobbynetmessage.cpp
 	"CreateGameLobbyNetMessage.hpp"
+
+1525808883 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbystatuschangednetmessage.cpp
+	"GameLobbyStatusChangedNetMessage.h"
+
+1525805374 e:\2º year\networking\ica-networkinggame\client\include\gamelobbystatuschangednetmessage.h
+	<NetMessage.hpp>
+
+1525805146 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyupdatenetmessage.hpp
+	<NetMessage.hpp>
+
+1525805199 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyupdatenetmessage.cpp
+	"GameLobbyUpdateNetMessage.hpp"
 

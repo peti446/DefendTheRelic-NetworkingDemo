@@ -2,8 +2,14 @@ defmodule Server do
   use Application
 
   def start(_type, _args) do
-    GlobalSupervisor.start_link([])
-    commandParse()
+    case GlobalSupervisor.start_link([]) do
+      {:ok, pid} ->
+        commandParse()
+        {:ok, pid}
+      {:error, e} ->
+        IO.puts("Could not start server")
+        {:error, e}
+    end
   end
 
   def commandParse() do

@@ -1,0 +1,10 @@
+{application,server,
+             [{applications,[kernel,stdlib,elixir,logger]},
+              {description,"server"},
+              {modules,['Elixir.AES','Elixir.GlobalSupervisor','Elixir.RSA',
+                        'Elixir.Router','Elixir.Server','Elixir.TCP',
+                        'Elixir.TcpSupervisor','Elixir.UDP','Elixir.Utility']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Server',[]}},
+              {extra_applications,[logger]}]}.

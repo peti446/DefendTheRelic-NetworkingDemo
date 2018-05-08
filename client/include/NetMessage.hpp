@@ -12,13 +12,8 @@ enum class eNetMessageType
     eEncrypted,
     eDisplayNameUpdate,
     eGetAllGameLobbyInfo,
-    eCreateGameLobby,
     eGameLobbyUpdated,
-    eJoinGameLobby,
-    eShoot,
-    eMove,
-    eDie,
-    eRespawned
+    eGameLobbyStatusUpdated,
 };
 
 class NetMessage

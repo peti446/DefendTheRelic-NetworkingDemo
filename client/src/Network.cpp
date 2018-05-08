@@ -9,7 +9,7 @@
 #include "Logger.hpp"
 #include "EmptyNetMessage.hpp"
 #include "DisplayNameUpdate.hpp"
-#include "CreateGameLobbyNetMessage.hpp"
+#include "GameLobbyUpdateNetMessage.hpp"
 
 Network::Network()
 {
@@ -318,9 +318,9 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
             returnM->BuildMessage(p);
             break;
         }
-    case eNetMessageType::eCreateGameLobby:
+    case eNetMessageType::eGameLobbyUpdated:
         {
-            returnM = new CreateGameLobbyNetMessage();
+            returnM = new GameLobbyUpdateNetMessage();
             returnM->BuildMessage(p);
             break;
         }

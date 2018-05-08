@@ -1,6 +1,6 @@
-#include "CreateGameLobbyNetMessage.hpp"
+#include "GameLobbyUpdateNetMessage.hpp"
 
-CreateGameLobbyNetMessage::CreateGameLobbyNetMessage(bool create, std::string player1)
+GameLobbyUpdateNetMessage::GameLobbyUpdateNetMessage(bool create, std::string player1)
 {
     if(create)
     {
@@ -12,22 +12,22 @@ CreateGameLobbyNetMessage::CreateGameLobbyNetMessage(bool create, std::string pl
     }
 }
 
-CreateGameLobbyNetMessage::~CreateGameLobbyNetMessage()
+GameLobbyUpdateNetMessage::~GameLobbyUpdateNetMessage()
 {
     //dtor
 }
 
-void CreateGameLobbyNetMessage::BuildMessage(sf::Packet& p)
+void GameLobbyUpdateNetMessage::BuildMessage(sf::Packet& p)
 {
     p >> Identifier >> t1_p1 >> t1_p2 >> t2_p1 >> t2_p2;
 }
 
-eNetMessageType CreateGameLobbyNetMessage::getType() const
+eNetMessageType GameLobbyUpdateNetMessage::getType() const
 {
-    return eNetMessageType::eCreateGameLobby;
+    return eNetMessageType::eGameLobbyUpdated;
 }
 
-sf::Packet CreateGameLobbyNetMessage::BuildPacket() const
+sf::Packet GameLobbyUpdateNetMessage::BuildPacket() const
 {
     sf::Packet p;
     p << StringHelpers::toString((sf::Uint16)getType()) + "-::-" + Identifier + "-::-" + t1_p1 + "-::-" + t1_p2 + "-::-" + t2_p1 + "-::-" + t2_p2;
