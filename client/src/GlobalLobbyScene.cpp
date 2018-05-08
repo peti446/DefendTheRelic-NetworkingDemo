@@ -3,6 +3,7 @@
 #include "ChangeDisplayNameScene.hpp"
 #include "GameLobbyUpdateNetMessage.hpp"
 #include "GameLobbyStatusChangedNetMessage.h"
+#include "FetchLobbyList.hpp"
 
 GlobalLobbyScene::GlobalLobbyScene()
 {
@@ -43,17 +44,21 @@ void GlobalLobbyScene::HandleNetworkInput(NetMessage* msg)
             GameLobbyUpdateNetMessage* cglm = (GameLobbyUpdateNetMessage*)msg;
             if(m_lobbies.find(cglm->Identifier) == m_lobbies.end())
             {
-                m_lobbies[cglm->Identifier] = LobbyInfoDisplay(m_layout, m_theme, (GameLobbyUpdateNetMessage*)msg, m_lobbySize);
+                m_lobbies.insert(std::make_pair(cglm->Identifier, new LobbyInfoDisplay(m_layout, m_theme, cglm, m_lobbySize)));
                 m_layout->addSpace(0.1);
                 m_scroll->setMaximum(m_layout->getSize().y);
             }
             else
             {
-                if (!m_lobbies[cglm->Identifier].updateStatus(cglm->t1_p1, cglm->t1_p2, cglm->t2_p1, cglm->t2_p2))
+                if (!m_lobbies.at(cglm->Identifier)->updateStatus(cglm->t1_p1, cglm->t1_p2, cglm->t2_p1, cglm->t2_p2))
                 {
-                    m_layout->remove(m_lobbies[cglm->Identifier].getPanel());
-                    m_layout->setSize(m_layout->getSize().x, m_layout->getSize().y - m_lobbySize);
-                    m_scroll->setMaximum(m_layout->getSize().y);
+                    m_layout->remove(m_lobbies.at(cglm->Identifier)->getPanel());
+                    int newSize =  m_layout->getSize().y - m_lobbySize;
+                    if(newSize < 0)
+                        newSize = 0;
+                    m_layout->setSize(m_layout->getSize().x, newSize);
+                    m_scroll->setMaximum(newSize);
+                    delete m_lobbies.at(cglm->Identifier);
                     m_lobbies.erase(cglm->Identifier);
                 }
             }
@@ -183,7 +188,7 @@ bool GlobalLobbyScene::LoadScene()
     Exit->connect("pressed", &GlobalLobbyScene::OnClickReturnMenu, this);
     m_gui.add(Exit);
 
-    //GameEngine::Instance().getNetworkManager().send_tcp();
+    GameEngine::Instance().getNetworkManager().send_tcp(new FetchLobbyList());
 
     return true;
 }
@@ -365,7 +370,6 @@ bool LobbyInfoDisplay::isPlayerInLobby(const std::string& dn) const
 
 void LobbyInfoDisplay::onClickJoin(std::string s)
 {
-    Log() << m_identifier << " recived msg";
     if(s == "Join!")
         GameEngine::Instance().getNetworkManager().send_tcp(new GameLobbyStatusChangedNetMessage(m_identifier, GameLobbyStatusChangedNetMessage::UpdateMsg::eJoin));
     else if(s == "Exit")

@@ -54,7 +54,7 @@ defmodule Router do
     case Map.fetch(lobbies, id) do
       {:ok, lobby} ->
         Enum.each(players, fn {_,v} ->
-          if(v.where_at  == "lobby") do
+          if(not String.starts_with?(v.where_at, "InGame")) do
             Router.send_GameLobbyUpdate_to_player(v, id, lobby)
           end
         end)
@@ -83,20 +83,20 @@ defmodule Router do
     whereAtTemp = "GameLobby-::-" <> id
     cond do
       lobby.t1_player1 == "NONE" ->
-        Map.put(lobby, :t1_player1, player.display_name)
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t1_player1, player.display_name)
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       lobby.t1_player2 == "NONE" ->
-        Map.put(lobby, :t1_player2, player.display_name)
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t1_player2, player.display_name)
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       lobby.t2_player1 == "NONE" ->
-        Map.put(lobby, :t2_player1, player.display_name)
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t2_player1, player.display_name)
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       lobby.t2_player2 == "NONE" ->
-        Map.put(lobby, :t2_player2, player.display_name)
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t2_player2, player.display_name)
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       true ->
         {lobby, player}
@@ -107,20 +107,20 @@ defmodule Router do
     whereAtTemp = "Lobby"
     cond do
       lobby.t1_player1 == player.display_name ->
-        Map.put(lobby, :t1_player1, "NONE")
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t1_player1, "NONE")
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       lobby.t1_player2 == player.display_name ->
-        Map.put(lobby, :t1_player2, "NONE")
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t1_player2, "NONE")
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       lobby.t2_player1 == player.display_name ->
-        Map.put(lobby, :t2_player1, "NONE")
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t2_player1, "NONE")
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       lobby.t2_player2 == player.display_name ->
-        Map.put(lobby, :t2_player2, "NONE")
-        Map.put(player, :where_at, whereAtTemp)
+        lobby = Map.put(lobby, :t2_player2, "NONE")
+        player = Map.put(player, :where_at, whereAtTemp)
         {lobby, player}
       true ->
         {lobby, player}
@@ -159,6 +159,25 @@ defmodule Router do
             TCP.send_tpc_message(socket, 0, Utility.add_header_to_str(""));
             {:reply ,state, state}
           false->
+            state = case Utility.networkStringSplitter(userMap.where_at) do
+              ["GameLobby", id] ->
+                case Map.fetch(state.lobbies, id) do
+                  {:ok, lobby} ->
+
+                  :error
+                    ##Update the player
+                    userMap = Map.put(userMap, :where_at, "Lobby")
+
+                    ##Send Lobby to all
+                    Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+
+                    ##Update the player map with the new user values
+                    playerMap = Map.put(state.players, userID, userMap)
+                    Map.put(state, :players, playerMap)
+                end
+              _ ->
+                state
+            end
             userMap = Map.put(userMap, :display_name, newName);
             playerMap = Map.put(state.players, userID, userMap)
             state = Map.put(state, :players, playerMap)
@@ -252,7 +271,7 @@ defmodule Router do
 
                   ##Update the state lobby
                   newLobby = Map.put(state.lobbies, id, newLobby)
-                  Map.put(state, :lobbies, newLobby)
+                  state = Map.put(state, :lobbies, newLobby)
 
                   ##Send Lobby to all
                   Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
@@ -260,9 +279,11 @@ defmodule Router do
                   ##Delete lobby if it is emptu
                   if(Router.is_lobby_empty(newLobby[id])) do
                     {_, newLobby} = Map.pop(state.lobbies, id)
-                    Map.put(state, :lobbies, newLobby)
+                    state = Map.put(state, :lobbies, newLobby)
+                    {:reply ,state, state}
+                  else
+                    {:reply ,state, state}
                   end
-                  {:reply ,state, state}
               :error ->
                 {:reply, state, state}
             end
@@ -278,6 +299,17 @@ defmodule Router do
   def handle_call({socket, [userID, "5", id, "switch"]}, _from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
+        {:reply ,state, state}
+      :error ->
+        IO.puts("Recived switch team in game lobby from user #{inspect userID} but the user is not registered ?");
+        {:reply ,state, state}
+    end
+  end
+
+  def handle_call({_socket, [userID, "3", "GetAll"]}, _from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        Router.send_all_GameLobbies_to_player(userMap, state.lobbies)
         {:reply ,state, state}
       :error ->
         IO.puts("Recived switch team in game lobby from user #{inspect userID} but the user is not registered ?");
@@ -312,7 +344,7 @@ def handle_call({socket, ["st", "hsk"]}, _from, state) do
       state = newMap
       ##Create a player entri in the map
       displayName = Utility.random_string_32encode(8)
-      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName, where_at: "lobby"})
+      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName, where_at: "Lobby"})
 
       ##For debug porpuses
       IO.puts("Registered user: #{inspect currentID}")

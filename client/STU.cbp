@@ -6,7 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\GameLobby\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;Networking\Message\DisplayNameUpdate\;SceneManagement\Scenes\Change Username\;" />
+		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\GameLobby\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;" />
 		<Build>
 			<Target title="Linux">
 				<Option platforms="Unix;Mac;" />
@@ -197,18 +197,26 @@
 		<Unit filename="include/ConnectingToServerScene.h">
 			<Option virtualFolder="SceneManagement/Scenes/ServerConnection/" />
 		</Unit>
-		<Unit filename="include/CreateGameLobbyNetMessage.hpp" />
 		<Unit filename="include/DisplayNameUpdate.hpp">
-			<Option virtualFolder="Networking/Message/DisplayNameUpdate/" />
+			<Option virtualFolder="Networking/Message/Lobby/DisplayNameUpdate/" />
 		</Unit>
 		<Unit filename="include/EmptyNetMessage.hpp">
 			<Option virtualFolder="Networking/Message/Empty/" />
+		</Unit>
+		<Unit filename="include/FetchLobbyList.hpp">
+			<Option virtualFolder="Networking/Message/Lobby/Fetch All/" />
 		</Unit>
 		<Unit filename="include/GameEngine.hpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
 		<Unit filename="include/GameLobbyScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
+		</Unit>
+		<Unit filename="include/GameLobbyStatusChangedNetMessage.h">
+			<Option virtualFolder="Networking/Message/Lobby/Game Lobby Status Update/" />
+		</Unit>
+		<Unit filename="include/GameLobbyUpdateNetMessage.hpp">
+			<Option virtualFolder="Networking/Message/Lobby/Game Lobby Update/" />
 		</Unit>
 		<Unit filename="include/GameScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Game/" />
@@ -259,18 +267,26 @@
 		<Unit filename="src/ConnectingToServerScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/ServerConnection/" />
 		</Unit>
-		<Unit filename="src/CreateGameLobbyNetMessage.cpp" />
 		<Unit filename="src/DisplayNameUpdate.cpp">
-			<Option virtualFolder="Networking/Message/DisplayNameUpdate/" />
+			<Option virtualFolder="Networking/Message/Lobby/DisplayNameUpdate/" />
 		</Unit>
 		<Unit filename="src/EmptyNetMessage.cpp">
 			<Option virtualFolder="Networking/Message/Empty/" />
+		</Unit>
+		<Unit filename="src/FetchLobbyList.cpp">
+			<Option virtualFolder="Networking/Message/Lobby/Fetch All/" />
 		</Unit>
 		<Unit filename="src/GameEngine.cpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
 		<Unit filename="src/GameLobbyScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
+		</Unit>
+		<Unit filename="src/GameLobbyStatusChangedNetMessage.cpp">
+			<Option virtualFolder="Networking/Message/Lobby/Game Lobby Status Update/" />
+		</Unit>
+		<Unit filename="src/GameLobbyUpdateNetMessage.cpp">
+			<Option virtualFolder="Networking/Message/Lobby/Game Lobby Update/" />
 		</Unit>
 		<Unit filename="src/GameScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Game/" />

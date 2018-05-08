@@ -8,7 +8,6 @@
 class LobbyInfoDisplay
 {
 public:
-    LobbyInfoDisplay() =default;
     LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::Theme::Ptr theme, GameLobbyUpdateNetMessage* gameLobbymsg, int width);
     virtual ~LobbyInfoDisplay();
 
@@ -58,7 +57,7 @@ class GlobalLobbyScene : public Scene
         int m_lobbySize{0};
         tgui::VerticalLayout::Ptr m_layout;
         tgui::Scrollbar::Ptr m_scroll;
-        std::unordered_map<std::string, LobbyInfoDisplay> m_lobbies;
+        std::unordered_map<std::string, LobbyInfoDisplay*> m_lobbies;
 
 
 };
