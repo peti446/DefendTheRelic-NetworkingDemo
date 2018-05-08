@@ -67,4 +67,32 @@ defmodule TCP do
     def send_tpc_message(socket, type, msg) do
       :gen_tcp.send(socket, Utility.add_header_to_str(<<type::unsigned-big-integer-16>> <> msg))
     end
+
+    def send_tpc_encrypted_message(socket, msg, aesKey) do
+      :gen_tcp.send(socket, Utility.add_header_to_str(<<1::unsigned-big-integer-16>> <>
+                                                      Utility.add_header_to_str(
+                                                        Base.encode64(
+                                                          AES.encrypt(
+                                                            msg,
+                                                            aesKey
+                                                          )
+                                                        )
+                                                      )
+                            )
+                    )
+    end
+
+    def send_tpc_encrypted_message(socket, type, msg, aesKey) do
+      :gen_tcp.send(socket, Utility.add_header_to_str(<<1::unsigned-big-integer-16>> <>
+                                                        Utility.add_header_to_str(
+                                                          Base.encode64(
+                                                            AES.encrypt(
+                                                              <<type::unsigned-big-integer-16>> <> msg,
+                                                              aesKey
+                                                            )
+                                                          )
+                                                        )
+                                                      )
+                    )
+    end
 end

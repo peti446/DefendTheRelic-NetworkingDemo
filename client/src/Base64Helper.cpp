@@ -29,6 +29,7 @@ bool Base64Helper::encode(CryptoPP::byte* data, size_t lenght, std::string& outS
 
 bool Base64Helper::decode(const std::string& data, std::string& outStr)
 {
+
     CryptoPP::Base64Decoder decoder;
     decoder.Put((CryptoPP::byte*)data.data(), data.size() );
     decoder.MessageEnd();
@@ -36,6 +37,7 @@ bool Base64Helper::decode(const std::string& data, std::string& outStr)
     CryptoPP::word64 sizeD = decoder.MaxRetrievable();
     if(sizeD && sizeD <= SIZE_MAX)
     {
+        outStr.clear();
         outStr.resize(sizeD);
         decoder.Get((CryptoPP::byte*)&outStr[0], outStr.size());
         return true;

@@ -160,6 +160,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     {
         Disconnect();
         Log(l_CRITICAL) << "Did not recive ecxpected message when waiting for response after AES key sended";
+        Log(l_CRITICAL) << "Recived" << serverResponse;
         return false;
     }
 
@@ -308,7 +309,8 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
             Base64Helper::decode(chiper, chiper);
             sf::Packet decryptedP;
             std::string plain = AESHelper::decryptCombinedIV(m_aesKey, chiper);
-            decryptedP.append((void*)&plain, plain.size());
+            decryptedP.clear();
+            decryptedP.append(plain.data(), plain.size());
             returnM = unwrap_msg(decryptedP);
             break;
         }

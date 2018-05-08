@@ -32,11 +32,38 @@ defmodule UDP do
 
 
 ## Server Api function calls
-  def send_udp_msg(socket, address, port, msg) do
+
+  def send_udp_message(socket, address, port, msg) do
     :gen_udp.send(socket, address, port, msg)
   end
 
-  def send_udp_msg(socket, address, port, type, msg) do
+  def send_udp_message(socket, address, port, type, msg) do
     :gen_udp.send(socket, address, port, <<type::unsigned-big-integer-16>> <> msg)
+  end
+
+  def send_udp_encrypted_message(socket, address, port, msg, aesKey) do
+    :gen_udp.send(socket, address, port, <<1::unsigned-big-integer-16>> <>
+                                          Utility.add_header_to_str(
+                                            Base.encode64(
+                                              AES.encrypt(
+                                                msg,
+                                                aesKey
+                                              )
+                                            )
+                                          )
+                  )
+  end
+
+  def send_udp_encrypted_message(socket, address, port, type, msg, aesKey) do
+    :gen_udp.send(socket, address, port, <<1::unsigned-big-integer-16>> <>
+                                          Utility.add_header_to_str(
+                                            Base.encode64(
+                                              AES.encrypt(
+                                                <<type::unsigned-big-integer-16>> <> msg,
+                                                aesKey
+                                              )
+                                            )
+                                          )
+                  )
   end
 end

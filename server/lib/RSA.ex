@@ -29,9 +29,6 @@ defmodule RSA do
     ##Remove the files
     File.rm!(publicKey)
     File.rm!(privateKey)
-    ## Bugs out a lot
-    ##{_, 0} = System.cmd "rm", ["-f", privateKey]
-    ##{_, 0} = System.cmd "rm", ["-f", publicKey]
 
     # Return tuple for key pair
     {publicKey_str, privateKey_str}

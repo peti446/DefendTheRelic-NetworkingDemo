@@ -63,14 +63,14 @@ defmodule Router do
     end
   end
 
-  def send_GameLobbyUpdate_to_player(player,  id, lobby) do
+  def send_GameLobbyUpdate_to_player(player, id, lobby) do
     lobbyMSG = Utility.add_header_to_str(id) <>
                Utility.add_header_to_str(lobby.t1_player1) <>
                Utility.add_header_to_str(lobby.t1_player2) <>
                Utility.add_header_to_str(lobby.t2_player1) <>
                Utility.add_header_to_str(lobby.t2_player2) <>
                Utility.add_header_to_str(to_string(lobby.current_status))
-    TCP.send_tpc_message(player.tcp_socker, 4, lobbyMSG)
+    TCP.send_tpc_encrypted_message(player.tcp_socker, 4, lobbyMSG, player.aesKey)
   end
 
   def send_all_GameLobbies_to_player(player, lobbies) do
@@ -162,7 +162,7 @@ defmodule Router do
             userMap = Map.put(userMap, :display_name, newName);
             playerMap = Map.put(state.players, userID, userMap)
             state = Map.put(state, :players, playerMap)
-            TCP.send_tpc_message(socket, 2, Utility.add_header_to_str(newName));
+            TCP.send_tpc_encrypted_message(socket, 2, Utility.add_header_to_str(newName), userMap.aesKey);
             {:reply ,state, state}
         end
       :error ->
@@ -285,14 +285,18 @@ defmodule Router do
     end
   end
 
-  def handle_call({socket, ["st", "hsk"]}, _from, state) do
+
+##-------------------------------------------------------------------------------------------------------------------------------------------------
+##Encryption setup, these does not follow any kind of packetges in the cpp file as they are expected in order and what data will arive
+
+def handle_call({socket, ["st", "hsk"]}, _from, state) do
     {pubstr, _} = state.rsa
     TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(pubstr)))
     {:reply ,state, state}
   end
 
   def handle_call({socket, address, port, ["notify", "me", "server"]}, _from, state) do
-    UDP.send_udp_msg(socket, address, port, <<TCP.port::big-16>>)
+    UDP.send_udp_message(socket, address, port, <<TCP.port::big-16>>)
     {:reply ,state, state}
   end
 
@@ -314,9 +318,18 @@ defmodule Router do
       IO.puts("Registered user: #{inspect currentID}")
 
       ##Send back the tcp response
-      TCP.send_tpc_message(socket, Utility.add_header_to_str(Base.encode64(AES.encrypt("ok-::-" <>  currentID <> "-::-" <> displayName, key))))
+      :gen_tcp.send(socket, Utility.add_header_to_str(Utility.add_header_to_str(Base.encode64(
+                                                        AES.encrypt(
+                                                          Utility.add_header_to_str("ok-::-" <>  currentID <> "-::-" <> displayName),
+                                                          key
+                                                        )
+                                                       )
+                                                      )
+                  ))
       {:reply , {:user_rg, currentID}, state}
   end
+
+##-------------------------------------------------------------------------------------------------------------------------------------------------
 
   def handle_call(msg, _from, state) do
     IO.puts("Could not handle call message #{inspect msg}")
