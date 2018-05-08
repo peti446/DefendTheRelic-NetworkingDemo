@@ -64,10 +64,9 @@ defmodule Router do
   end
 
   def handle_call({socket, [userID, "2", newName]}, _from, state) do
-
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
-        duplicated = Enum.any?(state.players, fn {k , v} ->
+        duplicated = Enum.any?(state.players, fn {_ , v} ->
           v.display_name == newName
         end)
         case duplicated do
@@ -83,6 +82,29 @@ defmodule Router do
         end
       :error ->
         IO.puts("Could not change the displayname to #{inspect newName} from #{inspect userID}. Player is not regisrted????? This should not be possible!! Maybe MIA??")
+        {:reply ,state, state}
+    end
+  end
+
+  def handle_call({socket, [userID, "4", "-1create", t1_p1, t1_p2, t2_p1, t2_p2]}, _from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        id = Utility.random_string(16)
+        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2})
+        userMap = Map.put(userMap, :where_at, "GameLobby-::-" <> id)
+        playerMap = Map.put(state.players, userID, userMap)
+        state = Map.put(state, :players, playerMap)
+
+        lobbyMSG = Utility.add_header_to_str(id) <> Utility.add_header_to_str(t1_p1) <> Utility.add_header_to_str(t1_p2) <> Utility.add_header_to_str(t2_p1) <> Utility.add_header_to_str(t2_p2)
+        Enum.each(state.players, fn {_,v} ->
+          if(v.where_at  == "lobby") do
+            TCP.send_tpc_message(v.tcp_socker, 4, lobbyMSG)
+          end
+        end)
+        TCP.send_tpc_message(socket, 4, lobbyMSG)
+        {:reply, state, state}
+      :error->
+        IO.puts("Recived create lobby message from user #{inspect userID} but the user is not registered ?");
         {:reply ,state, state}
     end
   end
@@ -110,7 +132,7 @@ defmodule Router do
       state = newMap
       ##Create a player entri in the map
       displayName = Utility.random_string_32encode(8)
-      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName})
+      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName, where_at: "lobby"})
 
       ##For debug porpuses
       IO.puts("Registered user: #{inspect currentID}")

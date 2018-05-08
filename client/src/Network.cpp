@@ -9,6 +9,7 @@
 #include "Logger.hpp"
 #include "EmptyNetMessage.hpp"
 #include "DisplayNameUpdate.hpp"
+#include "CreateGameLobbyNetMessage.hpp"
 
 Network::Network()
 {
@@ -297,6 +298,7 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
     NetMessage* returnM = nullptr;
     sf::Uint16 type;
     p >> type;
+    Log(l_DEBUG) << "Got message of type: " << type;
     switch((eNetMessageType)type)
     {
     case eNetMessageType::eEncrypted:
@@ -313,6 +315,12 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
     case eNetMessageType::eDisplayNameUpdate:
         {
             returnM = new DisplayNameUpdate();
+            returnM->BuildMessage(p);
+            break;
+        }
+    case eNetMessageType::eCreateGameLobby:
+        {
+            returnM = new CreateGameLobbyNetMessage();
             returnM->BuildMessage(p);
             break;
         }

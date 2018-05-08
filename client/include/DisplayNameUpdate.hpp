@@ -10,7 +10,7 @@ class DisplayNameUpdate : public NetMessage
         DisplayNameUpdate(const std::string& s = "");
         virtual ~DisplayNameUpdate();
 
-        void BuildMessage(sf::Packet p) final override;
+        void BuildMessage(sf::Packet& p) final override;
         eNetMessageType getType() const final override;
         sf::Packet BuildPacket() const final override;
 

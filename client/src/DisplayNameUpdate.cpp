@@ -11,7 +11,7 @@ DisplayNameUpdate::~DisplayNameUpdate()
     //dtor
 }
 
-void DisplayNameUpdate::BuildMessage(sf::Packet p)
+void DisplayNameUpdate::BuildMessage(sf::Packet& p)
 {
     p >> DisplayName;
 }

@@ -11,7 +11,7 @@ class EmptyNetMessage : public NetMessage
         virtual ~EmptyNetMessage();
 
 
-        void BuildMessage(sf::Packet p) final override;
+        void BuildMessage(sf::Packet& p) final override;
         eNetMessageType getType() const final override;
         sf::Packet BuildPacket() const final override;
     protected:

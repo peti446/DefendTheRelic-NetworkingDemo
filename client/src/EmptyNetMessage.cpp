@@ -10,7 +10,7 @@ EmptyNetMessage::~EmptyNetMessage()
     //dtor
 }
 
-void EmptyNetMessage::BuildMessage(sf::Packet p)
+void EmptyNetMessage::BuildMessage(sf::Packet& p)
 {
 
 }

@@ -29,13 +29,16 @@ void ChangeDisplayNameScene::HandleNetworkInput(NetMessage* msg)
     {
         GameEngine::Instance().getNetworkManager().HandleChangeDN((DisplayNameUpdate*)msg);
         GameEngine::Instance().getSceneManager().setActiveScene(*new GlobalLobbyScene());
-    } else if(msg->getType() == eNetMessageType::eEmpty)
+        return;
+    }
+    if(msg->getType() == eNetMessageType::eEmpty)
     {
         m_error->setText("Username is taken! Chose another one :)");
         m_changeButton->enable();
         m_exitButton->enable();
         m_textBox->enable();
     }
+    delete msg;
 }
 
 
@@ -78,7 +81,7 @@ bool ChangeDisplayNameScene::LoadScene()
     Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*2.0f/1280.f), windowHeight*25.f/720.f);
     m_gui.add(Title);
     sf::Vector2f titlePos = Title->getPosition();
-    titlePos.x += 15f*windowWidthINT/1280.f;
+    titlePos.x += 15.f*windowWidthINT/1280.f;
 
     /*
     *  Create the text box to input the new name
