@@ -29,6 +29,12 @@ void ChangeDisplayNameScene::HandleNetworkInput(NetMessage* msg)
     {
         GameEngine::Instance().getNetworkManager().HandleChangeDN((DisplayNameUpdate*)msg);
         GameEngine::Instance().getSceneManager().setActiveScene(*new GlobalLobbyScene());
+    } else if(msg->getType() == eNetMessageType::eEmpty)
+    {
+        m_error->setText("Username is taken! Chose another one :)");
+        m_changeButton->enable();
+        m_exitButton->enable();
+        m_textBox->enable();
     }
 }
 
@@ -69,19 +75,20 @@ bool ChangeDisplayNameScene::LoadScene()
     Title->setTextSize(windowWidthINT*75/1280);
     Title->setTextColor(sf::Color::White);
     Title->setText("Change Name");
-    Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*2.0f/720.f), windowHeight*25.f/720.f);
+    Title->setPosition((windowWidth/2.0f)-(Title->getSize().x*windowWidth*2.0f/1280.f), windowHeight*25.f/720.f);
     m_gui.add(Title);
     sf::Vector2f titlePos = Title->getPosition();
+    titlePos.x += 15f*windowWidthINT/1280.f;
 
     /*
     *  Create the text box to input the new name
     */
-    titlePos.y += 45.f*windowHeightINT/720.f;
-    tgui::TextBox::Ptr textbox = m_theme->load("TextBox");
-    textbox->setSize(windowWidth/3.0967f, windowHeight/21.6f);
-    textbox->setPosition(titlePos);
-    textbox->setText(GameEngine::Instance().getNetworkManager().getDisplayName());
-    m_gui.add(textbox);
+    titlePos.y += 110.f*windowHeightINT/720.f;
+    m_textBox = m_theme->load("TextBox");
+    m_textBox->setSize(windowWidth/3.0967f, windowHeight/21.6f);
+    m_textBox->setPosition(titlePos);
+    m_textBox->setText(GameEngine::Instance().getNetworkManager().getDisplayName());
+    m_gui.add(m_textBox);
 
 
     /*
@@ -93,18 +100,18 @@ bool ChangeDisplayNameScene::LoadScene()
     m_changeButton->setPosition(titlePos);
     m_changeButton->setText("Change");
     m_gui.add(m_changeButton);
-    m_changeButton->connect("pressed", &ChangeDisplayNameScene::onChangeClick, this, std::bind(&tgui::TextBox::getText, textbox));
+    m_changeButton->connect("pressed", &ChangeDisplayNameScene::onChangeClick, this, std::bind(&tgui::TextBox::getText, m_textBox));
 
     /*
     *   Create the cancel Button and add it to the gui
     */
     titlePos.y += 60.f*windowHeightINT/720.f;
-    tgui::Button::Ptr closeButton = m_theme->load("Button");
-    closeButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
-    closeButton->setPosition(titlePos);
-    closeButton->setText("Back to Lobby");
-    m_gui.add(closeButton);
-    closeButton->connect("pressed", &ChangeDisplayNameScene::onClickCancel, this);
+    m_exitButton = m_theme->load("Button");
+    m_exitButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
+    m_exitButton->setPosition(titlePos);
+    m_exitButton->setText("Back to Lobby");
+    m_gui.add(m_exitButton);
+    m_exitButton->connect("pressed", &ChangeDisplayNameScene::onClickCancel, this);
 
     /*
     *   Error msg label
@@ -126,17 +133,17 @@ bool ChangeDisplayNameScene::UnloadScene()
 }
 void ChangeDisplayNameScene::onChangeClick(std::string newName)
 {
-    //m_changeButton->disable();
-    //m_exitButton->disable();
-    //m_textBox->disable();
+    m_changeButton->disable();
+    m_exitButton->disable();
+    m_textBox->disable();
     m_couldChange = GameEngine::Instance().getNetworkManager().send_tcp(new DisplayNameUpdate(newName));
     if(!m_couldChange)
     {
         m_error->setText("Could not start the server!");
-       // m_changeButton->enable();
-       // m_exitButton->enable();
+        m_changeButton->enable();
+        m_exitButton->enable();
         m_exitButton->setText("Return to Main Menu");
-      //  m_textBox->enable();
+        m_textBox->enable();
     } else
     {
         m_error->setText("Changing name ...");

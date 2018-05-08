@@ -65,7 +65,6 @@ defmodule TCP do
     end
 
     def send_tpc_message(socket, type, msg) do
-      <<type::unsigned-big-integer-16>> = type
-      :gen_tcp.send(socket, Utility.add_header_to_str(type <> msg))
+      :gen_tcp.send(socket, Utility.add_header_to_str(<<type::unsigned-big-integer-16>> <> msg))
     end
 end

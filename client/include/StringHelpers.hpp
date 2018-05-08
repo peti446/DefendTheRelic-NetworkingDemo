@@ -4,6 +4,8 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include <SFML/Network/Packet.hpp>
+#include <Cryptopp/Filters.h>
 
 class StringHelpers
 {
@@ -27,6 +29,13 @@ class StringHelpers
             }
             tokens.push_back(str);
             return tokens;
+        }
+
+        static std::string convertPacketToString(const sf::Packet& p)
+        {
+            std::string returnValue;
+            CryptoPP::ArraySource as(((CryptoPP::byte*)p.getData())+4, p.getDataSize()-4, true, new CryptoPP::StringSink(returnValue));
+            return returnValue;
         }
 
     protected:

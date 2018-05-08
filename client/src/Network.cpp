@@ -17,10 +17,6 @@ Network::Network()
 Network::~Network()
 {
     Disconnect();
-    if(m_udpReciveThread.joinable())
-        m_udpReciveThread.join();
-    if(m_tcpReciveThread.joinable())
-        m_tcpReciveThread.join();
 }
 
 bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, size_t amoutOfConnectionAttempts)
@@ -185,11 +181,23 @@ bool Network::send_tcp(NetMessage* message, bool encrypt)
         return false;
 
     bool br = true;
+
+    std::string str_toSend = m_registredName + "-::-";
+    if(encrypt)
+    {
+        str_toSend += "1-::-" + StringHelpers::convertPacketToString(message->BuildEncryptPacket(m_aesKey));
+    }
+    else
+    {
+        str_toSend += StringHelpers::convertPacketToString(message->BuildPacket());
+    }
+    Log(l_DEBUG) <<  "Sending over tcp: " << str_toSend;
     sf::Packet pToSend;
-    pToSend << m_registredName <<  "-::-1" << << message->BuildEncryptPacket(m_aesKey);
+    pToSend << str_toSend;
     if(m_tcpSocket.send(pToSend) != sf::Socket::Done)
     {
         Log(l_CRITICAL) << "Could not send tcp packet to the server";
+        br = false;
     }
     delete message;
     return br;
@@ -201,8 +209,18 @@ bool Network::send_udp(NetMessage* message, bool encrypt)
         return false;
 
     bool br = true;
+    std::string str_toSend = m_registredName + "-::-";
+    if(encrypt)
+    {
+        str_toSend += "1-::-" + StringHelpers::convertPacketToString(message->BuildEncryptPacket(m_aesKey));
+    }
+    else
+    {
+        str_toSend += StringHelpers::convertPacketToString(message->BuildPacket());
+    }
+    Log(l_DEBUG) <<  "Sending over udp: " << str_toSend;
     sf::Packet pToSend;
-    pToSend << m_registredName << "-::-1" << message->BuildEncryptPacket(m_aesKey);
+    pToSend << str_toSend;
     if(m_udpSocket.send(pToSend, m_serverData.IP, m_serverData.udp_port) != sf::Socket::Done)
     {
         Log(l_CRITICAL) << "Could not send udp packet to the server";
@@ -227,6 +245,10 @@ void Network::Disconnect()
     m_connected = false;
     m_tcpSocket.disconnect();
     m_udpSocket.unbind();
+    if(m_udpReciveThread.joinable())
+        m_udpReciveThread.join();
+    if(m_tcpReciveThread.joinable())
+        m_tcpReciveThread.join();
 }
 
 ConcurrentQueue<NetMessage*>& Network::getQueue()

@@ -50,13 +50,37 @@ defmodule Router do
   end
 
   ##Call handles
-  def handle_call({socket, [userID, "2", newName]}, _from, state) do
+  def handle_call({socket, [userID, "1", encrpted]}, from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
-        userMap = Map.put(userMap, :display_name, newName);
-        state = Map.put(state, :players, userMap)
-        TCP.send_tpc_message(socket, 2, Utility.add_header_to_str(newName));
+        {:ok, aesCipher} = Base.decode64(encrpted, ignore: :whitespace)
+        {:ok, aesKey} = Map.fetch(userMap, :aesKey)
+        str = AES.decrypt(aesCipher, aesKey)
+        Router.handle_call({socket,[userID | Utility.networkStringSplitter(str)]}, from, state)
+      :error ->
+        IO.puts("Recived encrypted message from user #{inspect userID} but the user is not registered ?");
         {:reply ,state, state}
+    end
+  end
+
+  def handle_call({socket, [userID, "2", newName]}, _from, state) do
+
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        duplicated = Enum.any?(state.players, fn {k , v} ->
+          v.display_name == newName
+        end)
+        case duplicated do
+          true ->
+            TCP.send_tpc_message(socket, 0, Utility.add_header_to_str(""));
+            {:reply ,state, state}
+          false->
+            userMap = Map.put(userMap, :display_name, newName);
+            playerMap = Map.put(state.players, userID, userMap)
+            state = Map.put(state, :players, playerMap)
+            TCP.send_tpc_message(socket, 2, Utility.add_header_to_str(newName));
+            {:reply ,state, state}
+        end
       :error ->
         IO.puts("Could not change the displayname to #{inspect newName} from #{inspect userID}. Player is not regisrted????? This should not be possible!! Maybe MIA??")
         {:reply ,state, state}
@@ -86,7 +110,7 @@ defmodule Router do
       state = newMap
       ##Create a player entri in the map
       displayName = Utility.random_string_32encode(8)
-      state = Kernel.put_in(state, [:players, currentID], [tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName])
+      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName})
 
       ##For debug porpuses
       IO.puts("Registered user: #{inspect currentID}")

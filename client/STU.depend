@@ -698,21 +698,27 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1525722608 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
+1525737826 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
 	<SFML/Network.hpp>
 	"AESHelper.hpp"
+	"Logger.hpp"
+	"StringHelpers.hpp"
 
-1525567591 e:\2º year\networking\ica-networkinggame\client\include\stringhelpers.hpp
+1525737892 e:\2º year\networking\ica-networkinggame\client\include\stringhelpers.hpp
 	<sstream>
 	<vector>
 	<iostream>
+	<SFML/Network/Packet.hpp>
+	<Cryptopp/Filters.h>
 
-1525690468 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
+1525739422 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
 	"GameEngine.hpp"
 	"Logger.hpp"
 	"Scene.hpp"
 	"MainMenuScene.hpp"
 	"StringHelpers.hpp"
+	"ConcurrentQueue.hpp"
+	"NetMessage.hpp"
 
 1525725582 e:\2º year\networking\ica-networkinggame\client\include\scene.hpp
 	<string>
@@ -1022,12 +1028,12 @@
 1525636687 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
 	"Logger.hpp"
 
-1525722858 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
+1525737902 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
 	"NetMessage.hpp"
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525731301 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525737798 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1262,7 +1268,7 @@
 	<Scene.hpp>
 	<future>
 
-1525693275 source:e:\2º year\networking\ica-networkinggame\client\src\connecttoonlineserver.cpp
+1525735703 source:e:\2º year\networking\ica-networkinggame\client\src\connecttoonlineserver.cpp
 	"ConnectToOnlineServer.hpp"
 	"MainMenuScene.hpp"
 	"ConnectingToServerScene.h"
@@ -1270,7 +1276,7 @@
 1525693125 e:\2º year\networking\ica-networkinggame\client\include\connecttoonlineserver.hpp
 	<Scene.hpp>
 
-1525733224 source:e:\2º year\networking\ica-networkinggame\client\src\displaynameupdate.cpp
+1525738882 source:e:\2º year\networking\ica-networkinggame\client\src\displaynameupdate.cpp
 	"DisplayNameUpdate.hpp"
 	"StringHelpers.hpp"
 
@@ -1283,7 +1289,7 @@
 1525722414 e:\2º year\networking\ica-networkinggame\client\include\emptynetmessage.hpp
 	<NetMessage.hpp>
 
-1525730049 source:e:\2º year\networking\ica-networkinggame\client\src\changedisplaynamescene.cpp
+1525743666 source:e:\2º year\networking\ica-networkinggame\client\src\changedisplaynamescene.cpp
 	"ChangeDisplayNameScene.hpp"
 	"GlobalLobbyScene.hpp"
 	"MainMenuScene.hpp"

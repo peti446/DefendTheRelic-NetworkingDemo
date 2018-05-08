@@ -84,6 +84,8 @@ bool ConnectToOnlineServer::LoadScene()
     textbox->setPosition(titlePos);
     if(m_offlineAddres != sf::IpAddress::None)
         textbox->setText(StringHelpers::toString(m_offlineAddres));
+    else
+       textbox->setText("localhost");
     m_gui.add(textbox);
 
 
@@ -108,6 +110,8 @@ bool ConnectToOnlineServer::LoadScene()
     serverPortTextBox->setPosition(titlePos);
     if(m_offlineAddres != sf::IpAddress::None)
         serverPortTextBox->setText(StringHelpers::toString(m_offlinePort));
+    else
+        serverPortTextBox->setText("13001");
     m_gui.add(serverPortTextBox);
 
 

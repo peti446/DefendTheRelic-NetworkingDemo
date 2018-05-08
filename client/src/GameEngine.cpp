@@ -3,6 +3,8 @@
 #include "Scene.hpp"
 #include "MainMenuScene.hpp"
 #include "StringHelpers.hpp"
+#include "ConcurrentQueue.hpp"
+#include "NetMessage.hpp"
 
 const sf::Time GameEngine::TimePerFrame = sf::seconds(1.f/60.f);
 
@@ -60,6 +62,7 @@ void GameEngine::GameLoop()
     Log(l_DEBUG) << "Starting Game Loop";
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    ConcurrentQueue<NetMessage*>& networMessages = m_net.getQueue();
     while (m_GameWindow.isOpen())
     {
         //Update statistics numbers
@@ -83,6 +86,17 @@ void GameEngine::GameLoop()
         while (timeSinceLastUpdate > TimePerFrame)
         {
             timeSinceLastUpdate -= TimePerFrame;
+
+            //Handle network mesagges since last frame
+            size_t qSize = networMessages.size();
+            for(size_t i = 0; i < qSize; i++)
+            {
+                NetMessage* out;
+                if(networMessages.try_pop(out))
+                {
+                    s->HandleNetworkInput(out);
+                }
+            }
 
             sf::Event e;
             while (m_GameWindow.pollEvent(e))

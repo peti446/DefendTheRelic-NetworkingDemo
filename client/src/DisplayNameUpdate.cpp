@@ -24,6 +24,6 @@ eNetMessageType DisplayNameUpdate::getType() const
 sf::Packet DisplayNameUpdate::BuildPacket() const
 {
     sf::Packet p;
-    p << StringHelpers::toString((sf::Uint16)getType()) << "-::-" << DisplayName;
+    p << StringHelpers::toString((sf::Uint16)getType()) + "-::-" + DisplayName;
     return p;
 }

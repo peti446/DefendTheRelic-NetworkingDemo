@@ -2,6 +2,8 @@
 #define NETMESSAGE_H
 #include <SFML/Network.hpp>
 #include "AESHelper.hpp"
+#include "Logger.hpp"
+#include "StringHelpers.hpp"
 
 
 enum class eNetMessageType

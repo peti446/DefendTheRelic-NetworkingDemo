@@ -14,12 +14,9 @@ NetMessage::~NetMessage()
 
 sf::Packet NetMessage::BuildEncryptPacket(const CryptoPP::SecByteBlock& key) const
 {
-    sf::Packet p = BuildPacket();
-    std::string toEncrypt;
-    CryptoPP::ArraySource as((CryptoPP::byte*)p.getData(), p.getDataSize(), true, new CryptoPP::StringSink(toEncrypt));
-    std::string cipher = AESHelper::encryptCombineIV(key, toEncrypt);
+    std::string cipher = AESHelper::encryptCombineIV(key, StringHelpers::convertPacketToString(BuildPacket()));
     Base64Helper::encode((CryptoPP::byte*)cipher.c_str(), cipher.size(), cipher);
-    p.clear();
+    sf::Packet p;
     p << cipher;
     return p;
 }
