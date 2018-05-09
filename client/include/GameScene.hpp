@@ -3,6 +3,10 @@
 
 #include <Scene.hpp>
 #include <vector>
+#include <unordered_map>
+
+class Entity;
+class PlayerEntity;
 
 
 class GameScene : public Scene
@@ -22,8 +26,11 @@ class GameScene : public Scene
     private:
         bool LoadScene() final override;
         bool UnloadScene() final override;
+        void InstanciateBullet(PlayerEntity& whoIsShooting, float speed);
 
-        std::vector<int>
+        std::vector<Entity*> m_bullets;
+        std::vector<Entity*> m_Activebullets;
+        std::unordered_map<std::string ,Entity*> m_players;
 };
 
 #endif // GAMESCENE_HPP

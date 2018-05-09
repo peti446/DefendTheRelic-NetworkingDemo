@@ -187,4 +187,9 @@ Network& GameEngine::getNetworkManager()
     return m_net;
 }
 
+TextureManager& GameEngine::getTextureManager()
+{
+    return m_texture_manager;
+}
+
 

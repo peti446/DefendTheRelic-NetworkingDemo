@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-Entity::Entity() : m_active(false), m_hp(100), m_texture(), m_pos(0,0), m_oldPos(0,0), m_directon(eEntityDirection::eStaticEntity), m_sprite(), m_Active(false), m_side(eNeutral), m_speed(10)
+Entity::Entity() : m_active(false), m_hp(100), m_texture(), m_pos(0,0), m_oldPos(0,0), m_dir(eEntityDirection::eStaticEntity), m_sprite(), m_side(eEntitySide::eNeutral), m_speed(10)
 {
 }
 
@@ -24,7 +24,7 @@ void Entity::Damage(int damage)
 
 void Entity::Heal(int healAmount)
 {
-    hp += healAmount;
+    m_hp += healAmount;
     if(!isDead())
         setActive(true);
 }
@@ -65,26 +65,26 @@ void Entity::setTexture(const sf::Texture& newTexture)
 
 void Entity::setDirection(eEntityDirection newDire, bool shouldRotate)
 {
-    m_directon = newDire;
+    m_dir = newDire;
     if(shouldRotate)
     {
-        switch(m_directon)
+        switch(m_dir)
         {
             case eEntityDirection::eNorth:
                     //0 Degrees as the input texture is expected to be up and then rotated based on direction
-                    sf::Sprite.setRotation(0);
+                    m_sprite.setRotation(0);
                 break;
             case eEntityDirection::eSorth:
                     //180 Degrees
-                    sf::Sprite.setRotation(3.14159f);
+                    m_sprite.setRotation(3.14159f);
                 break;
             case eEntityDirection::eEast:
                     //90 Degrees
-                    sf::Sprite.setRotation(1.5708f);
+                    m_sprite.setRotation(1.5708f);
                 break;
             case eEntityDirection::eWest:
                     //270 Degrees
-                    sf::Sprite.setRotation(4.71239f);
+                    m_sprite.setRotation(4.71239f);
                 break;
         }
     }
@@ -105,17 +105,17 @@ void Entity::setSpeed(float speed)
     m_speed = speed;
 }
 
-const Vector2f& Entity::getPos() const
+const sf::Vector2f& Entity::getPos() const
 {
     return m_pos;
 }
 
-const Vector2f& Entity::getOldPos() const
+const sf::Vector2f& Entity::getOldPos() const
 {
     return m_oldPos;
 }
 
-const Texture& Entity::getTexture() const
+const sf::Texture& Entity::getTexture() const
 {
     return m_texture;
 }
@@ -125,29 +125,29 @@ int Entity::getHP() const
     return m_hp;
 }
 
-eEntityDirection Entity::getCurrentDirrection() const
+Entity::eEntityDirection Entity::getCurrentDirrection() const
 {
-    return m_directon;
+    return m_dir;
 }
 
-Vector2i Entity::getDirectionVector() const
+sf::Vector2i Entity::getDirectionVector() const
 {
-    switch(m_directon)
+    switch(m_dir)
     {
         case eEntityDirection::eNorth:
-                return sf::vector2i(0,-1);
+                return sf::Vector2i(0,-1);
             break;
         case eEntityDirection::eSorth:
-                return sf::vector2i(0, 1);
+                return sf::Vector2i(0, 1);
             break;
         case eEntityDirection::eEast:
-                return sf::vector2i(1, 0);
+                return sf::Vector2i(1, 0);
             break;
         case eEntityDirection::eWest:
-                return sf::vector2i(-1, 0);
+                return sf::Vector2i(-1, 0);
             break;
     }
-    return sf::vector2i(0, 0);
+    return sf::Vector2i(0, 0);
 }
 
 bool Entity::isActive() const
@@ -155,7 +155,7 @@ bool Entity::isActive() const
     return m_active;
 }
 
-eEntitySide Entity::getEntitySide() const
+Entity::eEntitySide Entity::getEntitySide() const
 {
     return m_side;
 }

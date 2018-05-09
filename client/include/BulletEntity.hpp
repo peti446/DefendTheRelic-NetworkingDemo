@@ -14,7 +14,7 @@ class BulletEntity : public Entity
         void Draw(sf::RenderWindow& rw) final override;
         void Update(const sf::Time& ur) final override;
 
-        void Instansiate(PlayerEntity& whoShoot);
+        void Instansiate(PlayerEntity& whoShoot, float speed);
     protected:
 
     private:

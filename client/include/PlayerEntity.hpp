@@ -7,7 +7,7 @@
 class PlayerEntity : public Entity
 {
     public:
-        PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)& shootFunction);
+        PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)>& shootFunction);
         virtual ~PlayerEntity();
 
         void Draw(sf::RenderWindow& rw) final override;
@@ -26,7 +26,7 @@ class PlayerEntity : public Entity
         int m_ammo;
         int m_maxAmmo;
         std::string m_name;
-        std::function<bool(PlayerEntity&, float)& m_shootFunct;
+        std::function<bool(PlayerEntity&, float)>& m_shootFunct;
 
 };
 

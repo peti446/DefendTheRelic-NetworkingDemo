@@ -264,6 +264,7 @@
 		<Unit filename="include/StringHelpers.hpp">
 			<Option virtualFolder="Helpers/" />
 		</Unit>
+		<Unit filename="include/TextureManager.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/AESHelper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
@@ -344,6 +345,7 @@
 		<Unit filename="src/SceneManager.cpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
+		<Unit filename="src/TextureManager.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

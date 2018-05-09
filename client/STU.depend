@@ -1503,10 +1503,11 @@
 	<mutex>
 	<condition_variable>
 
-1525654131 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameEngine.hpp
+1525868610 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameEngine.hpp
 	<SFML/Graphics.hpp>
 	"SceneManager.hpp"
 	"Network.h"
+	"TextureManager.hpp"
 
 1435661976 /usr/local/SFML-2.2/include/SFML/Graphics.hpp
 	<SFML/Window.hpp>
@@ -2456,7 +2457,7 @@
 1525743920 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/DisplayNameUpdate.hpp
 	<NetMessage.hpp>
 
-1525694301 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/ConnectingToServerScene.cpp
+1525859306 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/ConnectingToServerScene.cpp
 	"ConnectingToServerScene.h"
 	<chrono>
 	"MainMenuScene.hpp"
@@ -2491,7 +2492,7 @@
 1525820594 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/FetchLobbyList.hpp
 	<NetMessage.hpp>
 
-1525822258 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameEngine.cpp
+1525868615 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameEngine.cpp
 	"GameEngine.hpp"
 	"Logger.hpp"
 	"Scene.hpp"
@@ -2515,11 +2516,15 @@
 1525801599 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameLobbyUpdateNetMessage.cpp
 	"GameLobbyUpdateNetMessage.hpp"
 
-1525690302 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameScene.cpp
+1525869156 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameScene.cpp
 	"GameScene.hpp"
+	"BulletEntity.hpp"
+	"PlayerEntity.hpp"
 
-1525690218 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameScene.hpp
+1525868498 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameScene.hpp
 	<Scene.hpp>
+	<vector>
+	<unordered_map>
 
 1525858666 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GlobalLobbyScene.cpp
 	"GlobalLobbyScene.hpp"
@@ -2761,4 +2766,47 @@
 	"Logger.hpp"
 	"Scene.hpp"
 	<algorithm>
+
+1525866225 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/BulletEntity.cpp
+	"BulletEntity.hpp"
+	"PlayerEntity.hpp"
+
+1525866160 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/BulletEntity.hpp
+	<Entity.hpp>
+
+1525869191 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Entity.hpp
+	<SFML/Graphics.hpp>
+	"Logger.hpp"
+	"GameEngine.hpp"
+
+1525866331 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/PlayerEntity.hpp
+	<Entity.hpp>
+	<functional>
+
+1525866653 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Entity.cpp
+	"Entity.hpp"
+
+1525869114 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/TextureManager.hpp
+	<unordered_map>
+	<SFML/Graphics.hpp>
+	<string>
+
+1525861835 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/PickUpEntity.cpp
+	"PickUpEntity.hpp"
+
+1525861834 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/PickUpEntity.hpp
+	<Entity.hpp>
+
+1525869451 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/PlayerEntity.cpp
+	"PlayerEntity.hpp"
+
+1525860300 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/RelicEntity.cpp
+	"RelicEntity.hpp"
+
+1525860360 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/RelicEntity.hpp
+	<Entity.hpp>
+
+1525869580 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/TextureManager.cpp
+	"TextureManager.hpp"
+	"Logger.hpp"
 

@@ -1,8 +1,11 @@
 #include "BulletEntity.hpp"
+#include "PlayerEntity.hpp"
 
-BulletEntity::BulletEntity(const sf::Texture& bulletTexture) : m_active(false), m_hp(1)
+BulletEntity::BulletEntity(const sf::Texture& bulletTexture)
 {
     setTexture(bulletTexture);
+    setActive(false);
+    setHP(0);
 }
 
 BulletEntity::~BulletEntity()
@@ -12,15 +15,17 @@ BulletEntity::~BulletEntity()
 
 void BulletEntity::Draw(sf::RenderWindow& rw)
 {
-
+    if(isActive())
+        rw.draw(m_sprite);
 }
+
 void BulletEntity::Update(const sf::Time& ur)
 {
     if(isActive())
     {
         sf::Vector2i dir = getDirectionVector();
-        dir *= getSpeed();
-        setPos(m_pos + dir);
+        sf::Vector2f newPos  = m_pos + (getSpeed() * sf::Vector2f(dir));
+        setPos(newPos);
     }
 }
 

@@ -11,6 +11,7 @@ class RelicEntity : public Entity
         virtual ~RelicEntity();
 
         void Draw(sf::RenderWindow& rw) final override;
+        void Update(const sf::Time& ur) final override;
 
     protected:
 

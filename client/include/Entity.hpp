@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Logger.hpp"
+#include "GameEngine.hpp"
 
 class Entity
 {
@@ -14,13 +15,13 @@ class Entity
             eWest,
             eEast,
             eStaticEntity
-        }
+        };
         enum class eEntitySide
         {
             eTeam1,
             eTeam2,
             eNeutral
-        }
+        };
 
         Entity();
         virtual ~Entity();
@@ -57,7 +58,7 @@ class Entity
         sf::Vector2f m_pos;
         sf::Vector2f m_oldPos;
         bool m_active;
-        eEntityDirection m_directon;
+        eEntityDirection m_dir;
         eEntitySide m_side;
         float m_speed;
     private:

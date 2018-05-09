@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "SceneManager.hpp"
 #include "Network.h"
+#include "TextureManager.hpp"
 
 class GameEngine
 {
@@ -19,6 +20,8 @@ class GameEngine
         SceneManager& getSceneManager();
         sf::RenderWindow& getRenderWindow();
         Network& getNetworkManager();
+        TextureManager& getTextureManager();
+
 
         static GameEngine& Instance();
     protected:
@@ -37,6 +40,7 @@ class GameEngine
         sf::RenderWindow m_GameWindow;
         SceneManager m_sceneManager;
         Network m_net;
+        TextureManager m_texture_manager;
 
         //Statistis info
         static const sf::Time TimePerFrame;
