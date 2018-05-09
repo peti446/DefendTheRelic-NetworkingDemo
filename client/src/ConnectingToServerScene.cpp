@@ -20,7 +20,7 @@ void ConnectingToServerScene::Draw(sf::RenderWindow& rw)
 
 void ConnectingToServerScene::Update(const sf::Time& ur)
 {
-    if(m_connectToServer.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+    if(m_connectToServer.valid() && m_connectToServer.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
     {
         if(m_connectToServer.get())
         {
@@ -36,6 +36,10 @@ void ConnectingToServerScene::Update(const sf::Time& ur)
                 GameEngine::Instance().getSceneManager().setActiveScene(*new MainMenuScene());
         }
         return;
+    } else if(!m_connectToServer.valid())
+    {
+        Log(l_CRITICAL) << "Future is not valid! Returning to main menu";
+        GameEngine::Instance().getSceneManager().setActiveScene(*new MainMenuScene());
     }
     m_secondsPassed += ur.asSeconds();
     if(m_secondsPassed >= 1.0f)

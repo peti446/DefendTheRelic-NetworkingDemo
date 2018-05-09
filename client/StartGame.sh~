@@ -1,0 +1,4 @@
+!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/lib:/usr/local/SFML-2.2/lib:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux
+bin/Linux/DefendTheRelic
+

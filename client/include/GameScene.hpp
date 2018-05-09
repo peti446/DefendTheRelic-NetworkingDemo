@@ -2,6 +2,7 @@
 #define GAMESCENE_HPP
 
 #include <Scene.hpp>
+#include <vector>
 
 
 class GameScene : public Scene
@@ -12,6 +13,7 @@ class GameScene : public Scene
 
         void Draw(sf::RenderWindow& rw) final override;
         void Update(const sf::Time& ur) final override;
+        void HandleNetworkInput(NetMessage* msg) final override;
         void HandleInput(const sf::Event& event) final override;
         const std::string Name() const final override;
 
@@ -20,6 +22,8 @@ class GameScene : public Scene
     private:
         bool LoadScene() final override;
         bool UnloadScene() final override;
+
+        std::vector<int>
 };
 
 #endif // GAMESCENE_HPP

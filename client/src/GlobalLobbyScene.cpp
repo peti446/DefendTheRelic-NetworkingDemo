@@ -56,8 +56,6 @@ void GlobalLobbyScene::HandleNetworkInput(NetMessage* msg)
                     int newSize =  m_layout->getSize().y - m_lobbySize;
                     if(newSize < 0)
                         newSize = 0;
-                    m_layout->setSize(m_layout->getSize().x, newSize);
-                    m_scroll->setMaximum(newSize);
                     delete m_lobbies.at(cglm->Identifier);
                     m_lobbies.erase(cglm->Identifier);
                 }
@@ -293,7 +291,7 @@ LobbyInfoDisplay::LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::The
     m_joinButton->setSize(width/3.f, 30);
     m_joinButton->setPosition(width - m_joinButton->getSize().x - 5, panelHeight - 30 - 5);
     m_joinButton->setText("Join!");
-    m_joinButton->connect("pressed", &LobbyInfoDisplay::onClickJoin, this, std::bind(tgui::Button::getText, m_joinButton));
+    m_joinButton->connect("pressed", &LobbyInfoDisplay::onClickJoin, this, std::bind(&tgui::Button::getText, m_joinButton));
     m_panel->add(m_joinButton);
 
     m_switchTeam = theme->load("Button");

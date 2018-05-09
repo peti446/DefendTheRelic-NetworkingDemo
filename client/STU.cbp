@@ -6,7 +6,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\GameLobby\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;" />
+		<Option virtualFolders="SceneManagement/;Core Systems/;Helpers/Logger/;Networking/;Helpers/Encryption/;Networking/Message/;Helpers/;Data Structures/;SceneManagement/Scenes/;SceneManagement/Scenes/Options/;SceneManagement/Scenes/MainMenu/;SceneManagement/Scenes/GameLobby/;SceneManagement/Scenes/Lobby/;SceneManagement/Scenes/Game/;SceneManagement/Scenes/ServerConnection/;Networking/Message/Empty/;SceneManagement/Scenes/Change Username/;Networking/Message/Lobby/;Networking/Message/Lobby/DisplayNameUpdate/;Networking/Message/Lobby/Fetch All/;Networking/Message/Lobby/Game Lobby Status Update/;Networking/Message/Lobby/Game Lobby Update/;Entities/;Entities/Player/;Entities/Relic/;Entities/Bullet/;" />
 		<Build>
 			<Target title="Linux">
 				<Option platforms="Unix;Mac;" />
@@ -185,6 +185,9 @@
 		<Unit filename="include/Base64Helper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
+		<Unit filename="include/BulletEntity.hpp">
+			<Option virtualFolder="Entities/Bullet/" />
+		</Unit>
 		<Unit filename="include/ChangeDisplayNameScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Change Username/" />
 		</Unit>
@@ -202,6 +205,9 @@
 		</Unit>
 		<Unit filename="include/EmptyNetMessage.hpp">
 			<Option virtualFolder="Networking/Message/Empty/" />
+		</Unit>
+		<Unit filename="include/Entity.hpp">
+			<Option virtualFolder="Entities/" />
 		</Unit>
 		<Unit filename="include/FetchLobbyList.hpp">
 			<Option virtualFolder="Networking/Message/Lobby/Fetch All/" />
@@ -239,8 +245,15 @@
 		<Unit filename="include/OptionsScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Options/" />
 		</Unit>
+		<Unit filename="include/PickUpEntity.hpp" />
+		<Unit filename="include/PlayerEntity.hpp">
+			<Option virtualFolder="Entities/Player/" />
+		</Unit>
 		<Unit filename="include/RSAHelper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="include/RelicEntity.hpp">
+			<Option virtualFolder="Entities/Relic/" />
 		</Unit>
 		<Unit filename="include/Scene.hpp">
 			<Option virtualFolder="SceneManagement/" />
@@ -258,6 +271,9 @@
 		<Unit filename="src/Base64Helper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
+		<Unit filename="src/BulletEntity.cpp">
+			<Option virtualFolder="Entities/Bullet/" />
+		</Unit>
 		<Unit filename="src/ChangeDisplayNameScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Change Username/" />
 		</Unit>
@@ -272,6 +288,9 @@
 		</Unit>
 		<Unit filename="src/EmptyNetMessage.cpp">
 			<Option virtualFolder="Networking/Message/Empty/" />
+		</Unit>
+		<Unit filename="src/Entity.cpp">
+			<Option virtualFolder="Entities/" />
 		</Unit>
 		<Unit filename="src/FetchLobbyList.cpp">
 			<Option virtualFolder="Networking/Message/Lobby/Fetch All/" />
@@ -309,8 +328,15 @@
 		<Unit filename="src/OptionsScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Options/" />
 		</Unit>
+		<Unit filename="src/PickUpEntity.cpp" />
+		<Unit filename="src/PlayerEntity.cpp">
+			<Option virtualFolder="Entities/Player/" />
+		</Unit>
 		<Unit filename="src/RSAHelper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
+		</Unit>
+		<Unit filename="src/RelicEntity.cpp">
+			<Option virtualFolder="Entities/Relic/" />
 		</Unit>
 		<Unit filename="src/Scene.cpp">
 			<Option virtualFolder="SceneManagement/" />

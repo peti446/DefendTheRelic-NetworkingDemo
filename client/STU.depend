@@ -3,6 +3,8 @@
 	"Logger.hpp"
 	"GameEngine.hpp"
 
+1525725582 e.hpp"
+
 1525643034 e:\2º year\networking\ica-networkinggame\client\include\logger.hpp
 	<mutex>
 	<thread>
@@ -11,15 +13,21 @@
 	<iostream>
 	"ConcurrentQueue.hpp"
 
+1525643034 tQueue.hpp"
+
 1525626260 e:\2º year\networking\ica-networkinggame\client\include\concurrentqueue.hpp
 	<queue>
 	<mutex>
 	<condition_variable>
 
+1525626260 _variable>
+
 1525657731 e:\2º year\networking\ica-networkinggame\client\include\gameengine.hpp
 	<SFML/Graphics.hpp>
 	"SceneManager.hpp"
 	"Network.h"
+
+1525825837 "
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -49,6 +57,8 @@
 	<SFML/Graphics/VertexArray.hpp>
 	<SFML/Graphics/View.hpp>
 
+1486556956 hics/View.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\window.hpp
 	<SFML/System.hpp>
 	<SFML/Window/Context.hpp>
@@ -63,6 +73,8 @@
 	<SFML/Window/Window.hpp>
 	<SFML/Window/WindowHandle.hpp>
 	<SFML/Window/WindowStyle.hpp>
+
+1486556956 ow/WindowStyle.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system.hpp
 	<SFML/Config.hpp>
@@ -84,22 +96,34 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 
+1486556956 em/Vector3.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\config.hpp
 	"TargetConditionals.h"
+
+1486556956 ditionals.h"
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\clock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
+1486556956 em/Time.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\export.hpp
 	<SFML/Config.hpp>
+
+1524318657 ig.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\time.hpp
 	<SFML/System/Export.hpp>
 
+1486556956 em/Export.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\err.hpp
 	<SFML/System/Export.hpp>
 	<ostream>
+
+1523180831 
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\fileinputstream.hpp
 	<SFML/Config.hpp>
@@ -119,6 +143,8 @@
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\lock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
+
+1486556956 em/NonCopyable.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\memoryinputstream.hpp
 	<SFML/Config.hpp>
@@ -142,6 +168,8 @@
 	<string>
 	<SFML/System/String.inl>
 
+1486556956 em/String.inl>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\utf.hpp
 	<SFML/Config.hpp>
 	<algorithm>
@@ -149,6 +177,8 @@
 	<string>
 	<cstdlib>
 	<SFML/System/Utf.inl>
+
+1486556956 em/Utf.inl>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\utf.inl
 
@@ -159,6 +189,8 @@
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 	<SFML/System/Thread.inl>
+
+1486556956 em/Thread.inl>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\thread.inl
 
@@ -171,15 +203,21 @@
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
+1486556956 em/ThreadLocalPtr.inl>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\threadlocalptr.inl
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\vector2.hpp
 	<SFML/System/Vector2.inl>
 
+1486556956 em/Vector2.inl>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\vector2.inl
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\vector3.hpp
 	<SFML/System/Vector3.inl>
+
+1486556956 em/Vector3.inl>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\system\vector3.inl
 
@@ -205,16 +243,24 @@
 	<SFML/Window/Mouse.hpp>
 	<SFML/Window/Sensor.hpp>
 
+1486556956 ow/Sensor.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\window\joystick.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
+1486556956 em/String.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\window\keyboard.hpp
 	<SFML/Window/Export.hpp>
+
+1486556956 ow/Export.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\window\mouse.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
+
+1486556956 em/Vector2.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\window\sensor.hpp
 	<SFML/Window/Export.hpp>
@@ -249,12 +295,16 @@
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\blendmode.hpp
 	<SFML/Graphics/Export.hpp>
 
+1486556956 hics/Export.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\export.hpp
 	<SFML/Config.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\circleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
+
+1486556956 hics/Shape.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\shape.hpp
 	<SFML/Graphics/Export.hpp>
@@ -267,10 +317,14 @@
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderStates.hpp>
 
+1486556956 hics/RenderStates.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\renderstates.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/Transform.hpp>
+
+1486556956 hics/Transform.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\transform.hpp
 	<SFML/Graphics/Export.hpp>
@@ -281,6 +335,8 @@
 	<SFML/System/Vector2.hpp>
 	<algorithm>
 	<SFML/Graphics/Rect.inl>
+
+1486556956 hics/Rect.inl>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\rect.inl
 
@@ -326,10 +382,14 @@
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 
+1486556956 hics/Rect.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\texture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/GlResource.hpp>
+
+1486556956 ow/GlResource.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\image.hpp
 	<SFML/Graphics/Export.hpp>
@@ -365,6 +425,8 @@
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 
+1486556956 hics/RenderTarget.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\renderwindow.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
@@ -388,6 +450,8 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/Graphics/Glsl.inl>
+
+1486556956 hics/Glsl.inl>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\graphics\glsl.inl
 
@@ -418,12 +482,18 @@
 	<Cryptopp/osrng.h>
 	<Cryptopp/modes.h>
 
+1525722873 modes.h>
+
 1525713450 e:\2º year\networking\ica-networkinggame\client\include\aeshelper.hpp
 	<string>
 	<Cryptopp/aes.h>
 
+1525713450 aes.h>
+
 1523180831 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\aes.h
 	"rijndael.h"
+
+1523180831 h"
 
 1523180832 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\rijndael.h
 	"seckey.h"
@@ -472,6 +542,8 @@
 	<stddef.h>
 	<vector.cc>
 
+1525729971 >
+
 1523180832 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\trap.h
 	"config.h"
 	<iostream>
@@ -492,6 +564,8 @@
 	<stdlib.h>
 	<byteswap.h>
 	<x86intrin.h>
+
+1523180831 .h>
 
 1523180832 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\smartptr.h
 	"config.h"
@@ -588,11 +662,15 @@
 	"argnames.h"
 	"strciphr.cpp"
 
+1523180831 cpp"
+
 1523180831 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\argnames.h
 	"cryptlib.h"
 
 1525819045 source:e:\2º year\networking\ica-networkinggame\client\src\base64helper.cpp
 	"Base64Helper.hpp"
+
+1525822191 per.hpp"
 
 1525545104 e:\2º year\networking\ica-networkinggame\client\include\base64helper.hpp
 	<Cryptopp/base64.h>
@@ -611,6 +689,8 @@
 1525629775 source:e:\2º year\networking\ica-networkinggame\client\src\game.cpp
 	"Game.h"
 	"StringHelpers.hpp"
+
+1525747516 pers.hpp"
 
 1525439310 e:\2º year\networking\ica-networkinggame\client\include\game.h
 	<SFML/Graphics.hpp>
@@ -635,6 +715,8 @@
 	<SFML/Network/TcpListener.hpp>
 	<SFML/Network/TcpSocket.hpp>
 	<SFML/Network/UdpSocket.hpp>
+
+1486556956 ork/UdpSocket.hpp>
 
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\network\ftp.hpp
 	<SFML/Network/Export.hpp>
@@ -692,6 +774,8 @@
 	<SFML/Network/Socket.hpp>
 	<SFML/Network/IpAddress.hpp>
 
+1486556956 ork/IpAddress.hpp>
+
 1486556956 e:\2º year\networking\ica-networkinggame\client\windows\sfml\include\sfml\network\udpsocket.hpp
 	<SFML/Network/Export.hpp>
 	<SFML/Network/Socket.hpp>
@@ -710,6 +794,8 @@
 	<iostream>
 	<SFML/Network/Packet.hpp>
 	<Cryptopp/Filters.h>
+
+1525737892 Filters.h>
 
 1525825858 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
 	"GameEngine.hpp"
@@ -768,8 +854,12 @@
 	<TGUI/Widgets/TextBox.hpp>
 	<TGUI/Widgets/ToolTip.hpp>
 
+1524318657 ets/ToolTip.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\clipboard.hpp
 	<TGUI/Global.hpp>
+
+1524318657 al.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\global.hpp
 	<TGUI/Config.hpp>
@@ -796,6 +886,8 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\animation.hpp
 	<TGUI/Widget.hpp>
 
+1524318657 et.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widget.hpp
 	<TGUI/Global.hpp>
 	<TGUI/Signal.hpp>
@@ -804,6 +896,8 @@
 	<TGUI/Color.hpp>
 	<TGUI/Font.hpp>
 	<TGUI/Loading/Deserializer.hpp>
+
+1524318657 ing/Deserializer.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\signal.hpp
 	<TGUI/Global.hpp>
@@ -814,6 +908,8 @@
 	<cassert>
 	<functional>
 
+1524318657 l>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\callback.hpp
 	<map>
 	<list>
@@ -823,6 +919,8 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\transformable.hpp
 	<TGUI/Global.hpp>
 	<TGUI/Layout.hpp>
+
+1524318657 ut.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\layout.hpp
 	<SFML/System/Vector2.hpp>
@@ -862,10 +960,14 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\loading\deserializer.hpp
 	<TGUI/Loading/ObjectConverter.hpp>
 
+1524318657 ing/ObjectConverter.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\loading\objectconverter.hpp
 	<TGUI/Color.hpp>
 	<TGUI/Borders.hpp>
 	<TGUI/Texture.hpp>
+
+1524318657 ure.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\container.hpp
 	<list>
@@ -874,11 +976,17 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\horizontallayout.hpp
 	<TGUI/BoxLayout.hpp>
 
+1524318657 ayout.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\boxlayout.hpp
 	<TGUI/Widgets/Panel.hpp>
 
+1524318657 ets/Panel.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\panel.hpp
 	<TGUI/Container.hpp>
+
+1524318657 ainer.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\verticallayout.hpp
 	<TGUI/BoxLayout.hpp>
@@ -894,6 +1002,8 @@
 	<TGUI/Widget.hpp>
 	<TGUI/Loading/WidgetConverter.hpp>
 	<TGUI/Loading/ThemeLoader.hpp>
+
+1524318657 ing/ThemeLoader.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\loading\widgetconverter.hpp
 	<TGUI/Widget.hpp>
@@ -927,8 +1037,12 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\button.hpp
 	<TGUI/Widgets/Label.hpp>
 
+1524318657 ets/Label.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\label.hpp
 	<TGUI/Widgets/ClickableWidget.hpp>
+
+1524318657 ets/ClickableWidget.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\clickablewidget.hpp
 	<TGUI/Widget.hpp>
@@ -942,11 +1056,15 @@
 	<TGUI/Widgets/Scrollbar.hpp>
 	<deque>
 
+1524318657 ets/Scrollbar.hpp>
+
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\scrollbar.hpp
 	<TGUI/Widget.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\checkbox.hpp
 	<TGUI/Widgets/RadioButton.hpp>
+
+1524318657 ets/RadioButton.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\radiobutton.hpp
 	<TGUI/Widgets/Label.hpp>
@@ -959,6 +1077,8 @@
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\combobox.hpp
 	<TGUI/Widgets/Label.hpp>
 	<TGUI/Widgets/ListBox.hpp>
+
+1524318657 ets/ListBox.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\listbox.hpp
 	<TGUI/Widgets/Scrollbar.hpp>
@@ -980,6 +1100,8 @@
 	<TGUI/Widgets/Label.hpp>
 	<TGUI/Widgets/Button.hpp>
 	<TGUI/Widgets/ChildWindow.hpp>
+
+1524318657 ets/ChildWindow.hpp>
 
 1524318657 e:\2º year\networking\ica-networkinggame\client\windows\tgui\include\tgui\widgets\picture.hpp
 	<TGUI/Widgets/ClickableWidget.hpp>
@@ -1008,11 +1130,15 @@
 1525693910 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyscene.cpp
 	"GameLobbyScene.hpp"
 
+1525693910 Scene.hpp"
+
 1525694069 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
 	<Scene.hpp>
 
 1525693902 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
 	"GameScene.hpp"
+
+1525693902 .hpp"
 
 1525693818 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
 	<Scene.hpp>
@@ -1025,13 +1151,19 @@
 	"GameLobbyStatusChangedNetMessage.h"
 	"FetchLobbyList.hpp"
 
+1525824260 yList.hpp"
+
 1525822077 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
 	<Scene.hpp>
 	"GameLobbyUpdateNetMessage.hpp"
 	<unordered_map>
 
+1525822077 _map>
+
 1525636687 source:e:\2º year\networking\ica-networkinggame\client\src\logger.cpp
 	"Logger.hpp"
+
+1525636687 p"
 
 1525822191 source:e:\2º year\networking\ica-networkinggame\client\src\netmessage.cpp
 	"NetMessage.hpp"
@@ -1051,6 +1183,8 @@
 	"EmptyNetMessage.hpp"
 	"DisplayNameUpdate.hpp"
 	"GameLobbyUpdateNetMessage.hpp"
+
+1525805199 UpdateNetMessage.hpp"
 
 1523180832 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\rsa.h
 	"cryptlib.h"
@@ -1079,6 +1213,8 @@
 	"integer.h"
 	"misc.h"
 	"algebra.cpp"
+
+1523180831 pp"
 
 1523180831 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\modarith.h
 	"cryptlib.h"
@@ -1126,6 +1262,8 @@
 1525552836 e:\2º year\networking\ica-networkinggame\client\include\rsahelper.hpp
 	<Cryptopp/rsa.h>
 	<Cryptopp/pem.h>
+
+1525552836 pem.h>
 
 1503136271 e:\2º year\networking\ica-networkinggame\client\windows\cryptopp\include\cryptopp\pem.h
 	"pubkey.h"
@@ -1242,12 +1380,16 @@
 1525693883 source:e:\2º year\networking\ica-networkinggame\client\src\optionsscene.cpp
 	"OptionsScene.hpp"
 
+1525693883 ene.hpp"
+
 1525693895 e:\2º year\networking\ica-networkinggame\client\include\optionsscene.hpp
 	<Scene.hpp>
 
 1525556209 source:e:\2º year\networking\ica-networkinggame\client\src\rsahelper.cpp
 	"RSAHelper.hpp"
 	<Cryptopp/osrng.h>
+
+1525556209 osrng.h>
 
 1525825837 source:e:\2º year\networking\ica-networkinggame\client\src\scene.cpp
 	"Scene.hpp"
@@ -1263,12 +1405,16 @@
 	"ConnectingToServerScene.h"
 	"ConnectToOnlineServer.hpp"
 
+1525707619 OnlineServer.hpp"
+
 1525697901 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
 	"ConnectingToServerScene.h"
 	<chrono>
 	"MainMenuScene.hpp"
 	"ConnectToOnlineServer.hpp"
 	"GlobalLobbyScene.hpp"
+
+1525697901 byScene.hpp"
 
 1525692548 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
 	<Scene.hpp>
@@ -1278,6 +1424,8 @@
 	"ConnectToOnlineServer.hpp"
 	"MainMenuScene.hpp"
 	"ConnectingToServerScene.h"
+
+1525735703 gToServerScene.h"
 
 1525693125 e:\2º year\networking\ica-networkinggame\client\include\connecttoonlineserver.hpp
 	<Scene.hpp>
@@ -1289,8 +1437,12 @@
 1525747520 e:\2º year\networking\ica-networkinggame\client\include\displaynameupdate.hpp
 	<NetMessage.hpp>
 
+1525824194 e.hpp>
+
 1525747543 source:e:\2º year\networking\ica-networkinggame\client\src\emptynetmessage.cpp
 	"EmptyNetMessage.hpp"
+
+1525747543 essage.hpp"
 
 1525747547 e:\2º year\networking\ica-networkinggame\client\include\emptynetmessage.hpp
 	<NetMessage.hpp>
@@ -1301,6 +1453,8 @@
 	"MainMenuScene.hpp"
 	"DisplayNameUpdate.hpp"
 
+1525753131 meUpdate.hpp"
+
 1525729971 e:\2º year\networking\ica-networkinggame\client\include\changedisplaynamescene.hpp
 	<Scene.hpp>
 
@@ -1310,8 +1464,12 @@
 1525753103 source:e:\2º year\networking\ica-networkinggame\client\src\creategamelobbynetmessage.cpp
 	"CreateGameLobbyNetMessage.hpp"
 
+1525753103 eLobbyNetMessage.hpp"
+
 1525808883 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbystatuschangednetmessage.cpp
 	"GameLobbyStatusChangedNetMessage.h"
+
+1525808883 StatusChangedNetMessage.h"
 
 1525823847 e:\2º year\networking\ica-networkinggame\client\include\gamelobbystatuschangednetmessage.h
 	<NetMessage.hpp>
@@ -1327,4 +1485,1280 @@
 
 1525824194 e:\2º year\networking\ica-networkinggame\client\include\fetchlobbylist.hpp
 	<NetMessage.hpp>
+
+1525693431 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/main.cpp
+	"Logger.hpp"
+	"GameEngine.hpp"
+
+1525639434 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Logger.hpp
+	<mutex>
+	<thread>
+	<sstream>
+	<string>
+	<iostream>
+	"ConcurrentQueue.hpp"
+
+1525622660 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/ConcurrentQueue.hpp
+	<queue>
+	<mutex>
+	<condition_variable>
+
+1525654131 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameEngine.hpp
+	<SFML/Graphics.hpp>
+	"SceneManager.hpp"
+	"Network.h"
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/View.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Config.hpp
+	"TargetConditionals.h"
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Export.hpp
+	<SFML/Config.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Time.hpp
+	<SFML/System/Export.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/InputStream.hpp
+	<SFML/Config.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/NonCopyable.hpp
+	<SFML/System/Export.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/String.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Utf.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/String.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Thread.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/ThreadLocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/ThreadLocalPtr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/ThreadLocalPtr.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Vector2.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/System/Vector3.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Export.hpp
+	<SFML/Config.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/GlResource.hpp
+	<SFML/Window/Export.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/ContextSettings.hpp
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Sensor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/System/Time.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Touch.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/VideoMode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/Window.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/WindowHandle.hpp
+	<SFML/Config.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Window/WindowStyle.hpp
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/BlendMode.hpp
+	<SFML/Graphics/Export.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Export.hpp
+	<SFML/Config.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Color.hpp
+	<SFML/Graphics/Export.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<map>
+	<string>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Rect.inl
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/GlResource.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/RenderStates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/RenderTexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/RenderTarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/View.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Vector2.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/PrimitiveType.hpp
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Vertex.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/RenderWindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Shader.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Shape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Drawable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/VertexArray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/CircleShape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/RectangleShape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/ConvexShape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Graphics/Text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<string>
+	<vector>
+
+1525640073 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/SceneManager.hpp
+	<queue>
+	<deque>
+
+1525726006 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Network.h
+	<SFML/Network.hpp>
+	<thread>
+	"AESHelper.hpp"
+	"ConcurrentQueue.hpp"
+	"NetMessage.hpp"
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network.hpp
+	<SFML/System.hpp>
+	<SFML/Network/Ftp.hpp>
+	<SFML/Network/Http.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/Packet.hpp>
+	<SFML/Network/SocketSelector.hpp>
+	<SFML/Network/TcpListener.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/Network/UdpSocket.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/Ftp.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/Export.hpp
+	<SFML/Config.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/TcpSocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/System/Time.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/Socket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/SocketHandle.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/SocketHandle.hpp
+	<SFML/Config.hpp>
+	<basetsd.h>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/Http.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<map>
+	<string>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/IpAddress.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+	<istream>
+	<ostream>
+	<string>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/Packet.hpp
+	<SFML/Network/Export.hpp>
+	<string>
+	<vector>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/SocketSelector.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/TcpListener.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+
+1435661976 /usr/local/SFML-2.2/include/SFML/Network/UdpSocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<vector>
+
+1525709850 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/AESHelper.hpp
+	<string>
+	<Cryptopp/aes.h>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/aes.h
+	"rijndael.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/rijndael.h
+	"seckey.h"
+	"secblock.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/seckey.h
+	"config.h"
+	"cryptlib.h"
+	"misc.h"
+	"simple.h"
+	"stdcpp.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/config.h
+	<cstddef>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/cryptlib.h
+	"config.h"
+	"stdcpp.h"
+	"trap.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/stdcpp.h
+	<intrin.h>
+	<string>
+	<memory>
+	<exception>
+	<typeinfo>
+	<algorithm>
+	<functional>
+	<utility>
+	<vector>
+	<limits>
+	<deque>
+	<list>
+	<map>
+	<new>
+	<iterator>
+	<atomic>
+	<mutex>
+	<utility>
+	<cstdlib>
+	<cstddef>
+	<cstring>
+	<climits>
+	<cmath>
+	<stdint.h>
+	<stddef.h>
+	<vector.cc>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/trap.h
+	"config.h"
+	<iostream>
+	<sstream>
+	"ossig.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/ossig.h
+	"config.h"
+	<signal.h>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/misc.h
+	"config.h"
+	"cryptlib.h"
+	"stdcpp.h"
+	"smartptr.h"
+	<intrin.h>
+	<mem.h>
+	<stdlib.h>
+	<byteswap.h>
+	<x86intrin.h>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/smartptr.h
+	"config.h"
+	"stdcpp.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/simple.h
+	"config.h"
+	"cryptlib.h"
+	"misc.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/secblock.h
+	"config.h"
+	"stdcpp.h"
+	"misc.h"
+
+1525794939 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/NetMessage.hpp
+	<SFML/Network.hpp>
+	"AESHelper.hpp"
+	"Logger.hpp"
+	"StringHelpers.hpp"
+
+1525855605 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/StringHelpers.hpp
+	<sstream>
+	<vector>
+	<iostream>
+	<SFML/Network/Packet.hpp>
+	<Cryptopp/filters.h>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/filters.h
+	"cryptlib.h"
+	"cryptlib.h"
+	"simple.h"
+	"secblock.h"
+	"misc.h"
+	"smartptr.h"
+	"queue.h"
+	"algparam.h"
+	"stdcpp.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/queue.h
+	"cryptlib.h"
+	"simple.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/algparam.h
+	"config.h"
+	"cryptlib.h"
+	"smartptr.h"
+	"secblock.h"
+	"integer.h"
+	"misc.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/integer.h
+	"cryptlib.h"
+	"secblock.h"
+	"stdcpp.h"
+	<iosfwd>
+
+1525719273 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/AESHelper.cpp
+	"AESHelper.hpp"
+	<Cryptopp/osrng.h>
+	<Cryptopp/modes.h>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/osrng.h
+	"config.h"
+	"cryptlib.h"
+	"randpool.h"
+	"smartptr.h"
+	"fips140.h"
+	"rng.h"
+	"aes.h"
+	"sha.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/randpool.h
+	"cryptlib.h"
+	"filters.h"
+	"secblock.h"
+	"smartptr.h"
+	"aes.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/fips140.h
+	"cryptlib.h"
+	"secblock.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/rng.h
+	"cryptlib.h"
+	"filters.h"
+	"smartptr.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/sha.h
+	"config.h"
+	"iterhash.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/iterhash.h
+	"cryptlib.h"
+	"secblock.h"
+	"misc.h"
+	"simple.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/modes.h
+	"cryptlib.h"
+	"secblock.h"
+	"misc.h"
+	"strciphr.h"
+	"argnames.h"
+	"algparam.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/strciphr.h
+	"config.h"
+	"cryptlib.h"
+	"seckey.h"
+	"secblock.h"
+	"argnames.h"
+	"strciphr.cpp"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/argnames.h
+	"cryptlib.h"
+
+1525815445 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Base64Helper.cpp
+	"Base64Helper.hpp"
+
+1525541504 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Base64Helper.hpp
+	<Cryptopp/base64.h>
+	<string>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/base64.h
+	"cryptlib.h"
+	"basecode.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/basecode.h
+	"cryptlib.h"
+	"filters.h"
+	"algparam.h"
+	"argnames.h"
+
+1525749531 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/ChangeDisplayNameScene.cpp
+	"ChangeDisplayNameScene.hpp"
+	"GlobalLobbyScene.hpp"
+	"MainMenuScene.hpp"
+	"DisplayNameUpdate.hpp"
+
+1525726371 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/ChangeDisplayNameScene.hpp
+	<Scene.hpp>
+
+1525721982 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/Scene.hpp
+	<string>
+	<SFML/Window/Event.hpp>
+	<SFML/Graphics.hpp>
+	<TGUI/TGUI.hpp>
+	"Logger.hpp"
+	"GameEngine.hpp"
+	"StringHelpers.hpp"
+	"NetMessage.hpp"
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/TGUI.hpp
+	<TGUI/Clipboard.hpp>
+	<TGUI/Animation.hpp>
+	<TGUI/Widget.hpp>
+	<TGUI/Container.hpp>
+	<TGUI/HorizontalLayout.hpp>
+	<TGUI/VerticalLayout.hpp>
+	<TGUI/Gui.hpp>
+	<TGUI/Loading/Deserializer.hpp>
+	<TGUI/Loading/Serializer.hpp>
+	<TGUI/Loading/Theme.hpp>
+	<TGUI/Loading/WidgetLoader.hpp>
+	<TGUI/Loading/WidgetSaver.hpp>
+	<TGUI/Widgets/Button.hpp>
+	<TGUI/Widgets/Canvas.hpp>
+	<TGUI/Widgets/ChatBox.hpp>
+	<TGUI/Widgets/CheckBox.hpp>
+	<TGUI/Widgets/ChildWindow.hpp>
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Widgets/ComboBox.hpp>
+	<TGUI/Widgets/EditBox.hpp>
+	<TGUI/Widgets/Grid.hpp>
+	<TGUI/Widgets/Knob.hpp>
+	<TGUI/Widgets/Label.hpp>
+	<TGUI/Widgets/ListBox.hpp>
+	<TGUI/Widgets/MenuBar.hpp>
+	<TGUI/Widgets/MessageBox.hpp>
+	<TGUI/Widgets/Panel.hpp>
+	<TGUI/Widgets/Picture.hpp>
+	<TGUI/Widgets/ProgressBar.hpp>
+	<TGUI/Widgets/RadioButton.hpp>
+	<TGUI/Widgets/Scrollbar.hpp>
+	<TGUI/Widgets/Slider.hpp>
+	<TGUI/Widgets/SpinButton.hpp>
+	<TGUI/Widgets/Tab.hpp>
+	<TGUI/Widgets/TextBox.hpp>
+	<TGUI/Widgets/ToolTip.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Clipboard.hpp
+	<TGUI/Global.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Global.hpp
+	<TGUI/Config.hpp>
+	<TGUI/Borders.hpp>
+	<TGUI/Exception.hpp>
+	<SFML/Graphics.hpp>
+	<iostream>
+	<string>
+	<sstream>
+	<memory>
+	<locale>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Config.hpp
+	<SFML/Config.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Borders.hpp
+	<TGUI/Config.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Exception.hpp
+	<string>
+	<stdexcept>
+	<TGUI/Config.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Animation.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widget.hpp
+	<TGUI/Global.hpp>
+	<TGUI/Signal.hpp>
+	<TGUI/Transformable.hpp>
+	<TGUI/Texture.hpp>
+	<TGUI/Color.hpp>
+	<TGUI/Font.hpp>
+	<TGUI/Loading/Deserializer.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Signal.hpp
+	<TGUI/Global.hpp>
+	<TGUI/Callback.hpp>
+	<map>
+	<deque>
+	<memory>
+	<cassert>
+	<functional>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Callback.hpp
+	<map>
+	<list>
+	<functional>
+	<TGUI/Global.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Transformable.hpp
+	<TGUI/Global.hpp>
+	<TGUI/Layout.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Layout.hpp
+	<SFML/System/Vector2.hpp>
+	<TGUI/Config.hpp>
+	<functional>
+	<memory>
+	<vector>
+	<set>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Texture.hpp
+	<TGUI/TextureData.hpp>
+	<TGUI/TextureManager.hpp>
+	<TGUI/Global.hpp>
+	<functional>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/TextureData.hpp
+	<TGUI/Config.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<memory>
+	<string>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/TextureManager.hpp
+	<TGUI/TextureData.hpp>
+	<TGUI/Config.hpp>
+	<list>
+	<map>
+	<memory>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Color.hpp
+	<TGUI/Global.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Font.hpp
+	<TGUI/Global.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/Deserializer.hpp
+	<TGUI/Loading/ObjectConverter.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/ObjectConverter.hpp
+	<TGUI/Color.hpp>
+	<TGUI/Borders.hpp>
+	<TGUI/Texture.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Container.hpp
+	<list>
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/HorizontalLayout.hpp
+	<TGUI/BoxLayout.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/BoxLayout.hpp
+	<TGUI/Widgets/Panel.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Panel.hpp
+	<TGUI/Container.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/VerticalLayout.hpp
+	<TGUI/BoxLayout.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Gui.hpp
+	<queue>
+	<TGUI/Container.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/Serializer.hpp
+	<TGUI/Loading/ObjectConverter.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/Theme.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Loading/WidgetConverter.hpp>
+	<TGUI/Loading/ThemeLoader.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/WidgetConverter.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/ThemeLoader.hpp
+	<TGUI/Widget.hpp>
+	<memory>
+	<string>
+	<vector>
+	<map>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/WidgetLoader.hpp
+	<TGUI/Loading/WidgetConverter.hpp>
+	<TGUI/Loading/DataIO.hpp>
+	<TGUI/Container.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/DataIO.hpp
+	<TGUI/Config.hpp>
+	<sstream>
+	<memory>
+	<vector>
+	<string>
+	<map>
+	<cstdio>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Loading/WidgetSaver.hpp
+	<TGUI/Loading/WidgetConverter.hpp>
+	<TGUI/Loading/DataIO.hpp>
+	<TGUI/Container.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Button.hpp
+	<TGUI/Widgets/Label.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Label.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ClickableWidget.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Canvas.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ChatBox.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Widgets/Panel.hpp>
+	<TGUI/Widgets/Scrollbar.hpp>
+	<deque>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Scrollbar.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/CheckBox.hpp
+	<TGUI/Widgets/RadioButton.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/RadioButton.hpp
+	<TGUI/Widgets/Label.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ChildWindow.hpp
+	<TGUI/Container.hpp>
+	<TGUI/Widgets/Button.hpp>
+	<TGUI/Widgets/Label.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ComboBox.hpp
+	<TGUI/Widgets/Label.hpp>
+	<TGUI/Widgets/ListBox.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ListBox.hpp
+	<TGUI/Widgets/Scrollbar.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/EditBox.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<regex>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Grid.hpp
+	<TGUI/Container.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Knob.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/MenuBar.hpp
+	<TGUI/Widgets/Label.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/MessageBox.hpp
+	<TGUI/Widgets/Label.hpp>
+	<TGUI/Widgets/Button.hpp>
+	<TGUI/Widgets/ChildWindow.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Picture.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ProgressBar.hpp
+	<TGUI/Widgets/Label.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Slider.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/SpinButton.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/Tab.hpp
+	<TGUI/Widgets/Label.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/TextBox.hpp
+	<TGUI/Widget.hpp>
+
+1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ToolTip.hpp
+	<TGUI/Widgets/Label.hpp>
+
+1525818477 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GlobalLobbyScene.hpp
+	<Scene.hpp>
+	"GameLobbyUpdateNetMessage.hpp"
+	<unordered_map>
+
+1525801546 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameLobbyUpdateNetMessage.hpp
+	<NetMessage.hpp>
+
+1525686799 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/MainMenuScene.hpp
+	<Scene.hpp>
+
+1525743920 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/DisplayNameUpdate.hpp
+	<NetMessage.hpp>
+
+1525694301 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/ConnectingToServerScene.cpp
+	"ConnectingToServerScene.h"
+	<chrono>
+	"MainMenuScene.hpp"
+	"ConnectToOnlineServer.hpp"
+	"GlobalLobbyScene.hpp"
+
+1525859212 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/ConnectingToServerScene.h
+	<Scene.hpp>
+	<future>
+
+1525689525 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/ConnectToOnlineServer.hpp
+	<Scene.hpp>
+
+1525732103 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/ConnectToOnlineServer.cpp
+	"ConnectToOnlineServer.hpp"
+	"MainMenuScene.hpp"
+	"ConnectingToServerScene.h"
+
+1525743916 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/DisplayNameUpdate.cpp
+	"DisplayNameUpdate.hpp"
+	"StringHelpers.hpp"
+
+1525743943 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/EmptyNetMessage.cpp
+	"EmptyNetMessage.hpp"
+
+1525743947 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/EmptyNetMessage.hpp
+	<NetMessage.hpp>
+
+1525820660 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/FetchLobbyList.cpp
+	"FetchLobbyList.hpp"
+
+1525820594 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/FetchLobbyList.hpp
+	<NetMessage.hpp>
+
+1525822258 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameEngine.cpp
+	"GameEngine.hpp"
+	"Logger.hpp"
+	"Scene.hpp"
+	"MainMenuScene.hpp"
+	"StringHelpers.hpp"
+	"ConcurrentQueue.hpp"
+	"NetMessage.hpp"
+
+1525690310 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameLobbyScene.cpp
+	"GameLobbyScene.hpp"
+
+1525690469 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameLobbyScene.hpp
+	<Scene.hpp>
+
+1525805283 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameLobbyStatusChangedNetMessage.cpp
+	"GameLobbyStatusChangedNetMessage.h"
+
+1525820247 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameLobbyStatusChangedNetMessage.h
+	<NetMessage.hpp>
+
+1525801599 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameLobbyUpdateNetMessage.cpp
+	"GameLobbyUpdateNetMessage.hpp"
+
+1525690302 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GameScene.cpp
+	"GameScene.hpp"
+
+1525690218 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameScene.hpp
+	<Scene.hpp>
+
+1525858666 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GlobalLobbyScene.cpp
+	"GlobalLobbyScene.hpp"
+	"MainMenuScene.hpp"
+	"ChangeDisplayNameScene.hpp"
+	"GameLobbyUpdateNetMessage.hpp"
+	"GameLobbyStatusChangedNetMessage.h"
+	"FetchLobbyList.hpp"
+
+1525633087 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Logger.cpp
+	"Logger.hpp"
+
+1525704019 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/MainMenuScene.cpp
+	"MainMenuScene.hpp"
+	"ConnectingToServerScene.h"
+	"ConnectToOnlineServer.hpp"
+
+1525818591 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/NetMessage.cpp
+	"NetMessage.hpp"
+	<Cryptopp/filters.h>
+	"Base64Helper.hpp"
+
+1525822563 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Network.cpp
+	"Network.h"
+	<iostream>
+	<Cryptopp/rsa.h>
+	<Cryptopp/osrng.h>
+	"StringHelpers.hpp"
+	"Base64Helper.hpp"
+	"AESHelper.hpp"
+	"RSAHelper.hpp"
+	"Logger.hpp"
+	"EmptyNetMessage.hpp"
+	"DisplayNameUpdate.hpp"
+	"GameLobbyUpdateNetMessage.hpp"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/rsa.h
+	"cryptlib.h"
+	"pubkey.h"
+	"integer.h"
+	"pkcspad.h"
+	"oaep.h"
+	"emsa2.h"
+	"asn.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/pubkey.h
+	"config.h"
+	"cryptlib.h"
+	"integer.h"
+	"algebra.h"
+	"modarith.h"
+	"filters.h"
+	"eprecomp.h"
+	"fips140.h"
+	"argnames.h"
+	"smartptr.h"
+	"stdcpp.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/algebra.h
+	"config.h"
+	"integer.h"
+	"misc.h"
+	"algebra.cpp"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/modarith.h
+	"cryptlib.h"
+	"integer.h"
+	"algebra.h"
+	"secblock.h"
+	"misc.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/eprecomp.h
+	"cryptlib.h"
+	"integer.h"
+	"algebra.h"
+	"stdcpp.h"
+	"eprecomp.cpp"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/pkcspad.h
+	"cryptlib.h"
+	"pubkey.h"
+	"hashfwd.h"
+	"sha.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/hashfwd.h
+	"config.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/oaep.h
+	"cryptlib.h"
+	"pubkey.h"
+	"sha.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/emsa2.h
+	"cryptlib.h"
+	"pubkey.h"
+	"hashfwd.h"
+	"misc.h"
+	"sha.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/asn.h
+	"cryptlib.h"
+	"filters.h"
+	"smartptr.h"
+	"stdcpp.h"
+	"queue.h"
+	"misc.h"
+
+1525549236 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/RSAHelper.hpp
+	<Cryptopp/rsa.h>
+	<Cryptopp/pem.h>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/pem.h
+	"pubkey.h"
+	"eccrypto.h"
+	"gfpcrypt.h"
+	"integer.h"
+	"dsa.h"
+	"rsa.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/eccrypto.h
+	"config.h"
+	"cryptlib.h"
+	"pubkey.h"
+	"integer.h"
+	"asn.h"
+	"hmac.h"
+	"sha.h"
+	"gfpcrypt.h"
+	"dh.h"
+	"mqv.h"
+	"hmqv.h"
+	"fhmqv.h"
+	"ecp.h"
+	"ec2n.h"
+	"eccrypto.cpp"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/hmac.h
+	"seckey.h"
+	"secblock.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/gfpcrypt.h
+	"config.h"
+	"cryptlib.h"
+	"pubkey.h"
+	"integer.h"
+	"modexppc.h"
+	"algparam.h"
+	"smartptr.h"
+	"sha.h"
+	"asn.h"
+	"hmac.h"
+	"misc.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/modexppc.h
+	"cryptlib.h"
+	"modarith.h"
+	"integer.h"
+	"algebra.h"
+	"eprecomp.h"
+	"smartptr.h"
+	"pubkey.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/dh.h
+	"cryptlib.h"
+	"gfpcrypt.h"
+	"algebra.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/mqv.h
+	"cryptlib.h"
+	"gfpcrypt.h"
+	"modarith.h"
+	"integer.h"
+	"algebra.h"
+	"misc.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/hmqv.h
+	"gfpcrypt.h"
+	"algebra.h"
+	"sha.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/fhmqv.h
+	"gfpcrypt.h"
+	"algebra.h"
+	"sha.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/ecp.h
+	"cryptlib.h"
+	"integer.h"
+	"algebra.h"
+	"modarith.h"
+	"ecpoint.h"
+	"eprecomp.h"
+	"smartptr.h"
+	"pubkey.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/ecpoint.h
+	"cryptlib.h"
+	"integer.h"
+	"algebra.h"
+	"gf2n.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/gf2n.h
+	"cryptlib.h"
+	"secblock.h"
+	"algebra.h"
+	"misc.h"
+	"asn.h"
+	<iosfwd>
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/ec2n.h
+	"cryptlib.h"
+	"gf2n.h"
+	"integer.h"
+	"algebra.h"
+	"ecpoint.h"
+	"eprecomp.h"
+	"smartptr.h"
+	"pubkey.h"
+
+1525604468 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/Cryptopp/include/Cryptopp/dsa.h
+	"cryptlib.h"
+	"gfpcrypt.h"
+
+1525690283 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/OptionsScene.cpp
+	"OptionsScene.hpp"
+
+1525690295 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/OptionsScene.hpp
+	<Scene.hpp>
+
+1525552609 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/RSAHelper.cpp
+	"RSAHelper.hpp"
+	<Cryptopp/osrng.h>
+
+1525822237 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/Scene.cpp
+	"Scene.hpp"
+
+1525646331 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/SceneManager.cpp
+	"SceneManager.hpp"
+	"Logger.hpp"
+	"Scene.hpp"
+	<algorithm>
 

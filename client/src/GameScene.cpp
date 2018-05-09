@@ -19,6 +19,13 @@ void GameScene::Update(const sf::Time& ur)
 
 }
 
+
+void GameScene::HandleNetworkInput(NetMessage* msg)
+{
+
+    delete msg;
+}
+
 void GameScene::HandleInput(const sf::Event& event)
 {
 

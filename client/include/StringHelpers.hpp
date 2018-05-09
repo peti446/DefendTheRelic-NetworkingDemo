@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <SFML/Network/Packet.hpp>
-#include <Cryptopp/Filters.h>
+#include <Cryptopp/filters.h>
 
 class StringHelpers
 {

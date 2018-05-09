@@ -1,6 +1,8 @@
 defmodule Router do
   use GenServer
 
+##Documentation to use https://hexdocs.pm/elixir/1.4.1/
+
   @pName :s6073335_Router
 
   def start_link() do
@@ -38,7 +40,7 @@ defmodule Router do
         IO.puts("Could not destroy it")
         {:noreply, state}
       {_, newmap} ->
-        state = Map.replace!(state, :players, newmap)
+        state = Map.put(state, :players, newmap)
         IO.puts "Destroyed!"
         {:noreply, state}
     end
@@ -202,7 +204,7 @@ defmodule Router do
                     {state, userMap}
                 end
               _ ->
-                state
+                {state, userMap}
             end
             userMap = Map.put(userMap, :display_name, newName)
             playerMap = Map.put(state.players, userID, userMap)
