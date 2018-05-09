@@ -80,7 +80,6 @@ void GameEngine::GameLoop()
             continue;
         }
 
-
         //At this point scene is not null so just execute the normal game loop, using the scenes functions.
         //Updatate once for every #tickintervalNumber seconds, based on the time that has passed since the last update was executed(timeSinceLastUpdate)
         while (timeSinceLastUpdate > TimePerFrame)

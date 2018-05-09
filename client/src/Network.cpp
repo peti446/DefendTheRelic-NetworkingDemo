@@ -274,7 +274,8 @@ void Network::tcp_recive()
     while(m_connected)
     {
         p.clear();
-        if(m_tcpSocket.receive(p) == sf::Socket::Done)
+        sf::Socket::Status s = m_tcpSocket.receive(p);
+        if(s == sf::Socket::Done)
         {
             m_queue.push(unwrap_msg(p));
         }

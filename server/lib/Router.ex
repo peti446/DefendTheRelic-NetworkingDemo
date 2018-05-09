@@ -159,28 +159,44 @@ defmodule Router do
             TCP.send_tpc_message(socket, 0, Utility.add_header_to_str(""));
             {:reply ,state, state}
           false->
-            state = case Utility.networkStringSplitter(userMap.where_at) do
+            {state, userMap} = case Utility.networkStringSplitter(userMap.where_at) do
               ["GameLobby", id] ->
                 case Map.fetch(state.lobbies, id) do
                   {:ok, lobby} ->
+                    newLobby = cond do
+                      lobby.t1_player1 == userMap.display_name ->
+                        Map.put(lobby, :t1_player1, newName)
+                      lobby.t1_player2 == userMap.display_name ->
+                        Map.put(lobby, :t1_player2, newName)
+                      lobby.t2_player1 == userMap.display_name ->
+                        Map.put(lobby, :t2_player1, newName)
+                      lobby.t2_player2 == userMap.display_name ->
+                        Map.put(lobby, :t2_player2, newName)
+                      true->
+                        lobby
+                    end
 
-                  :error
-                    ##Update the player
-                    userMap = Map.put(userMap, :where_at, "Lobby")
+                    ##Update the state lobby
+                    newLobby = Map.put(state.lobbies, id, newLobby)
+                    state = Map.put(state, :lobbies, newLobby)
 
                     ##Send Lobby to all
                     Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
-
-                    ##Update the player map with the new user values
+                    {state , userMap}
+                  :error->
+                    ##Update the player
+                    userMap = Map.put(userMap, :where_at, "Lobby")
                     playerMap = Map.put(state.players, userID, userMap)
-                    Map.put(state, :players, playerMap)
+                    state = Map.put(state, :players, playerMap)
+                    {state, userMap}
                 end
               _ ->
                 state
             end
-            userMap = Map.put(userMap, :display_name, newName);
+            userMap = Map.put(userMap, :display_name, newName)
             playerMap = Map.put(state.players, userID, userMap)
             state = Map.put(state, :players, playerMap)
+            IO.puts("#{inspect state.players}")
             TCP.send_tpc_encrypted_message(socket, 2, Utility.add_header_to_str(newName), userMap.aesKey);
             {:reply ,state, state}
         end
