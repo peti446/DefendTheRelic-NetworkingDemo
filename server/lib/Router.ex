@@ -134,6 +134,17 @@ defmodule Router do
     lobby.t2_player2 == "NONE"
   end
 
+  def get_player_team(name, lobby) do
+    cond do
+      lobby.t1_player1 == name or lobby.t1_player2 == name ->
+        :team_1
+      lobby.t2_player1 == name or lobby.t2_player2 == name ->
+        :team_2
+      true ->
+        :none
+    end
+  end
+
   ##Call handles
   def handle_call({socket, [userID, "1", encrpted]}, from, state) do
     case Map.fetch(state.players, userID) do
@@ -312,10 +323,46 @@ defmodule Router do
     end
   end
 
-  def handle_call({socket, [userID, "5", id, "switch"]}, _from, state) do
+  def handle_call({_socket, [userID, "5", id, "switch"]}, _from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
-        {:reply ,state, state}
+        case Map.fetch(state.lobbies, id) do
+          {:ok, lobby} ->
+            team = Router.get_player_team(userMap.display_name, lobby)
+            {lobby, userMap} = Router.remove_player_fom_lobby(lobby, userMap)
+            case team do
+              :team_1 ->
+                cond do
+                  lobby.t2_player1 == "NONE" ->
+                    state = Map.put(state, :lobbies, Map.put(state.lobbies, id, Map.put(lobby, :t2_player1, userMap.display_name)))
+                    Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+                    {:reply ,state, state}
+                  lobby.t2_player2 == "NONE" ->
+                    state = Map.put(state, :lobbies, Map.put(state.lobbies, id, Map.put(lobby, :t2_player2, userMap.display_name)))
+                    Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+                    {:reply ,state, state}
+                  true->
+                    {:reply ,state, state}
+                end
+              :team_2->
+                cond do
+                  lobby.t1_player1 == "NONE" ->
+                    state = Map.put(state, :lobbies, Map.put(state.lobbies, id, Map.put(lobby, :t1_player1, userMap.display_name)))
+                    Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+                    {:reply ,state, state}
+                  lobby.t1_player2 == "NONE" ->
+                    state = Map.put(state, :lobbies, Map.put(state.lobbies, id, Map.put(lobby, :t1_player2, userMap.display_name)))
+                    Router.send_GameLobbyUpdate_to_all(id, state.players, state.lobbies)
+                    {:reply ,state, state}
+                  true->
+                    {:reply ,state, state}
+                end
+              :none ->
+                {:reply ,state, state}
+            end
+          :error ->
+            {:reply ,state, state}
+        end
       :error ->
         IO.puts("Recived switch team in game lobby from user #{inspect userID} but the user is not registered ?");
         {:reply ,state, state}
