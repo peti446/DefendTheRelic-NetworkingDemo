@@ -4,6 +4,9 @@
 #include "GameLobbyUpdateNetMessage.hpp"
 #include "GameLobbyStatusChangedNetMessage.h"
 #include "FetchLobbyList.hpp"
+#include "StartGameNetMessage.hpp"
+#include "GameScene.hpp"
+#include "StartGameNetMessage.hpp"
 
 GlobalLobbyScene::GlobalLobbyScene()
 {
@@ -63,6 +66,9 @@ void GlobalLobbyScene::HandleNetworkInput(NetMessage* msg)
 
             break;
         }
+        case eNetMessageType::eGameLobbyStartGame:
+            StartGameNetMessage* sgnm = (StartGameNetMessage*)msg;
+            GameEngine::Instance().getSceneManager().setActiveScene(*new GameScene(sgnm->t1_p1, sgnm->t1_p2, sgnm->t2_p1, sgnm->t2_p2, sgnm->Identifier));
     }
     delete msg;
 }
@@ -288,23 +294,34 @@ LobbyInfoDisplay::LobbyInfoDisplay(tgui::VerticalLayout::Ptr m_layout, tgui::The
     m_panel->add(m_team2_p2);
 
     m_joinButton = theme->load("Button");
-    m_joinButton->setSize(width/3.f, 30);
+    m_joinButton->setSize((width/3.f)*0.8f, 30);
     m_joinButton->setPosition(width - m_joinButton->getSize().x - 5, panelHeight - 30 - 5);
     m_joinButton->setText("Join!");
     m_joinButton->connect("pressed", &LobbyInfoDisplay::onClickJoin, this, std::bind(&tgui::Button::getText, m_joinButton));
     m_panel->add(m_joinButton);
 
     m_switchTeam = theme->load("Button");
-    m_switchTeam->setSize(width/3.f, 30);
-    m_switchTeam->setPosition(width - m_switchTeam->getSize().x - (width/3.f) - 15, panelHeight - 30 - 5);
+    m_switchTeam->setSize((width/3.f)*0.8f, 30);
+    m_switchTeam->setPosition(width - m_switchTeam->getSize().x - ((width/3.f)*0.8f) - 15, panelHeight - 30 - 5);
     m_switchTeam->setText("Switch Team");
     m_switchTeam->connect("pressed", &LobbyInfoDisplay::onClickSwitch, this);
     m_switchTeam->hide();
     m_panel->add(m_switchTeam);
 
+    m_play= theme->load("Button");
+    m_play->setSize((width/3.f)*0.8f, 30);
+    m_play->setPosition(width - m_switchTeam->getSize().x - 2*((width/3.f)*0.8f) - 15, panelHeight - 30 - 5);
+    m_play->setText("Play!");
+    m_play->connect("pressed", &LobbyInfoDisplay::onPlayClick, this);
+    m_play->hide();
+    m_panel->add(m_play);
+
     m_layout->add(m_panel);
     m_layout->setFixedSize(m_panel, panelHeight);
     m_layout->setSize(m_layout->getSize() + sf::Vector2f(0, panelHeight + 10));
+
+    m_status = gameLobbymsg->Status;
+
     updateStatus(gameLobbymsg->t1_p1, gameLobbymsg->t1_p2, gameLobbymsg->t2_p1, gameLobbymsg->t2_p2);
 }
 
@@ -324,19 +341,22 @@ bool LobbyInfoDisplay::updateStatus(std::string team1_p1, std::string team1_p2, 
     m_team1_p2->setText(team1_p2);
     m_team2_p1->setText(team2_p1);
     m_team2_p2->setText(team2_p2);
-    if(team1_p1 != "NONE" && team1_p2 != "NONE" && team2_p1 != "NONE" && team2_p2 != "NONE")
-    {
-        m_joinButton->disable();
-        m_joinButton->setText("Full");
-        m_panel->setBackgroundColor(sf::Color(255, 102, 102, 180));
-    }
-    else if(isPlayerInLobby(GameEngine::Instance().getNetworkManager().getDisplayName()))
+
+    if(isPlayerInLobby(GameEngine::Instance().getNetworkManager().getDisplayName()))
     {
         m_joinButton->enable();
         m_switchTeam->show();
         m_joinButton->setText("Exit");
         m_panel->setBackgroundColor(sf::Color(0, 255, 204, 180));
-
+        m_play->show();
+    } else if(m_status != "waiting" || (team1_p1 != "NONE" && team1_p2 != "NONE" && team2_p1 != "NONE" && team2_p2 != "NONE"))
+    {
+        m_joinButton->disable();
+        if(m_status != "waiting")
+            m_joinButton->setText("Playing ...");
+        else
+            m_joinButton->setText("Full");
+        m_panel->setBackgroundColor(sf::Color(255, 102, 102, 180));
     }
     else
     {
@@ -357,6 +377,27 @@ const std::string& LobbyInfoDisplay::getIdentifier() const
 {
     return m_identifier;
 }
+
+const std::string LobbyInfoDisplay::getTeam1Player1()
+{
+    return m_team1_p1->getText();
+}
+
+const std::string LobbyInfoDisplay::getTeam1Player2()
+{
+    return m_team1_p2->getText();
+}
+
+const std::string LobbyInfoDisplay::getTeam2Player1()
+{
+    return m_team2_p1->getText();
+}
+
+const std::string LobbyInfoDisplay::getTeam2Player2()
+{
+    return m_team2_p2->getText();
+}
+
 bool LobbyInfoDisplay::isPlayerInLobby(const std::string& dn) const
 {
     return m_team1_p1->getText() == dn
@@ -379,3 +420,7 @@ void LobbyInfoDisplay::onClickSwitch()
     GameEngine::Instance().getNetworkManager().send_tcp(new GameLobbyStatusChangedNetMessage(m_identifier, GameLobbyStatusChangedNetMessage::UpdateMsg::eSwitch));
 }
 
+void LobbyInfoDisplay::onPlayClick()
+{
+    GameEngine::Instance().getNetworkManager().send_tcp(new StartGameNetMessage(*this));
+}

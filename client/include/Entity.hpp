@@ -50,6 +50,7 @@ class Entity
         eEntitySide getEntitySide() const;
         bool is_ally_of(const Entity& e) const;
         float getSpeed() const;
+        bool isColidingWith(const Entity& e) const;
 
     protected:
         sf::Texture m_texture;

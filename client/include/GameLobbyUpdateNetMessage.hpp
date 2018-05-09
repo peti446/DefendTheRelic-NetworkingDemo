@@ -11,7 +11,7 @@ class GameLobbyUpdateNetMessage : public NetMessage
         virtual ~GameLobbyUpdateNetMessage();
 
         void BuildMessage(sf::Packet& p) final override;
-        eNetMessageType getType() const final override;
+        virtual eNetMessageType getType() const override;
         sf::Packet BuildPacket() const final override;
 
         std::string Identifier;
@@ -19,6 +19,7 @@ class GameLobbyUpdateNetMessage : public NetMessage
         std::string t1_p2;
         std::string t2_p1;
         std::string t2_p2;
+        std::string Status;
     protected:
 
     private:

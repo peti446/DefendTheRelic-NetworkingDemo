@@ -14,6 +14,7 @@ enum class eNetMessageType
     eGetAllGameLobbyInfo,
     eGameLobbyUpdated,
     eGameLobbyStatusUpdated,
+    eGameLobbyStartGame,
 };
 
 class NetMessage

@@ -22,10 +22,11 @@
 
 1525626260 _variable>
 
-1525657731 e:\2º year\networking\ica-networkinggame\client\include\gameengine.hpp
+1525872210 e:\2º year\networking\ica-networkinggame\client\include\gameengine.hpp
 	<SFML/Graphics.hpp>
 	"SceneManager.hpp"
 	"Network.h"
+	"TextureManager.hpp"
 
 1525825837 "
 
@@ -782,22 +783,22 @@
 	<SFML/Network/IpAddress.hpp>
 	<vector>
 
-1525798539 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
+1525874141 e:\2º year\networking\ica-networkinggame\client\include\netmessage.hpp
 	<SFML/Network.hpp>
 	"AESHelper.hpp"
 	"Logger.hpp"
 	"StringHelpers.hpp"
 
-1525737892 e:\2º year\networking\ica-networkinggame\client\include\stringhelpers.hpp
+1525859205 e:\2º year\networking\ica-networkinggame\client\include\stringhelpers.hpp
 	<sstream>
 	<vector>
 	<iostream>
 	<SFML/Network/Packet.hpp>
-	<Cryptopp/Filters.h>
+	<Cryptopp/filters.h>
 
 1525737892 Filters.h>
 
-1525825858 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
+1525872215 source:e:\2º year\networking\ica-networkinggame\client\src\gameengine.cpp
 	"GameEngine.hpp"
 	"Logger.hpp"
 	"Scene.hpp"
@@ -1135,25 +1136,32 @@
 1525694069 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
 	<Scene.hpp>
 
-1525693902 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
+1525909749 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
 	"GameScene.hpp"
+	"BulletEntity.hpp"
+	"PlayerEntity.hpp"
 
 1525693902 .hpp"
 
-1525693818 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
+1525906335 e:\2º year\networking\ica-networkinggame\client\include\gamescene.hpp
 	<Scene.hpp>
+	<vector>
+	<unordered_map>
 
-1525825839 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
+1525907960 source:e:\2º year\networking\ica-networkinggame\client\src\globallobbyscene.cpp
 	"GlobalLobbyScene.hpp"
 	"MainMenuScene.hpp"
 	"ChangeDisplayNameScene.hpp"
 	"GameLobbyUpdateNetMessage.hpp"
 	"GameLobbyStatusChangedNetMessage.h"
 	"FetchLobbyList.hpp"
+	"StartGameNetMessage.hpp"
+	"GameScene.hpp"
+	"StartGameNetMessage.hpp"
 
 1525824260 yList.hpp"
 
-1525822077 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
+1525893772 e:\2º year\networking\ica-networkinggame\client\include\globallobbyscene.hpp
 	<Scene.hpp>
 	"GameLobbyUpdateNetMessage.hpp"
 	<unordered_map>
@@ -1170,7 +1178,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525826163 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525905673 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1183,6 +1191,7 @@
 	"EmptyNetMessage.hpp"
 	"DisplayNameUpdate.hpp"
 	"GameLobbyUpdateNetMessage.hpp"
+	"StartGameNetMessage.hpp"
 
 1525805199 UpdateNetMessage.hpp"
 
@@ -1407,7 +1416,7 @@
 
 1525707619 OnlineServer.hpp"
 
-1525697901 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
+1525862906 source:e:\2º year\networking\ica-networkinggame\client\src\connectingtoserverscene.cpp
 	"ConnectingToServerScene.h"
 	<chrono>
 	"MainMenuScene.hpp"
@@ -1416,7 +1425,7 @@
 
 1525697901 byScene.hpp"
 
-1525692548 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
+1525862812 e:\2º year\networking\ica-networkinggame\client\include\connectingtoserverscene.h
 	<Scene.hpp>
 	<future>
 
@@ -1474,10 +1483,10 @@
 1525823847 e:\2º year\networking\ica-networkinggame\client\include\gamelobbystatuschangednetmessage.h
 	<NetMessage.hpp>
 
-1525805146 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyupdatenetmessage.hpp
+1525893653 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyupdatenetmessage.hpp
 	<NetMessage.hpp>
 
-1525805199 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyupdatenetmessage.cpp
+1525893658 source:e:\2º year\networking\ica-networkinggame\client\src\gamelobbyupdatenetmessage.cpp
 	"GameLobbyUpdateNetMessage.hpp"
 
 1525824260 source:e:\2º year\networking\ica-networkinggame\client\src\fetchlobbylist.cpp
@@ -2033,7 +2042,7 @@
 	"stdcpp.h"
 	"misc.h"
 
-1525794939 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/NetMessage.hpp
+1525870541 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/NetMessage.hpp
 	<SFML/Network.hpp>
 	"AESHelper.hpp"
 	"Logger.hpp"
@@ -2443,12 +2452,12 @@
 1511624840 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/Linux/TGUI/include/TGUI/Widgets/ToolTip.hpp
 	<TGUI/Widgets/Label.hpp>
 
-1525818477 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GlobalLobbyScene.hpp
+1525871576 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GlobalLobbyScene.hpp
 	<Scene.hpp>
 	"GameLobbyUpdateNetMessage.hpp"
 	<unordered_map>
 
-1525801546 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameLobbyUpdateNetMessage.hpp
+1525871977 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/GameLobbyUpdateNetMessage.hpp
 	<NetMessage.hpp>
 
 1525686799 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/MainMenuScene.hpp
@@ -2526,7 +2535,7 @@
 	<vector>
 	<unordered_map>
 
-1525858666 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GlobalLobbyScene.cpp
+1525871938 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/GlobalLobbyScene.cpp
 	"GlobalLobbyScene.hpp"
 	"MainMenuScene.hpp"
 	"ChangeDisplayNameScene.hpp"
@@ -2800,13 +2809,63 @@
 1525869451 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/PlayerEntity.cpp
 	"PlayerEntity.hpp"
 
-1525860300 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/RelicEntity.cpp
+1525869637 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/RelicEntity.cpp
 	"RelicEntity.hpp"
 
-1525860360 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/RelicEntity.hpp
+1525869629 /home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/include/RelicEntity.hpp
 	<Entity.hpp>
 
 1525869580 source:/home/scm-studs/s6073335/Desktop/ICA-NetworkingGame/client/src/TextureManager.cpp
+	"TextureManager.hpp"
+	"Logger.hpp"
+
+1525872714 e:\2º year\networking\ica-networkinggame\client\include\texturemanager.hpp
+	<unordered_map>
+	<SFML/Graphics.hpp>
+	<string>
+
+1525869825 source:e:\2º year\networking\ica-networkinggame\client\src\bulletentity.cpp
+	"BulletEntity.hpp"
+	"PlayerEntity.hpp"
+
+1525869760 e:\2º year\networking\ica-networkinggame\client\include\bulletentity.hpp
+	<Entity.hpp>
+
+1525897271 e:\2º year\networking\ica-networkinggame\client\include\entity.hpp
+	<SFML/Graphics.hpp>
+	"Logger.hpp"
+	"GameEngine.hpp"
+
+1525907119 e:\2º year\networking\ica-networkinggame\client\include\playerentity.hpp
+	<Entity.hpp>
+	<functional>
+
+1525905046 source:e:\2º year\networking\ica-networkinggame\client\src\entity.cpp
+	"Entity.hpp"
+
+1525865435 source:e:\2º year\networking\ica-networkinggame\client\src\pickupentity.cpp
+	"PickUpEntity.hpp"
+
+1525865434 e:\2º year\networking\ica-networkinggame\client\include\pickupentity.hpp
+	<Entity.hpp>
+
+1525909753 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
+	"PlayerEntity.hpp"
+
+1525873237 source:e:\2º year\networking\ica-networkinggame\client\src\relicentity.cpp
+	"RelicEntity.hpp"
+
+1525873229 e:\2º year\networking\ica-networkinggame\client\include\relicentity.hpp
+	<Entity.hpp>
+
+1525875676 source:e:\2º year\networking\ica-networkinggame\client\src\startgamenetmessage.cpp
+	"StartGameNetMessage.hpp"
+	"GlobalLobbyScene.hpp"
+
+1525905579 e:\2º year\networking\ica-networkinggame\client\include\startgamenetmessage.hpp
+	<GameLobbyUpdateNetMessage.hpp>
+
+1525873180 source:e:\2º year\networking\ica-networkinggame\client\src\texturemanager.cpp
 	"TextureManager.hpp"
 	"Logger.hpp"
 

@@ -10,6 +10,7 @@
 #include "EmptyNetMessage.hpp"
 #include "DisplayNameUpdate.hpp"
 #include "GameLobbyUpdateNetMessage.hpp"
+#include "StartGameNetMessage.hpp"
 
 Network::Network()
 {
@@ -324,6 +325,10 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
     case eNetMessageType::eGameLobbyUpdated:
         {
             returnM = new GameLobbyUpdateNetMessage();
+            returnM->BuildMessage(p);
+            break;
+    case eNetMessageType::eGameLobbyStartGame:
+            returnM = new StartGameNetMessage();
             returnM->BuildMessage(p);
             break;
         }

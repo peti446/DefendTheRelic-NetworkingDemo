@@ -19,7 +19,7 @@ GameLobbyUpdateNetMessage::~GameLobbyUpdateNetMessage()
 
 void GameLobbyUpdateNetMessage::BuildMessage(sf::Packet& p)
 {
-    p >> Identifier >> t1_p1 >> t1_p2 >> t2_p1 >> t2_p2;
+    p >> Identifier >> t1_p1 >> t1_p2 >> t2_p1 >> t2_p2 >> Status;
 }
 
 eNetMessageType GameLobbyUpdateNetMessage::getType() const

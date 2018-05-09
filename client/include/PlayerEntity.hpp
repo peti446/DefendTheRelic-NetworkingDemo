@@ -7,7 +7,12 @@
 class PlayerEntity : public Entity
 {
     public:
-        PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)>& shootFunction);
+        enum class ePlayerState
+        {
+          eWalking,
+          eIDLE
+        };
+        PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)> shootFunction);
         virtual ~PlayerEntity();
 
         void Draw(sf::RenderWindow& rw) final override;
@@ -15,10 +20,13 @@ class PlayerEntity : public Entity
 
         void shoot();
 
+        void setPlayerStatus(ePlayerState newState);
+        ePlayerState getPlayerStatus() const;
         void addAmmo(int ammoToAdd);
         int getAmmo() const;
 
-        //void InteractInFront();
+
+        const std::string& getName() const;
 
     protected:
 
@@ -27,6 +35,7 @@ class PlayerEntity : public Entity
         int m_maxAmmo;
         std::string m_name;
         std::function<bool(PlayerEntity&, float)>& m_shootFunct;
+        ePlayerState m_state;
 
 };
 

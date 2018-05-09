@@ -35,11 +35,23 @@ defmodule Router do
   ##Cast Handles
   def handle_cast({:tcp_conn_closed, name}, state) do
     IO.puts("Trying to destroy #{inspect name}")
+    state = case Map.fetch(state.players, name) do
+      {:ok, playerMap} ->
+        case Utility.networkStringSplitter(playerMap.where_at) do
+          [_, id] ->
+            {_,_, state} = handle_call({nil, [name, "5", id, "exit"]}, self(), state)
+            state
+          [_] ->
+            state
+        end
+      :error->
+        state
+    end
     case Map.pop(state.players, name) do
        {nil, _} ->
         IO.puts("Could not destroy it")
         {:noreply, state}
-      {_, newmap} ->
+      {_ , newmap} ->
         state = Map.put(state, :players, newmap)
         IO.puts "Destroyed!"
         {:noreply, state}
@@ -161,6 +173,8 @@ defmodule Router do
     end
   end
 
+##---------------------------------------------------------------------------------------------------------------------------
+##----------- Lobby Handle calls
   def handle_call({socket, [userID, "2", newName]}, _from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
@@ -219,12 +233,23 @@ defmodule Router do
     end
   end
 
+  def handle_call({_socket, [userID, "3", "GetAll"]}, _from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        Router.send_all_GameLobbies_to_player(userMap, state.lobbies)
+        {:reply ,state, state}
+      :error ->
+        IO.puts("Recived switch team in game lobby from user #{inspect userID} but the user is not registered ?");
+        {:reply ,state, state}
+    end
+  end
+
   def handle_call({socket, [userID, "4", "-1create", t1_p1, t1_p2, t2_p1, t2_p2]}, from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
         ##Generate a lobby
         id = Utility.random_string(16)
-        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2, current_status: :waiting})
+        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2, current_status: "waiting"})
 
         ##In case the player is in a game
         {:reply, state, state} = case Utility.networkStringSplitter(userMap.where_at) do
@@ -286,11 +311,11 @@ defmodule Router do
     end
   end
 
-  def handle_call({_ocket, [userID, "5", id, "exit"]}, _from, state) do
+  def handle_call({_socket, [userID, "5", id, "exit"]}, _from, state) do
     case Map.fetch(state.players, userID) do
       {:ok, userMap} ->
         case Utility.networkStringSplitter(userMap.where_at) do
-          ["GameLobby", ^id] ->
+          [_, ^id] ->
             case Map.fetch(state.lobbies, id) do
               {:ok, lobby} ->
                 {newLobby, newPlayer} = Router.remove_player_fom_lobby(lobby, userMap)
@@ -371,17 +396,35 @@ defmodule Router do
     end
   end
 
-  def handle_call({_socket, [userID, "3", "GetAll"]}, _from, state) do
-    case Map.fetch(state.players, userID) do
-      {:ok, userMap} ->
-        Router.send_all_GameLobbies_to_player(userMap, state.lobbies)
+  def handle_call({_socket, [_userID, "6", id, t1_p1, t1_p2, t2_p1, t2_p2]}, _from, state) do
+    case Map.fetch(state.lobbies, id) do
+      {:ok, lobby} ->
+        lobby = Map.put(lobby, :current_status, "InGame")
+        state = Map.put(state, :lobbies, Map.put(state.lobbies, id, lobby))
+        lobbyMSG = Utility.add_header_to_str(id) <>
+          Utility.add_header_to_str(lobby.t1_player1) <>
+          Utility.add_header_to_str(lobby.t1_player2) <>
+          Utility.add_header_to_str(lobby.t2_player1) <>
+          Utility.add_header_to_str(lobby.t2_player2) <>
+          Utility.add_header_to_str(to_string(lobby.current_status))
+
+          newPlayerMap = Enum.map(state.players, fn({private, userMap}) ->
+            if(userMap.display_name == t1_p1 or userMap.display_name == t1_p2
+            or userMap.display_name == t2_p1 or userMap.display_name == t2_p2) do
+              TCP.send_tpc_encrypted_message(userMap.tcp_socker, 6, lobbyMSG, userMap.aesKey)
+              userMap = Map.put(userMap, :where_at, "InGame-::-" <> id)
+              {private, userMap}
+            else
+              {private, userMap}
+            end
+          end) |> Enum.into(%{})
+          Router.send_GameLobbyUpdate_to_all(id,state.players, state.lobbies)
+          state = Map.put(state, :players, newPlayerMap)
         {:reply ,state, state}
       :error ->
-        IO.puts("Recived switch team in game lobby from user #{inspect userID} but the user is not registered ?");
         {:reply ,state, state}
     end
   end
-
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------------
 ##Encryption setup, these does not follow any kind of packetges in the cpp file as they are expected in order and what data will arive

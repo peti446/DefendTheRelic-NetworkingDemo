@@ -1,14 +1,12 @@
 #include "PlayerEntity.hpp"
 
-PlayerEntity::PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)>& shootFunction) : m_shootFunct(shootFunction), m_name(m_dn)
+PlayerEntity::PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)> shootFunction) : m_shootFunct(shootFunction), m_name(m_dn),
+                                                                                                                                m_state(ePlayerState::eIDLE)
 {
     setEntitySide(s);
     if(m_dn == GameEngine::Instance().getNetworkManager().getDisplayName())
     {
-        if(!setTexture("Media/Textures/Game/Self.png"))
-        {
-            Log(l_WARN) << "Could not load the self texture for the player " + m_dn;
-        }
+        setTexture(GameEngine::Instance().getTextureManager().getTexture("Media/Textures/Game/Self.png"));
     }
 }
 
@@ -25,7 +23,10 @@ void PlayerEntity::Draw(sf::RenderWindow& rw)
 
 void PlayerEntity::Update(const sf::Time& ur)
 {
+    if(isActive())
+    {
 
+    }
 }
 
 void PlayerEntity::shoot()
@@ -48,7 +49,23 @@ void PlayerEntity::addAmmo(int ammoToAdd)
         m_ammo = m_maxAmmo;
 }
 
+void PlayerEntity::setPlayerStatus(ePlayerState newState)
+{
+    m_state = newState;
+}
+
+PlayerEntity::ePlayerState PlayerEntity::getPlayerStatus() const
+{
+    return m_state;
+}
+
+
 int PlayerEntity::getAmmo() const
 {
     return m_ammo;
+}
+
+const std::string& PlayerEntity::getName() const
+{
+    return m_name;
 }

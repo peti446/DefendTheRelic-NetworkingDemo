@@ -6,13 +6,14 @@
 #include <unordered_map>
 
 class Entity;
+class BulletEntity;
 class PlayerEntity;
 
 
 class GameScene : public Scene
 {
     public:
-        GameScene();
+        GameScene(std::string t1_p1, std::string t1_p2, std::string t2_p1, std::string t2_p2, std::string gameID);
         virtual ~GameScene();
 
         void Draw(sf::RenderWindow& rw) final override;
@@ -26,11 +27,18 @@ class GameScene : public Scene
     private:
         bool LoadScene() final override;
         bool UnloadScene() final override;
-        void InstanciateBullet(PlayerEntity& whoIsShooting, float speed);
+        bool InstanciateBullet(PlayerEntity& whoIsShooting, float speed);
+        void handlePlayerInput(sf::Keyboard::Key key, bool pressed);
 
-        std::vector<Entity*> m_bullets;
-        std::vector<Entity*> m_Activebullets;
-        std::unordered_map<std::string ,Entity*> m_players;
+
+        std::string m_t1_p1;
+        std::string m_t1_p2;
+        std::string m_t2_p1;
+        std::string m_t2_p2;
+        std::string m_gameID;
+        std::vector<BulletEntity*> m_bullets;
+        std::vector<BulletEntity*> m_Activebullets;
+        std::unordered_map<std::string, PlayerEntity*> m_players;
 };
 
 #endif // GAMESCENE_HPP

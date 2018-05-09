@@ -3,10 +3,11 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="STU" />
+		<Option makefile="makefile" />
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="SceneManagement/;Core Systems/;Helpers/Logger/;Networking/;Helpers/Encryption/;Networking/Message/;Helpers/;Data Structures/;SceneManagement/Scenes/;SceneManagement/Scenes/Options/;SceneManagement/Scenes/MainMenu/;SceneManagement/Scenes/GameLobby/;SceneManagement/Scenes/Lobby/;SceneManagement/Scenes/Game/;SceneManagement/Scenes/ServerConnection/;Networking/Message/Empty/;SceneManagement/Scenes/Change Username/;Networking/Message/Lobby/;Networking/Message/Lobby/DisplayNameUpdate/;Networking/Message/Lobby/Fetch All/;Networking/Message/Lobby/Game Lobby Status Update/;Networking/Message/Lobby/Game Lobby Update/;Entities/;Entities/Player/;Entities/Relic/;Entities/Bullet/;" />
+		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;Entities\;Entities\Player\;Entities\Relic\;Entities\Bullet\;Networking\Message\Lobby\Start Game\;" />
 		<Build>
 			<Target title="Linux">
 				<Option platforms="Unix;Mac;" />
@@ -215,9 +216,6 @@
 		<Unit filename="include/GameEngine.hpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
-		<Unit filename="include/GameLobbyScene.hpp">
-			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
-		</Unit>
 		<Unit filename="include/GameLobbyStatusChangedNetMessage.h">
 			<Option virtualFolder="Networking/Message/Lobby/Game Lobby Status Update/" />
 		</Unit>
@@ -261,6 +259,9 @@
 		<Unit filename="include/SceneManager.hpp">
 			<Option virtualFolder="Core Systems/" />
 		</Unit>
+		<Unit filename="include/StartGameNetMessage.hpp">
+			<Option virtualFolder="Networking/Message/Lobby/Start Game/" />
+		</Unit>
 		<Unit filename="include/StringHelpers.hpp">
 			<Option virtualFolder="Helpers/" />
 		</Unit>
@@ -300,9 +301,6 @@
 		</Unit>
 		<Unit filename="src/GameEngine.cpp">
 			<Option virtualFolder="Core Systems/" />
-		</Unit>
-		<Unit filename="src/GameLobbyScene.cpp">
-			<Option virtualFolder="SceneManagement/Scenes/GameLobby/" />
 		</Unit>
 		<Unit filename="src/GameLobbyStatusChangedNetMessage.cpp">
 			<Option virtualFolder="Networking/Message/Lobby/Game Lobby Status Update/" />
@@ -346,6 +344,9 @@
 		</Unit>
 		<Unit filename="src/SceneManager.cpp">
 			<Option virtualFolder="Core Systems/" />
+		</Unit>
+		<Unit filename="src/StartGameNetMessage.cpp">
+			<Option virtualFolder="Networking/Message/Lobby/Start Game/" />
 		</Unit>
 		<Unit filename="src/TextureManager.cpp">
 			<Option virtualFolder="Core Systems/" />

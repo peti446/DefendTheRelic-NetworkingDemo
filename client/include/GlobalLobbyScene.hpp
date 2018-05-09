@@ -13,11 +13,16 @@ public:
 
     bool updateStatus(std::string team1_p1, std::string team1_p2, std::string team2_p1, std::string team2_p2);
     const std::string& getIdentifier() const;
+    const std::string getTeam1Player1();
+    const std::string getTeam1Player2();
+    const std::string getTeam2Player1();
+    const std::string getTeam2Player2();
     bool isPlayerInLobby(const std::string& dn) const;
     tgui::Panel::Ptr getPanel();
 private:
     void onClickJoin(std::string s);
     void onClickSwitch();
+    void onPlayClick();
 
     tgui::Panel::Ptr m_panel;
     tgui::Label::Ptr m_team1_p1;
@@ -26,7 +31,9 @@ private:
     tgui::Label::Ptr m_team2_p2;
     tgui::Button::Ptr m_joinButton;
     tgui::Button::Ptr m_switchTeam;
+    tgui::Button::Ptr m_play;
     std::string m_identifier;
+    std::string m_status;
 
 };
 

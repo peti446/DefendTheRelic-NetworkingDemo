@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-Entity::Entity() : m_active(false), m_hp(100), m_texture(), m_pos(0,0), m_oldPos(0,0), m_dir(eEntityDirection::eStaticEntity), m_sprite(), m_side(eEntitySide::eNeutral), m_speed(10)
+Entity::Entity() : m_active(false), m_hp(100), m_texture(), m_pos(0,0), m_oldPos(0,0), m_dir(eEntityDirection::eStaticEntity), m_sprite(), m_side(eEntitySide::eNeutral), m_speed(0)
 {
 }
 
@@ -173,3 +173,7 @@ float Entity::getSpeed() const
     return m_speed;
 }
 
+bool Entity::isColidingWith(const Entity& e) const
+{
+    return m_sprite.getGlobalBounds().intersects(e.m_sprite.getGlobalBounds());
+}
