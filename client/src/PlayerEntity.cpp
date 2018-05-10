@@ -1,9 +1,12 @@
 #include "PlayerEntity.hpp"
+#include "PlayerStatusUpdateNetMessage.hpp"
 
 PlayerEntity::PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)> shootFunction) : m_shootFunct(shootFunction), m_name(m_dn),
                                                                                                                                 m_state(ePlayerState::eIDLE)
 {
     setEntitySide(s);
+    setActive(true);
+    setSpeed(100);
     if(m_dn == GameEngine::Instance().getNetworkManager().getDisplayName())
     {
         setTexture(GameEngine::Instance().getTextureManager().getTexture("Media/Textures/Game/Self.png"));
@@ -25,7 +28,12 @@ void PlayerEntity::Update(const sf::Time& ur)
 {
     if(isActive())
     {
-
+        if(m_state == ePlayerState::eWalking)
+        {
+            sf::Vector2i dir = getDirectionVector();
+            sf::Vector2f newPos  = m_pos + (getSpeed() * ur.asSeconds() * sf::Vector2f(dir));
+            setPos(newPos);
+        }
     }
 }
 
@@ -51,6 +59,10 @@ void PlayerEntity::addAmmo(int ammoToAdd)
 
 void PlayerEntity::setPlayerStatus(ePlayerState newState)
 {
+    if(GameEngine::Instance().getNetworkManager().getDisplayName() == m_name && m_state != newState)
+    {
+        GameEngine::Instance().getNetworkManager().send_udp(new PlayerStatusUpdateNetMessage(m_name, m_pos, (sf::Uint16)m_dir, (sf::Uint16)m_state));
+    }
     m_state = newState;
 }
 

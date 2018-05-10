@@ -42,6 +42,15 @@ void Entity::setPos(const sf::Vector2f& pos)
 {
     m_oldPos = m_pos;
     m_pos = pos;
+    if(m_pos.x < 0)
+        m_pos.x = 0;
+    if(m_pos.x > GameEngine::Instance().getRenderWindow().getSize().x)
+        m_pos.x = GameEngine::Instance().getRenderWindow().getSize().x;
+    if(m_pos.y < 0)
+        m_pos.y = 0;
+    if(m_pos.y > GameEngine::Instance().getRenderWindow().getSize().y)
+        m_pos.y = GameEngine::Instance().getRenderWindow().getSize().y;
+    m_sprite.setPosition(m_pos);
 }
 
 bool Entity::setTexture(const std::string& newTexture)

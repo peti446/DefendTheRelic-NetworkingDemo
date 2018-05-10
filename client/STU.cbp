@@ -247,6 +247,7 @@
 		<Unit filename="include/PlayerEntity.hpp">
 			<Option virtualFolder="Entities/Player/" />
 		</Unit>
+		<Unit filename="include/PlayerPosUpdateNetMessage.hpp" />
 		<Unit filename="include/RSAHelper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>
@@ -333,6 +334,7 @@
 		<Unit filename="src/PlayerEntity.cpp">
 			<Option virtualFolder="Entities/Player/" />
 		</Unit>
+		<Unit filename="src/PlayerPosUpdateNetMessage.cpp" />
 		<Unit filename="src/RSAHelper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
 		</Unit>

@@ -18,6 +18,14 @@ GameScene::~GameScene()
 void GameScene::Draw(sf::RenderWindow& rw)
 {
     m_gui.draw();
+    for(BulletEntity* e : m_Activebullets)
+    {
+        e->Draw(rw);
+    }
+    for(auto mit : m_players)
+    {
+        mit.second->Draw(rw);
+    }
 }
 
 void GameScene::Update(const sf::Time& ur)
@@ -48,7 +56,7 @@ void GameScene::HandleInput(const sf::Event& event)
         handlePlayerInput(event.key.code, true);
         break;
     case sf::Event::KeyReleased:
-        handlePlayerInput(event.key.code, true);
+        handlePlayerInput(event.key.code, false);
         break;
     }
 }
@@ -132,15 +140,19 @@ void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
     {
         case sf::Keyboard::W:
             p->setDirection(Entity::eEntityDirection::eNorth);
+            p->setPlayerStatus(pressed ? PlayerEntity::ePlayerState::eWalking : PlayerEntity::ePlayerState::eIDLE);
             break;
         case sf::Keyboard::S:
-            p->setDirection(Entity::eEntityDirection::eNorth);
+            p->setDirection(Entity::eEntityDirection::eSorth);
+            p->setPlayerStatus(pressed ? PlayerEntity::ePlayerState::eWalking : PlayerEntity::ePlayerState::eIDLE);
             break;
         case sf::Keyboard::D:
-            p->setDirection(Entity::eEntityDirection::eNorth);
+            p->setDirection(Entity::eEntityDirection::eEast);
+            p->setPlayerStatus(pressed ? PlayerEntity::ePlayerState::eWalking : PlayerEntity::ePlayerState::eIDLE);
             break;
         case sf::Keyboard::A:
-            p->setDirection(Entity::eEntityDirection::eNorth);
+            p->setDirection(Entity::eEntityDirection::eWest);
+            p->setPlayerStatus(pressed ? PlayerEntity::ePlayerState::eWalking : PlayerEntity::ePlayerState::eIDLE);
             break;
     }
 }

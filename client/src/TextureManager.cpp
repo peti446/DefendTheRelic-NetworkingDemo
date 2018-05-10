@@ -14,7 +14,7 @@ TextureManager::~TextureManager()
 }
 
 
-sf::Texture& TextureManager::getTexture(std::string path)
+sf::Texture& TextureManager::getTexture(const std::string& path)
 {
     if(m_textures.find(path) != m_textures.end())
     {
@@ -25,9 +25,9 @@ sf::Texture& TextureManager::getTexture(std::string path)
         if(currentTexture.m_texture == nullptr)
         {
             currentTexture.m_texture = new sf::Texture();
-            if(currentTexture.m_texture->loadFromFile(path))
+            if(!currentTexture.m_texture->loadFromFile(path))
             {
-                Log(l_WARN) << "Could not load texture from the file: " + path;
+                Log(l_WARN) << "(1)Could not load texture from the file: " + path;
             }
         }
         return *currentTexture.m_texture;
@@ -35,16 +35,16 @@ sf::Texture& TextureManager::getTexture(std::string path)
     {
         //Load texture
         sf::Texture* t = new sf::Texture();
-        if(t->loadFromFile(path))
+        if(!t->loadFromFile(path))
         {
-            Log(l_WARN) << "Could not load texture from the file: " + path;
+            Log(l_WARN) << "(2)Could not load texture from the file:" + path;
         }
         m_textures.insert(std::make_pair(path, TextureBatch(t,1)));
         return *t;
     }
 }
 
-void TextureManager::unloadTexture(std::string path)
+void TextureManager::unloadTexture(const std::string& path)
 {
     if(m_textures.find(path) != m_textures.end())
     {

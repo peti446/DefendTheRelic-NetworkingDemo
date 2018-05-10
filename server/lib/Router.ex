@@ -173,6 +173,58 @@ defmodule Router do
     end
   end
 
+  def handle_call({socket, address, port, [userID, "1", encrpted]}, from, state) do
+    case Map.fetch(state.players, userID) do
+      {:ok, userMap} ->
+        {:ok, aesCipher} = Base.decode64(encrpted, ignore: :whitespace)
+        {:ok, aesKey} = Map.fetch(userMap, :aesKey)
+        str = AES.decrypt(aesCipher, aesKey)
+        Router.handle_call({socket, address, port,[userID | Utility.networkStringSplitter(str)]}, from, state)
+      :error ->
+        IO.puts("Recived encrypted message from user #{inspect userID} but the user is not registered ?");
+        {:reply ,state, state}
+    end
+  end
+
+##---------------------------------------------------------------------------------------------------------------------------
+##----------- Game Handle calls
+def handle_call({socket, _address, _port, [userID, "7", who, posX, posY, dir, status]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              {posX, _} = Float.parse(posX)
+              {posY, _} = Float.parse(posY)
+              returnMSG = Utility.add_header_to_str(id) <>
+                          Utility.add_header_to_str(who) <>
+                          <<(posX)::float>> <>
+                          <<(posY)::float>> <>
+                          <<String.to_integer(dir)::unsigned-integer-16>> <>
+                          <<String.to_integer(status)::unsigned-integer-16>>
+              Enum.each(state.players, fn({uID, userMap}) ->
+                if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID == userID) do
+                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 7, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              {:reply ,state, state}
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived udpate pos direction message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+##---------------------------------------------------------------------------------------------------------------------------
+
 ##---------------------------------------------------------------------------------------------------------------------------
 ##----------- Lobby Handle calls
   def handle_call({socket, [userID, "2", newName]}, _from, state) do
@@ -223,7 +275,6 @@ defmodule Router do
             userMap = Map.put(userMap, :display_name, newName)
             playerMap = Map.put(state.players, userID, userMap)
             state = Map.put(state, :players, playerMap)
-            IO.puts("#{inspect state.players}")
             TCP.send_tpc_encrypted_message(socket, 2, Utility.add_header_to_str(newName), userMap.aesKey);
             {:reply ,state, state}
         end
@@ -452,7 +503,8 @@ def handle_call({socket, ["st", "hsk"]}, _from, state) do
       state = newMap
       ##Create a player entri in the map
       displayName = Utility.random_string_32encode(8)
-      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: udpAddress, udp_port: udpPort, aesKey: key, display_name: displayName, where_at: "Lobby"})
+      {:ok, ip} = :inet.parse_address(Kernel.to_charlist(udpAddress))
+      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: ip, udp_port: String.to_integer(udpPort), aesKey: key, display_name: displayName, where_at: "Lobby"})
 
       ##For debug porpuses
       IO.puts("Registered user: #{inspect currentID}")

@@ -11,8 +11,8 @@ class TextureManager
         TextureManager();
         virtual ~TextureManager();
 
-        sf::Texture& getTexture(std::string path);
-        void unloadTexture(std::string path);
+        sf::Texture& getTexture(const std::string& path);
+        void unloadTexture(const std::string& path);
 
     protected:
 

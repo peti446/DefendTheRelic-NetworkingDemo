@@ -11,6 +11,7 @@
 #include "DisplayNameUpdate.hpp"
 #include "GameLobbyUpdateNetMessage.hpp"
 #include "StartGameNetMessage.hpp"
+#include "PlayerStatusUpdateNetMessage.hpp"
 
 Network::Network()
 {
@@ -127,7 +128,8 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     //Generate a randome AES key and IV
     m_aesKey = AESHelper::generateKey(24);
 
-    sf::IpAddress myAdress = (IPOfServer == sf::IpAddress::Broadcast) ? sf::IpAddress::getLocalAddress() : sf::IpAddress::getPublicAddress();
+    sf::IpAddress myAdress = (IPOfServer == sf::IpAddress::Broadcast || m_serverData.IP == sf::IpAddress::LocalHost) ? sf::IpAddress::getLocalAddress() : sf::IpAddress::getPublicAddress();
+    Log() << StringHelpers::toString(m_serverData.IP);
     std::string udpInfo;
     CryptoPP::ArraySource ss(m_aesKey, m_aesKey.size(), true, new CryptoPP::StringSink(udpInfo));
     udpInfo += "-::-" + StringHelpers::toString(myAdress) + "-::-" +  StringHelpers::toString(m_udpSocket.getLocalPort());
@@ -327,8 +329,16 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
             returnM = new GameLobbyUpdateNetMessage();
             returnM->BuildMessage(p);
             break;
+        }
     case eNetMessageType::eGameLobbyStartGame:
+        {
             returnM = new StartGameNetMessage();
+            returnM->BuildMessage(p);
+            break;
+        }
+    case eNetMessageType::eInGamePlayerPosUpdate:
+        {
+            returnM = new PlayerStatusUpdateNetMessage();
             returnM->BuildMessage(p);
             break;
         }
