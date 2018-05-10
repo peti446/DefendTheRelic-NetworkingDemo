@@ -8,6 +8,7 @@
 #include "PlayerDieNetMessage.hpp"
 #include "PlayerRespawnNetMessage.hpp"
 #include "PlayerExitMatch.hpp"
+#include "GamePauseMenuScene.hpp"
 
 constexpr int m_AmountOfbullets = 200;
 
@@ -326,6 +327,9 @@ void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
             break;
         case sf::Keyboard::R:
             p->setAmmo(p->getMaxAmmo());
+            break;
+        case sf::Keyboard::Escape:
+            GameEngine::Instance().getSceneManager().setActiveScene(*new GamePauseMenuScene(this, p->getName()), false);
             break;
     }
 

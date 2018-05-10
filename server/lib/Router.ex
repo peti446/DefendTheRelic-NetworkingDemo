@@ -41,7 +41,7 @@ defmodule Router do
           ["GameLobby", id] ->
             {_,_, state} = handle_call({nil, [name, "5", id, "exit"]}, self(), state)
             state
-          ["InGame", id] ->
+          ["InGame", _id] ->
             {_,_, state} = handle_call({nil, [name, "10", name]}, self(), state)
             state
           [_] ->
@@ -315,7 +315,7 @@ def handle_call({_socket, [userID, "10", whoDisconnected]}, _from, state) do
                 end
                 :ok
               end)
-              {newLobby, playerMap} = Router.remove_player_fom_lobby(lobby, whoDisconnected)
+              {newLobby, playerMap} = Router.remove_player_fom_lobby(lobby, cuserMap)
               cuserMap = Map.put(state.players, userID, playerMap)
               state = Map.put(state, :players, cuserMap)
               newLobbies = Map.put(state.lobbies, id, newLobby)
