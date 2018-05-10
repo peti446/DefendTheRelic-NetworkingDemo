@@ -1136,10 +1136,11 @@
 1525694069 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
 	<Scene.hpp>
 
-1525911707 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
+1525927251 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
 	"GameScene.hpp"
 	"BulletEntity.hpp"
 	"PlayerEntity.hpp"
+	"PlayerStatusUpdateNetMessage.hpp"
 
 1525693902 .hpp"
 
@@ -1178,7 +1179,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525919021 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525925174 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -2837,7 +2838,7 @@
 	"Logger.hpp"
 	"GameEngine.hpp"
 
-1525907119 e:\2º year\networking\ica-networkinggame\client\include\playerentity.hpp
+1525927811 e:\2º year\networking\ica-networkinggame\client\include\playerentity.hpp
 	<Entity.hpp>
 	<functional>
 
@@ -2850,7 +2851,7 @@
 1525865434 e:\2º year\networking\ica-networkinggame\client\include\pickupentity.hpp
 	<Entity.hpp>
 
-1525916989 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
+1525927284 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
 	"PlayerEntity.hpp"
 	"PlayerStatusUpdateNetMessage.hpp"
 
@@ -2871,7 +2872,7 @@
 	"TextureManager.hpp"
 	"Logger.hpp"
 
-1525917183 source:e:\2º year\networking\ica-networkinggame\client\src\playerstatusupdatenetmessage.cpp
+1525927119 source:e:\2º year\networking\ica-networkinggame\client\src\playerstatusupdatenetmessage.cpp
 	"PlayerStatusUpdateNetMessage.hpp"
 
 1525917001 e:\2º year\networking\ica-networkinggame\client\include\playerstatusupdatenetmessage.hpp

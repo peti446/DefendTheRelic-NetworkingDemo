@@ -195,17 +195,14 @@ def handle_call({socket, _address, _port, [userID, "7", who, posX, posY, dir, st
         ["InGame", id] ->
           case Map.fetch(state.lobbies, id) do
             {:ok, lobby} ->
-              {posX, _} = Float.parse(posX)
-              {posY, _} = Float.parse(posY)
-              returnMSG = Utility.add_header_to_str(id) <>
-                          Utility.add_header_to_str(who) <>
-                          <<(posX)::float>> <>
-                          <<(posY)::float>> <>
-                          <<String.to_integer(dir)::unsigned-integer-16>> <>
-                          <<String.to_integer(status)::unsigned-integer-16>>
+              returnMSG = Utility.add_header_to_str(who) <>
+                          Utility.add_header_to_str(posX) <>
+                          Utility.add_header_to_str(posY) <>
+                          <<String.to_integer(dir)::unsigned-big-integer-16>> <>
+                          <<String.to_integer(status)::unsigned-big-integer-16>>
               Enum.each(state.players, fn({uID, userMap}) ->
                 if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
-                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID == userID) do
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID != userID) do
                   UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 7, returnMSG, userMap.aesKey)
                   :ok
                 end
@@ -487,7 +484,7 @@ def handle_call({socket, ["st", "hsk"]}, _from, state) do
   end
 
   def handle_call({socket, address, port, ["notify", "me", "server"]}, _from, state) do
-    UDP.send_udp_message(socket, address, port, <<TCP.port::big-16>>)
+    UDP.send_udp_message(socket, address, port, <<TCP.port::big-16>> <> Utility.add_header_to_str(List.to_string(:inet.ntoa(address))))
     {:reply ,state, state}
   end
 

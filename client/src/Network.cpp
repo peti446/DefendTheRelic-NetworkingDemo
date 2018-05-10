@@ -54,6 +54,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     sf::SocketSelector socket_selector;
     socket_selector.add(m_udpSocket);
 
+    std::string myIpFromServer;
     //Loop to attempt to recive from the socket up to X time specified when startiing the function
     for(size_t i = 0; i < amoutOfConnectionAttempts; i++)
     {
@@ -72,7 +73,7 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
             else
             {
                 //Check if we receive the correct information
-                server_udp_recive >> m_serverData.tcp_port;
+                server_udp_recive >> m_serverData.tcp_port >> myIpFromServer;
                 if(m_serverData.tcp_port == 0)
                 {
                     Disconnect();
@@ -128,11 +129,10 @@ bool Network::ConnectToServer(sf::IpAddress IPOfServer, unsigned short port, siz
     //Generate a randome AES key and IV
     m_aesKey = AESHelper::generateKey(24);
 
-    sf::IpAddress myAdress = (IPOfServer == sf::IpAddress::Broadcast || m_serverData.IP == sf::IpAddress::LocalHost) ? sf::IpAddress::getLocalAddress() : sf::IpAddress::getPublicAddress();
-    Log() << StringHelpers::toString(m_serverData.IP);
+
     std::string udpInfo;
     CryptoPP::ArraySource ss(m_aesKey, m_aesKey.size(), true, new CryptoPP::StringSink(udpInfo));
-    udpInfo += "-::-" + StringHelpers::toString(myAdress) + "-::-" +  StringHelpers::toString(m_udpSocket.getLocalPort());
+    udpInfo += "-::-" + myIpFromServer + "-::-" +  StringHelpers::toString(m_udpSocket.getLocalPort());
     std::string encryptedMsg = RSAHelper::encrypt(server_key, (CryptoPP::byte*)udpInfo.c_str(), udpInfo.size());
 
     sf::Packet encryptedAREKey;
@@ -294,6 +294,7 @@ void Network::udp_recive()
         p.clear();
         if(m_udpSocket.receive(p, incomingDT.IP, incomingDT.udp_port) == sf::Socket::Done && incomingDT.IP == m_serverData.IP && incomingDT.udp_port == m_serverData.udp_port)
         {
+            Log() << "Recived msg udp";
             m_queue.push(unwrap_msg(p));
         }
     }

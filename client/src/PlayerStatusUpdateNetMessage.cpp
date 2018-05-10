@@ -15,7 +15,11 @@ PlayerStatusUpdateNetMessage::~PlayerStatusUpdateNetMessage()
 
 void PlayerStatusUpdateNetMessage::BuildMessage(sf::Packet& p)
 {
-    p  >> Who >> Position.x >> Position.y >> Direction >> Status;
+    std::string x;
+    std::string y;
+    p  >> Who >> x >> y >> Direction >> Status;
+    Position.x = std::stof(x);
+    Position.y = std::stof(y);
 }
 
 eNetMessageType PlayerStatusUpdateNetMessage::getType() const

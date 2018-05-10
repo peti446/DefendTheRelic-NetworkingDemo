@@ -57,12 +57,8 @@ void PlayerEntity::addAmmo(int ammoToAdd)
         m_ammo = m_maxAmmo;
 }
 
-void PlayerEntity::setPlayerStatus(ePlayerState newState)
+void PlayerEntity::setPlayerStatus(ePlayerState newState, bool send)
 {
-    if(GameEngine::Instance().getNetworkManager().getDisplayName() == m_name && m_state != newState)
-    {
-        GameEngine::Instance().getNetworkManager().send_udp(new PlayerStatusUpdateNetMessage(m_name, m_pos, (sf::Uint16)m_dir, (sf::Uint16)m_state));
-    }
     m_state = newState;
 }
 

@@ -1,6 +1,7 @@
 #include "GameScene.hpp"
 #include "BulletEntity.hpp"
 #include "PlayerEntity.hpp"
+#include "PlayerStatusUpdateNetMessage.hpp"
 
 constexpr int m_AmountOfbullets = 200;
 
@@ -44,6 +45,21 @@ void GameScene::Update(const sf::Time& ur)
 
 void GameScene::HandleNetworkInput(NetMessage* msg)
 {
+    switch(msg->getType())
+    {
+    case eNetMessageType::eInGamePlayerPosUpdate:
+        {
+            PlayerStatusUpdateNetMessage* psunm = (PlayerStatusUpdateNetMessage*)msg;
+            if(m_players.find(psunm->Who) != m_players.end())
+            {
+                PlayerEntity* p = m_players.at(psunm->Who);
+                p->setPos(psunm->Position);
+                p->setPlayerStatus((PlayerEntity::ePlayerState)psunm->Status, false);
+                p->setDirection((Entity::eEntityDirection)psunm->Direction);
+            }
+            break;
+        }
+    }
     delete msg;
 }
 
@@ -136,6 +152,8 @@ bool GameScene::InstanciateBullet(PlayerEntity& whoIsShooting, float speed)
 void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
 {
     PlayerEntity* p = m_players.at(GameEngine::Instance().getNetworkManager().getDisplayName());
+    Entity::eEntityDirection oldDir = p->getCurrentDirrection();
+    PlayerEntity::ePlayerState oldState = p->getPlayerStatus();
     switch(key)
     {
         case sf::Keyboard::W:
@@ -154,6 +172,11 @@ void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
             p->setDirection(Entity::eEntityDirection::eWest);
             p->setPlayerStatus(pressed ? PlayerEntity::ePlayerState::eWalking : PlayerEntity::ePlayerState::eIDLE);
             break;
+    }
+
+    if(oldDir != p->getCurrentDirrection() || oldState != p->getPlayerStatus())
+    {
+        GameEngine::Instance().getNetworkManager().send_udp(new PlayerStatusUpdateNetMessage(p->getName(), p->getPos(), (sf::Uint16)p->getCurrentDirrection(), (sf::Uint16)p->getPlayerStatus()));
     }
 }
 

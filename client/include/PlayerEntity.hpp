@@ -20,7 +20,7 @@ class PlayerEntity : public Entity
 
         void shoot();
 
-        void setPlayerStatus(ePlayerState newState);
+        void setPlayerStatus(ePlayerState newState, bool send = true);
         ePlayerState getPlayerStatus() const;
         void addAmmo(int ammoToAdd);
         int getAmmo() const;
