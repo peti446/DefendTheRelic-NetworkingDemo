@@ -7,7 +7,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;Entities\;Entities\Player\;Entities\Bullet\;Networking\Message\Lobby\Start Game\;Networking\Message\Game\;Networking\Message\Game\PosUpdate\;Networking\Message\Game\Shoot\;Networking\Message\Game\Player Hp Update\;Networking\Message\Game\Bullet Count Update\;Networking\Message\Game\Die \;" />
+		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;Entities\;Entities\Player\;Entities\Bullet\;Networking\Message\Lobby\Start Game\;Networking\Message\Game\;Networking\Message\Game\PosUpdate\;Networking\Message\Game\Shoot\;Networking\Message\Game\Player Hp Update\;Networking\Message\Game\Bullet Count Update\;Networking\Message\Game\Die \;Networking\Message\Game\Respawn\;Networking\Message\Game\PlayerQuit\;" />
 		<Build>
 			<Target title="Linux">
 				<Option platforms="Unix;Mac;" />
@@ -192,7 +192,12 @@
 		<Unit filename="include/PlayerEntity.hpp">
 			<Option virtualFolder="Entities/Player/" />
 		</Unit>
-		<Unit filename="include/PlayerRespawnNetMessage.hpp" />
+		<Unit filename="include/PlayerExitMatch.hpp">
+			<Option virtualFolder="Networking/Message/Game/PlayerQuit/" />
+		</Unit>
+		<Unit filename="include/PlayerRespawnNetMessage.hpp">
+			<Option virtualFolder="Networking/Message/Game/Respawn/" />
+		</Unit>
 		<Unit filename="include/PlayerStatusUpdateNetMessage.hpp">
 			<Option virtualFolder="Networking/Message/Game/PosUpdate/" />
 		</Unit>
@@ -290,7 +295,12 @@
 		<Unit filename="src/PlayerEntity.cpp">
 			<Option virtualFolder="Entities/Player/" />
 		</Unit>
-		<Unit filename="src/PlayerRespawnNetMessage.cpp" />
+		<Unit filename="src/PlayerExitMatch.cpp">
+			<Option virtualFolder="Networking/Message/Game/PlayerQuit/" />
+		</Unit>
+		<Unit filename="src/PlayerRespawnNetMessage.cpp">
+			<Option virtualFolder="Networking/Message/Game/Respawn/" />
+		</Unit>
 		<Unit filename="src/PlayerStatusUpdateNetMessage.cpp">
 			<Option virtualFolder="Networking/Message/Game/PosUpdate/" />
 		</Unit>

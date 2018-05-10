@@ -66,10 +66,8 @@ void PlayerEntity::Try_respawn()
 
 void PlayerEntity::Respawn(sf::Vector2f pos)
 {
-    Log() << "Respawn";
     if(isDead())
     {
-        Log() << "tespawn 2";
         setActive(true);
         setHP(100);
         setAmmo(m_maxAmmo);
@@ -168,5 +166,11 @@ void PlayerEntity::setMaxAmmo(int newMaxAmmo)
     m_maxAmmo = newMaxAmmo;
     if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
         GameEngine::Instance().getNetworkManager().send_udp(new PlayerBulletCountUpdateNetMessage(m_name, m_ammo, m_maxAmmo));
+}
+
+
+int PlayerEntity::getMaxAmmo() const
+{
+    return m_maxAmmo;
 }
 

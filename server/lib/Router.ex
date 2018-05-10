@@ -38,8 +38,11 @@ defmodule Router do
     state = case Map.fetch(state.players, name) do
       {:ok, playerMap} ->
         case Utility.networkStringSplitter(playerMap.where_at) do
-          [_, id] ->
+          ["GameLobby", id] ->
             {_,_, state} = handle_call({nil, [name, "5", id, "exit"]}, self(), state)
+            state
+          ["InGame", id] ->
+            {_,_, state} = handle_call({nil, [name, "10", name]}, self(), state)
             state
           [_] ->
             state
@@ -292,6 +295,47 @@ def handle_call({_socket, [userID, "9", who, killer]}, _from, state) do
       end
     :error ->
       IO.puts("Recived die message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+
+def handle_call({_socket, [userID, "10", whoDisconnected]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              returnMSG = Utility.add_header_to_str(whoDisconnected)
+              Enum.each(state.players, fn({_uID, userMap}) ->
+                if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and userMap.display_name != whoDisconnected) do
+                  TCP.send_tpc_encrypted_message(userMap.tcp_socket, 10, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              {newLobby, playerMap} = Router.remove_player_fom_lobby(lobby, whoDisconnected)
+              cuserMap = Map.put(state.players, userID, playerMap)
+              state = Map.put(state, :players, cuserMap)
+              newLobbies = Map.put(state.lobbies, id, newLobby)
+              state = Map.put(state, :lobbies, newLobbies)
+              ##Delete lobby if it is emptu
+              if(Router.is_lobby_empty(newLobby)) do
+                {_, newLobby} = Map.pop(state.lobbies, id)
+                state = Map.put(state, :lobbies, newLobby)
+                {:reply ,state, state}
+              else
+                {:reply ,state, state}
+              end
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived disconnect message from user #{inspect userID} but the user is not registered ?");
       {:reply ,state, state}
   end
 end

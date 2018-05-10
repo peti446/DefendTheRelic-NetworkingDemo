@@ -1186,7 +1186,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525942466 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525944803 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1206,6 +1206,7 @@
 	"PlayerBulletCountUpdateNetMessage.hpp"
 	"PlayerDieNetMessage.hpp"
 	"PlayerRespawnNetMessage.hpp"
+	"PlayerExitMatch.hpp"
 
 1525805199 UpdateNetMessage.hpp"
 
@@ -2851,11 +2852,11 @@
 	"Logger.hpp"
 	"GameEngine.hpp"
 
-1525940987 e:\2º year\networking\ica-networkinggame\client\include\playerentity.hpp
+1525945375 e:\2º year\networking\ica-networkinggame\client\include\playerentity.hpp
 	<Entity.hpp>
 	<functional>
 
-1525940824 source:e:\2º year\networking\ica-networkinggame\client\src\entity.cpp
+1525944130 source:e:\2º year\networking\ica-networkinggame\client\src\entity.cpp
 	"Entity.hpp"
 
 1525865435 source:e:\2º year\networking\ica-networkinggame\client\src\pickupentity.cpp
@@ -2864,7 +2865,7 @@
 1525865434 e:\2º year\networking\ica-networkinggame\client\include\pickupentity.hpp
 	<Entity.hpp>
 
-1525942567 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
+1525945387 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
 	"PlayerEntity.hpp"
 	"BulletInstanciateNetMessage.hpp"
 	"PlayerBulletCountUpdateNetMessage.hpp"
@@ -2898,7 +2899,7 @@
 1525934792 e:\2º year\networking\ica-networkinggame\client\include\bulletinstanciatenetmessage.hpp
 	<NetMessage.hpp>
 
-1525939053 source:e:\2º year\networking\ica-networkinggame\client\src\bulletinstanciatenetmessage.cpp
+1525944262 source:e:\2º year\networking\ica-networkinggame\client\src\bulletinstanciatenetmessage.cpp
 	"BulletInstanciateNetMessage.hpp"
 
 1525937181 source:e:\2º year\networking\ica-networkinggame\client\src\hpplayerupdatenetmessage.cpp
@@ -2924,4 +2925,10 @@
 
 1525937313 e:\2º year\networking\ica-networkinggame\client\include\playerbulletcountupdatenetmessage.hpp
 	<NetMessage.hpp>
+
+1525945909 e:\2º year\networking\ica-networkinggame\client\include\playerexitmatch.hpp
+	<NetMessage.hpp>
+
+1525945923 source:e:\2º year\networking\ica-networkinggame\client\src\playerexitmatch.cpp
+	"PlayerExitMatch.hpp"
 

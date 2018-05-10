@@ -7,6 +7,7 @@
 #include "PlayerBulletCountUpdateNetMessage.hpp"
 #include "PlayerDieNetMessage.hpp"
 #include "PlayerRespawnNetMessage.hpp"
+#include "PlayerExitMatch.hpp"
 
 constexpr int m_AmountOfbullets = 200;
 
@@ -18,7 +19,19 @@ GameScene::GameScene(std::string t1_p1, std::string t1_p2, std::string t2_p1, st
 
 GameScene::~GameScene()
 {
-    //dtor
+    for(BulletEntity* e : m_Activebullets)
+    {
+        delete e;
+    }
+    for(BulletEntity* e : m_bullets)
+    {
+        delete e;
+    }
+    for(auto mit : m_players)
+    {
+        delete mit.second;
+    }
+
 }
 
 void GameScene::Draw(sf::RenderWindow& rw)
@@ -137,6 +150,15 @@ void GameScene::HandleNetworkInput(NetMessage* msg)
             }
             break;
         }
+    case eNetMessageType::ePlayerQuitMessage:
+        {
+            PlayerExitMatch* playerQuit = (PlayerExitMatch*)msg;
+            if(m_players.find(playerQuit->WhoDisconnected) != m_players.end())
+            {
+                m_players.at(playerQuit->WhoDisconnected)->setActive(false);
+            }
+            break;
+        }
     }
     delete msg;
 }
@@ -211,6 +233,21 @@ bool GameScene::LoadScene()
 
 bool GameScene::UnloadScene()
 {
+    for(BulletEntity* e : m_Activebullets)
+    {
+        delete e;
+    }
+    for(BulletEntity* e : m_bullets)
+    {
+        delete e;
+    }
+    for(auto mit : m_players)
+    {
+        delete mit.second;
+    }
+    m_Activebullets.clear();
+    m_bullets.clear();
+    m_players.clear();
     return true;
 }
 
@@ -286,6 +323,9 @@ void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
             {
                 p->shoot();
             }
+            break;
+        case sf::Keyboard::R:
+            p->setAmmo(p->getMaxAmmo());
             break;
     }
 

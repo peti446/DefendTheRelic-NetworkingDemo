@@ -32,6 +32,7 @@ class PlayerEntity : public Entity
         void setAmmo(int newAmmo);
         void setMaxAmmo(int newMaxAmmo);
         int getAmmo() const;
+        int getMaxAmmo() const;
 
 
         const std::string& getName() const;

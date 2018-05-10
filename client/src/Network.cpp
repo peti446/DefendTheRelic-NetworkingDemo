@@ -17,6 +17,7 @@
 #include "PlayerBulletCountUpdateNetMessage.hpp"
 #include "PlayerDieNetMessage.hpp"
 #include "PlayerRespawnNetMessage.hpp"
+#include "PlayerExitMatch.hpp"
 
 Network::Network()
 {
@@ -368,6 +369,9 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
     case eNetMessageType::ePlayerDiesMessage:
         {
             returnM = new PlayerDieNetMessage();
+            break;
+    case eNetMessageType::ePlayerQuitMessage:
+            returnM = new PlayerExitMatch();
             break;
         }
     }
