@@ -2,11 +2,13 @@
 #include "BulletInstanciateNetMessage.hpp"
 #include "PlayerBulletCountUpdateNetMessage.hpp"
 #include "HPPlayerUpdateNetMessage.hpp"
+#include "PlayerRespawnNetMessage.hpp"
+#include <cstdlib>
 
 PlayerEntity::PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)> shootFunction) : m_shootFunct(shootFunction), m_name(m_dn),
                                                                                                                               m_state(ePlayerState::eIDLE), m_shootVelocity(0.5f),
                                                                                                                               m_timePassedSinceLastShoot(0.6f), m_maxAmmo(60),
-                                                                                                                              m_ammo(60)
+                                                                                                                              m_ammo(60), m_respawnTime(5), m_timeDead(0)
 {
     setEntitySide(s);
     setActive(true);
@@ -31,17 +33,50 @@ void PlayerEntity::Draw(sf::RenderWindow& rw)
 
 void PlayerEntity::Update(const sf::Time& ur)
 {
-    if(isActive())
+    if(isDead())
     {
-        m_timePassedSinceLastShoot+= ur.asSeconds();
-        if(m_state == ePlayerState::eWalking)
+        m_timeDead += ur.asSeconds();
+        if(m_timeDead > m_respawnTime)
         {
-            sf::Vector2i dir = getDirectionVector();
-            sf::Vector2f newPos  = m_pos + (getSpeed() * ur.asSeconds() * sf::Vector2f(dir));
-            setPos(newPos);
+            m_timeDead = 0;
+            Try_respawn();
         }
     }
+
+    if(!isActive())
+        return;
+
+    m_timePassedSinceLastShoot+= ur.asSeconds();
+    if(m_state == ePlayerState::eWalking)
+    {
+        sf::Vector2i dir = getDirectionVector();
+        sf::Vector2f newPos  = m_pos + (getSpeed() * ur.asSeconds() * sf::Vector2f(dir));
+        setPos(newPos);
+    }
 }
+
+void PlayerEntity::Try_respawn()
+{
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+    {
+        sf::Vector2f newPos = sf::Vector2f(rand() % GameEngine::Instance().getRenderWindow().getSize().x, rand() % GameEngine::Instance().getRenderWindow().getSize().y);
+        GameEngine::Instance().getNetworkManager().send_tcp(new PlayerRespawnNetMessage(m_name, newPos));
+    }
+}
+
+void PlayerEntity::Respawn(sf::Vector2f pos)
+{
+    Log() << "Respawn";
+    if(isDead())
+    {
+        Log() << "tespawn 2";
+        setActive(true);
+        setHP(100);
+        setAmmo(m_maxAmmo);
+        setPos(pos);
+    }
+}
+
 
 void PlayerEntity::Damage(int damage)
 {

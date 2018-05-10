@@ -5,6 +5,8 @@
 #include "BulletInstanciateNetMessage.hpp"
 #include "HPPlayerUpdateNetMessage.hpp"
 #include "PlayerBulletCountUpdateNetMessage.hpp"
+#include "PlayerDieNetMessage.hpp"
+#include "PlayerRespawnNetMessage.hpp"
 
 constexpr int m_AmountOfbullets = 200;
 
@@ -49,7 +51,7 @@ void GameScene::Update(const sf::Time& ur)
     //Check for colission between bullets and player to make damage
     for(auto mit : m_players)
     {
-        Entity* player = mit.second;
+        PlayerEntity* player = mit.second;
         for(BulletEntity* bullet : m_Activebullets)
         {
             if(bullet->isActive() && bullet->getOwner().getEntitySide() != player->getEntitySide())
@@ -58,6 +60,10 @@ void GameScene::Update(const sf::Time& ur)
                 {
                     player->Damage(bullet->getDamage());
                     bullet->setActive(false);
+                    if(player->isDead() && player->getName() == GameEngine::Instance().getNetworkManager().getDisplayName())
+                    {
+                        GameEngine::Instance().getNetworkManager().send_tcp(new PlayerDieNetMessage(player->getName(), bullet->getOwner().getName()));
+                    }
                 }
             }
         }
@@ -110,6 +116,24 @@ void GameScene::HandleNetworkInput(NetMessage* msg)
             {
                 m_players.at(ammoUpdate->WhoUpdating)->setAmmo(ammoUpdate->NewAmount);
                 m_players.at(ammoUpdate->WhoUpdating)->setMaxAmmo(ammoUpdate->NewMaxAmount);
+            }
+            break;
+        }
+    case eNetMessageType::ePlayerRespanwsMessage:
+        {
+            PlayerRespawnNetMessage* respawnPlayer = (PlayerRespawnNetMessage*)msg;
+            if(m_players.find(respawnPlayer->WhoRespawned) != m_players.end())
+            {
+                m_players.at(respawnPlayer->WhoRespawned)->Respawn(respawnPlayer->RespawnPos);
+            }
+            break;
+        }
+    case eNetMessageType::ePlayerDiesMessage:
+        {
+            PlayerDieNetMessage* diePLAYER = (PlayerDieNetMessage*)msg;
+            if(m_players.find(diePLAYER->WhoDied) != m_players.end())
+            {
+                m_players.at(diePLAYER->WhoDied)->Die();
             }
             break;
         }

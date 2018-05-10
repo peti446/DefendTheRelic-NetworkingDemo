@@ -15,6 +15,8 @@
 #include "BulletInstanciateNetMessage.hpp"
 #include "HPPlayerUpdateNetMessage.hpp"
 #include "PlayerBulletCountUpdateNetMessage.hpp"
+#include "PlayerDieNetMessage.hpp"
+#include "PlayerRespawnNetMessage.hpp"
 
 Network::Network()
 {
@@ -356,6 +358,16 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
     case eNetMessageType::ePlayerBulletCountUpdate:
         {
             returnM = new PlayerBulletCountUpdateNetMessage();
+            break;
+        }
+    case eNetMessageType::ePlayerRespanwsMessage:
+        {
+            returnM = new PlayerRespawnNetMessage();
+            break;
+        }
+    case eNetMessageType::ePlayerDiesMessage:
+        {
+            returnM = new PlayerDieNetMessage();
             break;
         }
     }

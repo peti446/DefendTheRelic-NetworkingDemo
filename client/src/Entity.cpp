@@ -13,20 +13,26 @@ bool Entity::isDead() const
     return m_hp == 0;
 }
 
+void Entity::Die()
+{
+    setActive(false);
+    m_hp = 0;
+}
+
 void Entity::Damage(int damage)
 {
     m_hp -= damage;
     if(m_hp < 0)
         m_hp = 0;
     if(isDead())
-        setActive(false);
+        Die();
 }
 
 void Entity::Heal(int healAmount)
 {
     m_hp += healAmount;
-    if(!isDead())
-        setActive(true);
+    if(isDead())
+        Die();
 }
 
 void Entity::setHP(int newHP)
@@ -35,7 +41,7 @@ void Entity::setHP(int newHP)
     if(m_hp < 0)
         m_hp = 0;
     if(isDead())
-        setActive(false);
+        Die();
 }
 
 void Entity::setPos(const sf::Vector2f& pos)
@@ -184,5 +190,7 @@ float Entity::getSpeed() const
 
 bool Entity::isColidingWith(const Entity& e) const
 {
+    if(!isActive() || !e.isActive())
+        return false;
     return m_sprite.getGlobalBounds().intersects(e.m_sprite.getGlobalBounds());
 }

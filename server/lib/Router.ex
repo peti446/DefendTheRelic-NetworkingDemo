@@ -84,7 +84,7 @@ defmodule Router do
                Utility.add_header_to_str(lobby.t2_player1) <>
                Utility.add_header_to_str(lobby.t2_player2) <>
                Utility.add_header_to_str(to_string(lobby.current_status))
-    TCP.send_tpc_encrypted_message(player.tcp_socker, 4, lobbyMSG, player.aesKey)
+    TCP.send_tpc_encrypted_message(player.tcp_socket, 4, lobbyMSG, player.aesKey)
   end
 
   def send_all_GameLobbies_to_player(player, lobbies) do
@@ -228,7 +228,7 @@ def handle_call({socket, _address, _port, [userID, "8", who, posX, posY, dir, sp
         ["InGame", id] ->
           case Map.fetch(state.lobbies, id) do
             {:ok, lobby} ->
-              IO.puts("#{inspect posX} y #{inspect posY} idr #{inspect dir} speed #{inspect speed}")
+              IO.puts("Spawning bullet at: x #{inspect posX} y #{inspect posY} dir #{inspect dir} speed #{inspect speed}")
               returnMSG = Utility.add_header_to_str(who) <>
                           Utility.add_header_to_str(posX) <>
                           Utility.add_header_to_str(posY) <>
@@ -251,6 +251,79 @@ def handle_call({socket, _address, _port, [userID, "8", who, posX, posY, dir, sp
       end
     :error ->
       IO.puts("Recived bullet instantiate message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+
+
+def handle_call({_socket, [userID, "9", who, killer]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              returnMSG = Utility.add_header_to_str(who) <>
+                          Utility.add_header_to_str(killer)
+              Enum.each(state.players, fn({_uID, userMap}) ->
+                if(userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) do
+                  TCP.send_tpc_encrypted_message(userMap.tcp_socket, 9, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              newLobby = case Router.get_player_team(who, lobby) do
+                :team_1 ->
+                  Map.put(lobby, :team2_kills, lobby.team2_kills + 1)
+                :team_2->
+                  Map.put(lobby, :team1_kills, lobby.team1_kills + 1)
+                _->
+                  lobby
+              end
+              newLobbies = Map.put(state.lobbies, id, newLobby)
+              state = Map.put(state, :lobbies, newLobbies)
+              {:reply ,state, state}
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived die message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+
+def handle_call({_socket, [userID, "12", who, posX, posY]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              returnMSG = Utility.add_header_to_str(who) <>
+                          Utility.add_header_to_str(posX) <>
+                          Utility.add_header_to_str(posY)
+              IO.puts("Sending respawn #{inspect who} at #{inspect posX} amd #{inspect posY}")
+              Enum.each(state.players, fn({_uID, userMap}) ->
+                if(userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) do
+                  TCP.send_tpc_encrypted_message(userMap.tcp_socket, 12, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              {:reply ,state, state}
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived respawn message from user #{inspect userID} but the user is not registered ?");
       {:reply ,state, state}
   end
 end
@@ -393,7 +466,7 @@ end
       {:ok, userMap} ->
         ##Generate a lobby
         id = Utility.random_string(16)
-        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2, current_status: "waiting"})
+        state = Kernel.put_in(state, [:lobbies, id], %{t1_player1: t1_p1, t1_player2: t1_p2, t2_player1: t2_p1, t2_player2: t2_p2, team1_kills: 0, team2_kills: 0, current_status: "waiting"})
 
         ##In case the player is in a game
         {:reply, state, state} = case Utility.networkStringSplitter(userMap.where_at) do
@@ -555,7 +628,7 @@ end
           newPlayerMap = Enum.map(state.players, fn({private, userMap}) ->
             if(userMap.display_name == t1_p1 or userMap.display_name == t1_p2
             or userMap.display_name == t2_p1 or userMap.display_name == t2_p2) do
-              TCP.send_tpc_encrypted_message(userMap.tcp_socker, 6, lobbyMSG, userMap.aesKey)
+              TCP.send_tpc_encrypted_message(userMap.tcp_socket, 6, lobbyMSG, userMap.aesKey)
               userMap = Map.put(userMap, :where_at, "InGame-::-" <> id)
               {private, userMap}
             else
@@ -597,7 +670,7 @@ def handle_call({socket, ["st", "hsk"]}, _from, state) do
       ##Create a player entri in the map
       displayName = Utility.random_string_32encode(8)
       {:ok, ip} = :inet.parse_address(Kernel.to_charlist(udpAddress))
-      state = Kernel.put_in(state, [:players, currentID], %{tcp_socker: socket, udp_address: ip, udp_port: String.to_integer(udpPort), aesKey: key, display_name: displayName, where_at: "Lobby"})
+      state = Kernel.put_in(state, [:players, currentID], %{tcp_socket: socket, udp_address: ip, udp_port: String.to_integer(udpPort), aesKey: key, display_name: displayName, where_at: "Lobby"})
 
       ##For debug porpuses
       IO.puts("Registered user: #{inspect currentID}")

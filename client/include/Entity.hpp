@@ -28,6 +28,7 @@ class Entity
 
         virtual void Draw(sf::RenderWindow& rw) = 0;
         virtual void Update(const sf::Time& ur) = 0;
+        virtual void Die();
         virtual bool isDead() const;
         virtual void Damage(int damage);
         virtual void Heal(int healAmount);

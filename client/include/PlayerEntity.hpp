@@ -21,6 +21,8 @@ class PlayerEntity : public Entity
         void Heal(int healAmount) final override;
         void setHP(int newHP) final override;
 
+        void Try_respawn();
+        void Respawn(sf::Vector2f pos);
         bool shoot();
         bool canShoot();
 
@@ -41,6 +43,8 @@ class PlayerEntity : public Entity
         int m_maxAmmo;
         float m_shootVelocity;
         float m_timePassedSinceLastShoot;
+        float m_respawnTime;
+        float m_timeDead;
         std::string m_name;
         std::function<bool(PlayerEntity&, float)> m_shootFunct;
         ePlayerState m_state;
