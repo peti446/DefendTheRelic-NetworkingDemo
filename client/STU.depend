@@ -1136,7 +1136,7 @@
 1525694069 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
 	<Scene.hpp>
 
-1525937338 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
+1525938551 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
 	"GameScene.hpp"
 	"BulletEntity.hpp"
 	"PlayerEntity.hpp"
@@ -1182,7 +1182,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525937544 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525938139 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -2858,9 +2858,11 @@
 1525865434 e:\2º year\networking\ica-networkinggame\client\include\pickupentity.hpp
 	<Entity.hpp>
 
-1525935337 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
+1525939499 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
 	"PlayerEntity.hpp"
 	"BulletInstanciateNetMessage.hpp"
+	"PlayerBulletCountUpdateNetMessage.hpp"
+	"HPPlayerUpdateNetMessage.hpp"
 
 1525873237 source:e:\2º year\networking\ica-networkinggame\client\src\relicentity.cpp
 	"RelicEntity.hpp"
@@ -2888,7 +2890,7 @@
 1525934792 e:\2º year\networking\ica-networkinggame\client\include\bulletinstanciatenetmessage.hpp
 	<NetMessage.hpp>
 
-1525935328 source:e:\2º year\networking\ica-networkinggame\client\src\bulletinstanciatenetmessage.cpp
+1525939053 source:e:\2º year\networking\ica-networkinggame\client\src\bulletinstanciatenetmessage.cpp
 	"BulletInstanciateNetMessage.hpp"
 
 1525937181 source:e:\2º year\networking\ica-networkinggame\client\src\hpplayerupdatenetmessage.cpp

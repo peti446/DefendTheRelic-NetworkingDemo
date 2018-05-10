@@ -228,6 +228,7 @@ def handle_call({socket, _address, _port, [userID, "8", who, posX, posY, dir, sp
         ["InGame", id] ->
           case Map.fetch(state.lobbies, id) do
             {:ok, lobby} ->
+              IO.puts("#{inspect posX} y #{inspect posY} idr #{inspect dir} speed #{inspect speed}")
               returnMSG = Utility.add_header_to_str(who) <>
                           Utility.add_header_to_str(posX) <>
                           Utility.add_header_to_str(posY) <>
@@ -267,7 +268,7 @@ def handle_call({socket, _address, _port, [userID, "13", who, newAmmoAmount, new
               Enum.each(state.players, fn({uID, userMap}) ->
                 if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
                 or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID != userID) do
-                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 8, returnMSG, userMap.aesKey)
+                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 13, returnMSG, userMap.aesKey)
                   :ok
                 end
                 :ok
@@ -297,7 +298,7 @@ def handle_call({socket, _address, _port, [userID, "14", who, newHP]}, _from, st
               Enum.each(state.players, fn({uID, userMap}) ->
                 if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
                 or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID != userID) do
-                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 8, returnMSG, userMap.aesKey)
+                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 14, returnMSG, userMap.aesKey)
                   :ok
                 end
                 :ok

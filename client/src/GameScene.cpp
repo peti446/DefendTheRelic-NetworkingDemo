@@ -70,6 +70,7 @@ void GameScene::Update(const sf::Time& ur)
 
 void GameScene::HandleNetworkInput(NetMessage* msg)
 {
+    Log() << (sf::Uint16)msg->getType();
     switch(msg->getType())
     {
     case eNetMessageType::eInGamePlayerPosUpdate:

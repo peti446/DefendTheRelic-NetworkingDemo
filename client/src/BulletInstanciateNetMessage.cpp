@@ -19,6 +19,7 @@ void BulletInstanciateNetMessage::BuildMessage(sf::Packet& p)
     std::string x;
     std::string y;
     p >> WhoShoot >> x >> y >> Direction >> s ;
+    Log() << "X " << x << " y" <<y << " s" << s;
     BulletSpeed = std::stof(s);
     StartPosition.x = std::stof(x);
     StartPosition.y = std::stof(y);

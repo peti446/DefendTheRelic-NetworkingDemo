@@ -320,6 +320,7 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
             decryptedP.clear();
             decryptedP.append(plain.data(), plain.size());
             returnM = unwrap_msg(decryptedP);
+            return returnM;
             break;
         }
     case eNetMessageType::eDisplayNameUpdate:
@@ -358,7 +359,7 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
             break;
         }
     }
-    if((returnM != nullptr))
+    if((returnM == nullptr))
     {
         returnM = new EmptyNetMessage();
     }
