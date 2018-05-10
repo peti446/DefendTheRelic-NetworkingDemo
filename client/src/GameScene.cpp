@@ -9,6 +9,8 @@
 #include "PlayerRespawnNetMessage.hpp"
 #include "PlayerExitMatch.hpp"
 #include "GamePauseMenuScene.hpp"
+#include "EndGameNetMEssage.hpp"
+#include "EndGameMenuScene.hpp"
 
 constexpr int m_AmountOfbullets = 200;
 
@@ -159,6 +161,11 @@ void GameScene::HandleNetworkInput(NetMessage* msg)
                 m_players.at(playerQuit->WhoDisconnected)->setActive(false);
             }
             break;
+        }
+    case eNetMessageType::eGameFinishedMessage:
+        {
+            EndGameNetMEssage* egnm = (EndGameNetMEssage*)msg;
+            GameEngine::Instance().getSceneManager().setActiveScene(*new EndGameMenuScene(this, egnm->WinnerTeam, egnm->t1_kills, egnm->t2_kills), false);
         }
     }
     delete msg;

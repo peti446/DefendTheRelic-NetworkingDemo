@@ -278,8 +278,34 @@ def handle_call({_socket, [userID, "9", who, killer]}, _from, state) do
               end)
               newLobby = case Router.get_player_team(who, lobby) do
                 :team_1 ->
+                  if(lobby.team2_kills + 1 == 10) do
+                    Enum.each(state.players, fn({_uID, userMap}) ->
+                      if(userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                      or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) do
+                        TCP.send_tpc_encrypted_message(userMap.tcp_socket, 11,
+                                    Utility.add_header_to_str("Team 2")
+                                    <> <<lobby.team1_kills::unsigned-big-integer-8>>
+                                    <> <<lobby.team2_kills::unsigned-big-integer-8>>, userMap.aesKey)
+                        :ok
+                      end
+                      :ok
+                    end)
+                  end
                   Map.put(lobby, :team2_kills, lobby.team2_kills + 1)
                 :team_2->
+                  if(lobby.team1_kills + 1 == 10) do
+                    Enum.each(state.players, fn({_uID, userMap}) ->
+                      if(userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                      or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) do
+                        TCP.send_tpc_encrypted_message(userMap.tcp_socket, 11,
+                                    Utility.add_header_to_str("Team 1")
+                                    <> <<lobby.team1_kills::unsigned-big-integer-8>>
+                                    <> <<lobby.team2_kills::unsigned-big-integer-8>>, userMap.aesKey)
+                        :ok
+                      end
+                      :ok
+                    end)
+                  end
                   Map.put(lobby, :team1_kills, lobby.team1_kills + 1)
                 _->
                   lobby

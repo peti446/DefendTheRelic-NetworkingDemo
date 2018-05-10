@@ -60,26 +60,24 @@ bool MainMenuScene::LoadScene()
     /*
     *   Create the Single Button and add it to the gui
     */
-    tgui::Button::Ptr PlayButton = m_theme->load("Button");
+    /*tgui::Button::Ptr PlayButton = m_theme->load("Button");
     PlayButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     PlayButton->setPosition(windowWidth/2.95f, windowHeight/3.6f);
     PlayButton->setText("Singleplayer");
     m_gui.add(PlayButton);
-    //PlayButton->connect("pressed", &MainMenuScene::newSnakeGame, this);
+    //PlayButton->connect("pressed", &MainMenuScene::newSnakeGame, this);*/
 
-    sf::Vector2f bs = PlayButton->getPosition();
 
     /*
     *   Create the Lan Server Button and add it to the gui
     */
-    bs.y += 60.f*windowHeightINT/720.f;
     tgui::Button::Ptr LanServer = m_theme->load("Button");
     LanServer->setSize(windowWidth/3.0967f, windowHeight/21.6f);
-    LanServer->setPosition(bs.x, bs.y);
+    LanServer->setPosition(windowWidth/2.95f, windowHeight/3.6f);
     LanServer->setText("LAN Server");
     m_gui.add(LanServer);
     LanServer->connect("pressed", &MainMenuScene::OnClickLanServer, this);
-
+    sf::Vector2f bs = LanServer->getPosition();
     /*
     *   Create the Online Button and add it to the gui
     */
@@ -94,13 +92,13 @@ bool MainMenuScene::LoadScene()
     /*
     *   Create the Option Button and add it to the gui
     */
-    bs.y += 60.f*windowHeightINT/720.f;
+    /*bs.y += 60.f*windowHeightINT/720.f;
     tgui::Button::Ptr OptionButton = m_theme->load("Button");
     OptionButton->setSize(windowWidth/3.0967f, windowHeight/21.6f);
     OptionButton->setPosition(bs.x, bs.y);
     OptionButton->setText("Options");
     m_gui.add(OptionButton);
-    //closeButton->connect("pressed", [&](){ GameEngine::Instance().stop(); });
+    //closeButton->connect("pressed", [&](){ GameEngine::Instance().stop(); });*/
 
     /*
     *   Create the Close Button and add it to the gui

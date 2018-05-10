@@ -173,4 +173,3 @@ int PlayerEntity::getMaxAmmo() const
 {
     return m_maxAmmo;
 }
-

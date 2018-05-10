@@ -18,6 +18,7 @@
 #include "PlayerDieNetMessage.hpp"
 #include "PlayerRespawnNetMessage.hpp"
 #include "PlayerExitMatch.hpp"
+#include "EndGameNetMEssage.hpp"
 
 Network::Network()
 {
@@ -370,8 +371,15 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
         {
             returnM = new PlayerDieNetMessage();
             break;
+        }
     case eNetMessageType::ePlayerQuitMessage:
+        {
             returnM = new PlayerExitMatch();
+            break;
+        }
+    case eNetMessageType::eGameFinishedMessage:
+        {
+            returnM = new EndGameNetMEssage();
             break;
         }
     }

@@ -1138,7 +1138,7 @@
 1525694069 e:\2º year\networking\ica-networkinggame\client\include\gamelobbyscene.hpp
 	<Scene.hpp>
 
-1525946822 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
+1525950155 source:e:\2º year\networking\ica-networkinggame\client\src\gamescene.cpp
 	"GameScene.hpp"
 	"BulletEntity.hpp"
 	"PlayerEntity.hpp"
@@ -1150,6 +1150,8 @@
 	"PlayerRespawnNetMessage.hpp"
 	"PlayerExitMatch.hpp"
 	"GamePauseMenuScene.hpp"
+	"EndGameNetMEssage.hpp"
+	"EndGameMenuScene.hpp"
 
 1525693902 .hpp"
 
@@ -1188,7 +1190,7 @@
 	<Cryptopp/filters.h>
 	"Base64Helper.hpp"
 
-1525944803 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
+1525949603 source:e:\2º year\networking\ica-networkinggame\client\src\network.cpp
 	"Network.h"
 	<iostream>
 	<Cryptopp/rsa.h>
@@ -1209,6 +1211,7 @@
 	"PlayerDieNetMessage.hpp"
 	"PlayerRespawnNetMessage.hpp"
 	"PlayerExitMatch.hpp"
+	"EndGameNetMEssage.hpp"
 
 1525805199 UpdateNetMessage.hpp"
 
@@ -1426,7 +1429,7 @@
 	"Scene.hpp"
 	<algorithm>
 
-1525707619 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
+1525948739 source:e:\2º year\networking\ica-networkinggame\client\src\mainmenuscene.cpp
 	"MainMenuScene.hpp"
 	"ConnectingToServerScene.h"
 	"ConnectToOnlineServer.hpp"
@@ -2867,7 +2870,7 @@
 1525865434 e:\2º year\networking\ica-networkinggame\client\include\pickupentity.hpp
 	<Entity.hpp>
 
-1525945387 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
+1525949640 source:e:\2º year\networking\ica-networkinggame\client\src\playerentity.cpp
 	"PlayerEntity.hpp"
 	"BulletInstanciateNetMessage.hpp"
 	"PlayerBulletCountUpdateNetMessage.hpp"
@@ -2934,18 +2937,27 @@
 1525945923 source:e:\2º year\networking\ica-networkinggame\client\src\playerexitmatch.cpp
 	"PlayerExitMatch.hpp"
 
-1525946159 source:e:\2º year\networking\ica-networkinggame\client\src\endgamemenuscene.cpp
+1525950120 source:e:\2º year\networking\ica-networkinggame\client\src\endgamemenuscene.cpp
 	"EndGameMenuScene.hpp"
+	"GlobalLobbyScene.hpp"
+	"GameScene.hpp"
+	"PlayerExitMatch.hpp"
 
-1525946159 e:\2º year\networking\ica-networkinggame\client\include\endgamemenuscene.hpp
+1525950096 e:\2º year\networking\ica-networkinggame\client\include\endgamemenuscene.hpp
 	<Scene.hpp>
 
 1525946941 e:\2º year\networking\ica-networkinggame\client\include\gamepausemenuscene.hpp
 	<Scene.hpp>
 
-1525947396 source:e:\2º year\networking\ica-networkinggame\client\src\gamepausemenuscene.cpp
+1525947757 source:e:\2º year\networking\ica-networkinggame\client\src\gamepausemenuscene.cpp
 	"GamePauseMenuScene.hpp"
 	"GameScene.hpp"
 	"GlobalLobbyScene.hpp"
 	"PlayerExitMatch.hpp"
+
+1525949059 source:e:\2º year\networking\ica-networkinggame\client\src\endgamenetmessage.cpp
+	"EndGameNetMEssage.hpp"
+
+1525948980 e:\2º year\networking\ica-networkinggame\client\include\endgamenetmessage.hpp
+	<NetMessage.hpp>
 
