@@ -17,6 +17,9 @@ class PlayerEntity : public Entity
 
         void Draw(sf::RenderWindow& rw) final override;
         void Update(const sf::Time& ur) final override;
+        void Damage(int damage) final override;
+        void Heal(int healAmount) final override;
+        void setHP(int newHP) final override;
 
         bool shoot();
         bool canShoot();

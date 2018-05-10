@@ -31,8 +31,8 @@ class Entity
         virtual bool isDead() const;
         virtual void Damage(int damage);
         virtual void Heal(int healAmount);
+        virtual void setHP(int newHP);
         virtual void setDirection(eEntityDirection newDire, bool shouldRotate = true);
-        void setHP(int newHP);
         void setPos(const sf::Vector2f& pos);
         bool setTexture(const std::string& newTexture);
         void setTexture(const sf::Texture& newTexture);

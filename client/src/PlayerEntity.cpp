@@ -1,5 +1,7 @@
 #include "PlayerEntity.hpp"
 #include "BulletInstanciateNetMessage.hpp"
+#include "PlayerBulletCountUpdateNetMessage.hpp"
+#include "HPPlayerUpdateNetMessage.hpp"
 
 PlayerEntity::PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)> shootFunction) : m_shootFunct(shootFunction), m_name(m_dn),
                                                                                                                               m_state(ePlayerState::eIDLE), m_shootVelocity(0.5f),
@@ -41,6 +43,28 @@ void PlayerEntity::Update(const sf::Time& ur)
     }
 }
 
+void PlayerEntity::Damage(int damage)
+{
+    Entity::Damage(damage);
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        GameEngine::Instance().getNetworkManager().send_udp(new HPPlayerUpdateNetMessage(m_name, m_hp));
+}
+
+void PlayerEntity::Heal(int healAmount)
+{
+    Entity::Heal(healAmount);
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        GameEngine::Instance().getNetworkManager().send_udp(new HPPlayerUpdateNetMessage(m_name, m_hp));
+}
+
+void PlayerEntity::setHP(int newHP)
+{
+    Entity::Heal(newHP);
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        GameEngine::Instance().getNetworkManager().send_udp(new HPPlayerUpdateNetMessage(m_name, m_hp));
+}
+
+
 bool PlayerEntity::shoot()
 {
     if(!canShoot())
@@ -50,7 +74,10 @@ bool PlayerEntity::shoot()
         m_timePassedSinceLastShoot = 0;
         m_ammo -= 1;
         if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        {
             GameEngine::Instance().getNetworkManager().send_udp(new BulletInstanciateNetMessage(m_name, m_pos, (sf::Uint16)m_dir, 10));
+            GameEngine::Instance().getNetworkManager().send_udp(new PlayerBulletCountUpdateNetMessage(m_name, m_ammo, m_maxAmmo));
+        }
         return true;
     } else
     {
@@ -69,6 +96,8 @@ void PlayerEntity::addAmmo(int ammoToAdd)
     m_ammo += ammoToAdd;
     if(m_ammo > m_maxAmmo)
         m_ammo = m_maxAmmo;
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        GameEngine::Instance().getNetworkManager().send_udp(new PlayerBulletCountUpdateNetMessage(m_name, m_ammo, m_maxAmmo));
 }
 
 void PlayerEntity::setPlayerStatus(ePlayerState newState, bool send)
@@ -95,10 +124,14 @@ const std::string& PlayerEntity::getName() const
 void PlayerEntity::setAmmo(int newAmmo)
 {
     m_ammo = newAmmo;
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        GameEngine::Instance().getNetworkManager().send_udp(new PlayerBulletCountUpdateNetMessage(m_name, m_ammo, m_maxAmmo));
 }
 
 void PlayerEntity::setMaxAmmo(int newMaxAmmo)
 {
     m_maxAmmo = newMaxAmmo;
+    if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+        GameEngine::Instance().getNetworkManager().send_udp(new PlayerBulletCountUpdateNetMessage(m_name, m_ammo, m_maxAmmo));
 }
 
