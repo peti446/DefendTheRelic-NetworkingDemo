@@ -12,6 +12,9 @@
 #include "GameLobbyUpdateNetMessage.hpp"
 #include "StartGameNetMessage.hpp"
 #include "PlayerStatusUpdateNetMessage.hpp"
+#include "BulletInstanciateNetMessage.hpp"
+#include "HPPlayerUpdateNetMessage.hpp"
+#include "PlayerBulletCountUpdateNetMessage.hpp"
 
 Network::Network()
 {
@@ -322,29 +325,44 @@ NetMessage* Network::unwrap_msg(sf::Packet p) const
     case eNetMessageType::eDisplayNameUpdate:
         {
             returnM = new DisplayNameUpdate();
-            returnM->BuildMessage(p);
             break;
         }
     case eNetMessageType::eGameLobbyUpdated:
         {
             returnM = new GameLobbyUpdateNetMessage();
-            returnM->BuildMessage(p);
             break;
         }
     case eNetMessageType::eGameLobbyStartGame:
         {
             returnM = new StartGameNetMessage();
-            returnM->BuildMessage(p);
             break;
         }
     case eNetMessageType::eInGamePlayerPosUpdate:
         {
             returnM = new PlayerStatusUpdateNetMessage();
-            returnM->BuildMessage(p);
+            break;
+        }
+    case eNetMessageType::eBulletInstanciateMessage:
+        {
+            returnM = new BulletInstanciateNetMessage();
+            break;
+        }
+    case eNetMessageType::eHpPlayerUpdate:
+        {
+            returnM = new HPPlayerUpdateNetMessage();
+            break;
+        }
+    case eNetMessageType::ePlayerBulletCountUpdate:
+        {
+            returnM = new PlayerBulletCountUpdateNetMessage();
             break;
         }
     }
-
-    return (returnM != nullptr) ? returnM : new EmptyNetMessage();
+    if((returnM != nullptr))
+    {
+        returnM = new EmptyNetMessage();
+    }
+    returnM->BuildMessage(p);
+    return  returnM;
 }
 

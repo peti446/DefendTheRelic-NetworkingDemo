@@ -18,11 +18,14 @@ class PlayerEntity : public Entity
         void Draw(sf::RenderWindow& rw) final override;
         void Update(const sf::Time& ur) final override;
 
-        void shoot();
+        bool shoot();
+        bool canShoot();
 
         void setPlayerStatus(ePlayerState newState, bool send = true);
         ePlayerState getPlayerStatus() const;
         void addAmmo(int ammoToAdd);
+        void setAmmo(int newAmmo);
+        void setMaxAmmo(int newMaxAmmo);
         int getAmmo() const;
 
 
@@ -33,8 +36,10 @@ class PlayerEntity : public Entity
     private:
         int m_ammo;
         int m_maxAmmo;
+        float m_shootVelocity;
+        float m_timePassedSinceLastShoot;
         std::string m_name;
-        std::function<bool(PlayerEntity&, float)>& m_shootFunct;
+        std::function<bool(PlayerEntity&, float)> m_shootFunct;
         ePlayerState m_state;
 
 };

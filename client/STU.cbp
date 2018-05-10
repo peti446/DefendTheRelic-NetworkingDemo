@@ -7,7 +7,7 @@
 		<Option execution_dir="." />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;Entities\;Entities\Player\;Entities\Relic\;Entities\Bullet\;Networking\Message\Lobby\Start Game\;Networking\Message\Game\;Networking\Message\Game\PosUpdate\;" />
+		<Option virtualFolders="SceneManagement\;Core Systems\;Helpers\Logger\;Networking\;Helpers\Encryption\;Networking\Message\;Helpers\;Data Structures\;SceneManagement\Scenes\;SceneManagement\Scenes\Options\;SceneManagement\Scenes\MainMenu\;SceneManagement\Scenes\Lobby\;SceneManagement\Scenes\Game\;SceneManagement\Scenes\ServerConnection\;Networking\Message\Empty\;SceneManagement\Scenes\Change Username\;Networking\Message\Lobby\;Networking\Message\Lobby\DisplayNameUpdate\;Networking\Message\Lobby\Fetch All\;Networking\Message\Lobby\Game Lobby Status Update\;Networking\Message\Lobby\Game Lobby Update\;Entities\;Entities\Player\;Entities\Bullet\;Networking\Message\Lobby\Start Game\;Networking\Message\Game\;Networking\Message\Game\PosUpdate\;Networking\Message\Game\Shoot\;" />
 		<Build>
 			<Target title="Linux">
 				<Option platforms="Unix;Mac;" />
@@ -88,83 +88,17 @@
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
-					<Add library="sfml-network-d" />
-					<Add library="sfml-audio-d" />
-					<Add library="sfml-graphics-d" />
-					<Add library="sfml-window-d" />
-					<Add library="sfml-system-d" />
-					<Add library="opengl32" />
-					<Add library="freetype" />
-					<Add library="jpeg" />
-					<Add library="tgui-d" />
-					<Add library="libcryptopp" />
-					<Add directory="Windows/Cryptopp/lib" />
-					<Add directory="Windows/SFML/lib" />
-					<Add directory="Windows/SFML/bin" />
-					<Add directory="Windows/TGUI/lib" />
-					<Add directory="Windows/TGUI/bin" />
-				</Linker>
-			</Target>
-			<Target title="Windows-Debug-Static">
-				<Option platforms="Windows;" />
-				<Option output="bin/Windows/debug-static/DefendTheRelic" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Windows/debug-static" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Option projectLinkerOptionsRelation="1" />
-				<Compiler>
-					<Add option="-std=c++11" />
-					<Add option="-g" />
-					<Add directory="Windows/Cryptopp/include" />
-					<Add directory="Windows/SFML/include" />
-					<Add directory="Windows/TGUI/include" />
-					<Add directory="include" />
-				</Compiler>
-				<Linker>
-					<Add option="-static" />
-					<Add library="sfml-network-d" />
-					<Add library="sfml-audio-d" />
-					<Add library="sfml-graphics-d" />
-					<Add library="sfml-window-d" />
-					<Add library="sfml-system-d" />
-					<Add library="opengl32" />
-					<Add library="freetype" />
-					<Add library="jpeg" />
-					<Add library="tgui-d" />
-					<Add library="libcryptopp" />
-					<Add directory="Windows/Cryptopp/lib" />
-					<Add directory="Windows/SFML/lib" />
-					<Add directory="Windows/SFML/bin" />
-					<Add directory="Windows/TGUI/lib" />
-					<Add directory="Windows/TGUI/bin" />
-				</Linker>
-			</Target>
-			<Target title="Windows-Relese-Static">
-				<Option platforms="Windows;" />
-				<Option output="bin/Windows/release-static/DefendTheRelic" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Windows/release-static" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Option projectLinkerOptionsRelation="1" />
-				<Compiler>
-					<Add option="-std=c++11" />
-					<Add directory="Windows/Cryptopp/include" />
-					<Add directory="Windows/SFML/include" />
-					<Add directory="Windows/TGUI/include" />
-					<Add directory="include" />
-				</Compiler>
-				<Linker>
 					<Add option="-O3" />
-					<Add option="-static" />
-					<Add library="sfml-network" />
-					<Add library="sfml-audio" />
-					<Add library="sfml-graphics" />
-					<Add library="sfml-window" />
-					<Add library="sfml-system" />
+					<Add option="-static-libstdc++" />
+					<Add library="sfml-network-d" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-system-d" />
 					<Add library="opengl32" />
 					<Add library="freetype" />
 					<Add library="jpeg" />
-					<Add library="tgui" />
+					<Add library="tgui-d" />
 					<Add library="libcryptopp" />
 					<Add directory="Windows/Cryptopp/lib" />
 					<Add directory="Windows/SFML/lib" />
@@ -189,6 +123,7 @@
 		<Unit filename="include/BulletEntity.hpp">
 			<Option virtualFolder="Entities/Bullet/" />
 		</Unit>
+		<Unit filename="include/BulletInstanciateNetMessage.hpp" />
 		<Unit filename="include/ChangeDisplayNameScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Change Username/" />
 		</Unit>
@@ -228,6 +163,7 @@
 		<Unit filename="include/GlobalLobbyScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
 		</Unit>
+		<Unit filename="include/HPPlayerUpdateNetMessage.hpp" />
 		<Unit filename="include/Logger.hpp">
 			<Option virtualFolder="Helpers/Logger/" />
 		</Unit>
@@ -243,18 +179,16 @@
 		<Unit filename="include/OptionsScene.hpp">
 			<Option virtualFolder="SceneManagement/Scenes/Options/" />
 		</Unit>
-		<Unit filename="include/PickUpEntity.hpp" />
+		<Unit filename="include/PlayerDieNetMessage.hpp" />
 		<Unit filename="include/PlayerEntity.hpp">
 			<Option virtualFolder="Entities/Player/" />
 		</Unit>
+		<Unit filename="include/PlayerRespawnNetMessage.hpp" />
 		<Unit filename="include/PlayerStatusUpdateNetMessage.hpp">
 			<Option virtualFolder="Networking/Message/Game/PosUpdate/" />
 		</Unit>
 		<Unit filename="include/RSAHelper.hpp">
 			<Option virtualFolder="Helpers/Encryption/" />
-		</Unit>
-		<Unit filename="include/RelicEntity.hpp">
-			<Option virtualFolder="Entities/Relic/" />
 		</Unit>
 		<Unit filename="include/Scene.hpp">
 			<Option virtualFolder="SceneManagement/" />
@@ -281,6 +215,7 @@
 		<Unit filename="src/BulletEntity.cpp">
 			<Option virtualFolder="Entities/Bullet/" />
 		</Unit>
+		<Unit filename="src/BulletInstanciateNetMessage.cpp" />
 		<Unit filename="src/ChangeDisplayNameScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Change Username/" />
 		</Unit>
@@ -317,6 +252,7 @@
 		<Unit filename="src/GlobalLobbyScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Lobby/" />
 		</Unit>
+		<Unit filename="src/HPPlayerUpdateNetMessage.cpp" />
 		<Unit filename="src/Logger.cpp">
 			<Option virtualFolder="Helpers/Logger/" />
 		</Unit>
@@ -332,18 +268,16 @@
 		<Unit filename="src/OptionsScene.cpp">
 			<Option virtualFolder="SceneManagement/Scenes/Options/" />
 		</Unit>
-		<Unit filename="src/PickUpEntity.cpp" />
+		<Unit filename="src/PlayerDieNetMessage.cpp" />
 		<Unit filename="src/PlayerEntity.cpp">
 			<Option virtualFolder="Entities/Player/" />
 		</Unit>
+		<Unit filename="src/PlayerRespawnNetMessage.cpp" />
 		<Unit filename="src/PlayerStatusUpdateNetMessage.cpp">
 			<Option virtualFolder="Networking/Message/Game/PosUpdate/" />
 		</Unit>
 		<Unit filename="src/RSAHelper.cpp">
 			<Option virtualFolder="Helpers/Encryption/" />
-		</Unit>
-		<Unit filename="src/RelicEntity.cpp">
-			<Option virtualFolder="Entities/Relic/" />
 		</Unit>
 		<Unit filename="src/Scene.cpp">
 			<Option virtualFolder="SceneManagement/" />

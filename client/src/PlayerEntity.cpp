@@ -1,12 +1,15 @@
 #include "PlayerEntity.hpp"
-#include "PlayerStatusUpdateNetMessage.hpp"
+#include "BulletInstanciateNetMessage.hpp"
 
 PlayerEntity::PlayerEntity(eEntitySide s, const std::string& m_dn, std::function<bool(PlayerEntity&, float)> shootFunction) : m_shootFunct(shootFunction), m_name(m_dn),
-                                                                                                                                m_state(ePlayerState::eIDLE)
+                                                                                                                              m_state(ePlayerState::eIDLE), m_shootVelocity(0.5f),
+                                                                                                                              m_timePassedSinceLastShoot(0.6f), m_maxAmmo(60),
+                                                                                                                              m_ammo(60)
 {
     setEntitySide(s);
     setActive(true);
     setSpeed(100);
+    m_sprite.setOrigin(sf::Vector2f(16,16));
     if(m_dn == GameEngine::Instance().getNetworkManager().getDisplayName())
     {
         setTexture(GameEngine::Instance().getTextureManager().getTexture("Media/Textures/Game/Self.png"));
@@ -28,6 +31,7 @@ void PlayerEntity::Update(const sf::Time& ur)
 {
     if(isActive())
     {
+        m_timePassedSinceLastShoot+= ur.asSeconds();
         if(m_state == ePlayerState::eWalking)
         {
             sf::Vector2i dir = getDirectionVector();
@@ -37,18 +41,28 @@ void PlayerEntity::Update(const sf::Time& ur)
     }
 }
 
-void PlayerEntity::shoot()
+bool PlayerEntity::shoot()
 {
-    if(m_ammo == 0)
-        return;
+    if(!canShoot())
+        return false;
     if(m_shootFunct(*this, 10))
     {
+        m_timePassedSinceLastShoot = 0;
         m_ammo -= 1;
+        if(m_name == GameEngine::Instance().getNetworkManager().getDisplayName())
+            GameEngine::Instance().getNetworkManager().send_udp(new BulletInstanciateNetMessage(m_name, m_pos, (sf::Uint16)m_dir, 10));
+        return true;
     } else
     {
-        Log(l_WARN) << "There was not any bullet left to instanciate";
+        Log(l_WARN) << "There was not any bullet left to Instantiate";
+        return false;
     }
 }
+bool PlayerEntity::canShoot()
+{
+   return (m_ammo > 0 && m_timePassedSinceLastShoot >= m_shootVelocity);
+}
+
 
 void PlayerEntity::addAmmo(int ammoToAdd)
 {
@@ -77,3 +91,14 @@ const std::string& PlayerEntity::getName() const
 {
     return m_name;
 }
+
+void PlayerEntity::setAmmo(int newAmmo)
+{
+    m_ammo = newAmmo;
+}
+
+void PlayerEntity::setMaxAmmo(int newMaxAmmo)
+{
+    m_maxAmmo = newMaxAmmo;
+}
+

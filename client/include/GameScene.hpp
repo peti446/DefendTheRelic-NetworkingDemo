@@ -27,9 +27,10 @@ class GameScene : public Scene
     private:
         bool LoadScene() final override;
         bool UnloadScene() final override;
-        bool InstanciateBullet(PlayerEntity& whoIsShooting, float speed);
+        bool InstantiateBullet(PlayerEntity& whoIsShooting, float speed);
+        bool InstantiateBulletNet(PlayerEntity& whoIsShooting, sf::Vector2f startPos, sf::Uint16 dir, float speed);
         void handlePlayerInput(sf::Keyboard::Key key, bool pressed);
-
+        void DestroyBulltet();
 
         std::string m_t1_p1;
         std::string m_t1_p2;

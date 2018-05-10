@@ -2,6 +2,9 @@
 #include "BulletEntity.hpp"
 #include "PlayerEntity.hpp"
 #include "PlayerStatusUpdateNetMessage.hpp"
+#include "BulletInstanciateNetMessage.hpp"
+#include "HPPlayerUpdateNetMessage.hpp"
+#include "PlayerBulletCountUpdateNetMessage.hpp"
 
 constexpr int m_AmountOfbullets = 200;
 
@@ -31,15 +34,37 @@ void GameScene::Draw(sf::RenderWindow& rw)
 
 void GameScene::Update(const sf::Time& ur)
 {
+    //Update all the active bullets
     for(BulletEntity* e : m_Activebullets)
     {
         e->Update(ur);
     }
+
+    //Update all players
     for(auto mit : m_players)
     {
         mit.second->Update(ur);
     }
 
+    //Check for colission between bullets and player to make damage
+    for(auto mit : m_players)
+    {
+        Entity* player = mit.second;
+        for(BulletEntity* bullet : m_Activebullets)
+        {
+            if(bullet->isActive() && bullet->getOwner().getEntitySide() != player->getEntitySide())
+            {
+                if(bullet->isColidingWith(*player))
+                {
+                    player->Damage(bullet->getDamage());
+                    bullet->setActive(false);
+                }
+            }
+        }
+    }
+
+    //Destroy any inactive bullets
+    DestroyBulltet();
 }
 
 
@@ -56,6 +81,34 @@ void GameScene::HandleNetworkInput(NetMessage* msg)
                 p->setPos(psunm->Position);
                 p->setPlayerStatus((PlayerEntity::ePlayerState)psunm->Status, false);
                 p->setDirection((Entity::eEntityDirection)psunm->Direction);
+            }
+            break;
+        }
+    case eNetMessageType::eBulletInstanciateMessage:
+        {
+            BulletInstanciateNetMessage* bi = (BulletInstanciateNetMessage*)msg;
+            if(m_players.find(bi->WhoShoot) != m_players.end())
+            {
+                InstantiateBulletNet(*m_players.at(bi->WhoShoot), bi->StartPosition, bi->Direction, bi->BulletSpeed);
+            }
+            break;
+        }
+    case eNetMessageType::eHpPlayerUpdate:
+        {
+            HPPlayerUpdateNetMessage* hpUpdate = (HPPlayerUpdateNetMessage*)msg;
+            if(m_players.find(hpUpdate->Who) != m_players.end())
+            {
+                m_players.at(hpUpdate->Who)->setHP(hpUpdate->newHp);
+            }
+            break;
+        }
+    case eNetMessageType::ePlayerBulletCountUpdate:
+        {
+            PlayerBulletCountUpdateNetMessage* ammoUpdate = (PlayerBulletCountUpdateNetMessage*)msg;
+            if(m_players.find(ammoUpdate->WhoUpdating) != m_players.end())
+            {
+                m_players.at(ammoUpdate->WhoUpdating)->setAmmo(ammoUpdate->NewAmount);
+                m_players.at(ammoUpdate->WhoUpdating)->setMaxAmmo(ammoUpdate->NewMaxAmount);
             }
             break;
         }
@@ -96,19 +149,19 @@ bool GameScene::LoadScene()
 
     if(m_t1_p1 != "NONE")
         m_players.insert(std::make_pair(m_t1_p1, (new PlayerEntity(Entity::eEntitySide::eTeam1, m_t1_p1,
-                                                                   std::bind(&GameScene::InstanciateBullet, std::ref(*this), std::placeholders::_1, std::placeholders::_2)))));
+                                                                   std::bind(&GameScene::InstantiateBullet, std::ref(*this), std::placeholders::_1, std::placeholders::_2)))));
 
     if(m_t1_p2 != "NONE")
         m_players.insert(std::make_pair(m_t1_p2, (new PlayerEntity(Entity::eEntitySide::eTeam1, m_t1_p2,
-                                                                   std::bind(&GameScene::InstanciateBullet, this, std::placeholders::_1, std::placeholders::_2)))));
+                                                                   std::bind(&GameScene::InstantiateBullet, this, std::placeholders::_1, std::placeholders::_2)))));
 
     if(m_t2_p1 != "NONE")
         m_players.insert(std::make_pair(m_t2_p1, (new PlayerEntity(Entity::eEntitySide::eTeam2, m_t2_p1,
-                                                                   std::bind(&GameScene::InstanciateBullet, this, std::placeholders::_1, std::placeholders::_2)))));
+                                                                   std::bind(&GameScene::InstantiateBullet, this, std::placeholders::_1, std::placeholders::_2)))));
 
     if(m_t2_p2 != "NONE")
         m_players.insert(std::make_pair(m_t2_p2, (new PlayerEntity(Entity::eEntitySide::eTeam2, m_t2_p2,
-                                                                    std::bind(&GameScene::InstanciateBullet, this, std::placeholders::_1, std::placeholders::_2)))));
+                                                                    std::bind(&GameScene::InstantiateBullet, this, std::placeholders::_1, std::placeholders::_2)))));
 
     if(m_players.find(GameEngine::Instance().getNetworkManager().getDisplayName()) != m_players.end())
     {
@@ -136,18 +189,49 @@ bool GameScene::UnloadScene()
     return true;
 }
 
-bool GameScene::InstanciateBullet(PlayerEntity& whoIsShooting, float speed)
+bool GameScene::InstantiateBullet(PlayerEntity& whoIsShooting, float speed)
 {
     if(m_bullets.size() > 0)
     {
         BulletEntity* b = m_bullets.back();
         m_bullets.pop_back();
-        b->Instansiate(whoIsShooting, speed);
+        b->Instantiate(whoIsShooting, speed);
         m_Activebullets.push_back(b);
         return true;
     }
     return false;
 }
+
+bool GameScene::InstantiateBulletNet(PlayerEntity& whoIsShooting, sf::Vector2f startPos, sf::Uint16 dir, float speed)
+{
+    if(m_bullets.size() > 0)
+    {
+        BulletEntity* b = m_bullets.back();
+        m_bullets.pop_back();
+        b->Instantiate(whoIsShooting, startPos, (Entity::eEntityDirection)dir, speed);
+        m_Activebullets.push_back(b);
+        return true;
+    }
+    Log(l_WARN) << "Could not instantiate a bullet that was received over the network";
+    return false;
+}
+
+
+
+void GameScene::DestroyBulltet()
+{
+    for(std::vector<BulletEntity*>::iterator it = m_Activebullets.begin(); it != m_Activebullets.end();)
+    {
+        if(!(*it)->isActive())
+        {
+            m_bullets.push_back(*it);
+            it = m_Activebullets.erase(it);
+        } else {
+            it++;
+        }
+    }
+}
+
 
 void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
 {
@@ -171,6 +255,12 @@ void GameScene::handlePlayerInput(sf::Keyboard::Key key, bool pressed)
         case sf::Keyboard::A:
             p->setDirection(Entity::eEntityDirection::eWest);
             p->setPlayerStatus(pressed ? PlayerEntity::ePlayerState::eWalking : PlayerEntity::ePlayerState::eIDLE);
+            break;
+        case sf::Keyboard::Space:
+            if(p->canShoot())
+            {
+                p->shoot();
+            }
             break;
     }
 

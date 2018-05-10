@@ -15,7 +15,14 @@ enum class eNetMessageType
     eGameLobbyUpdated,
     eGameLobbyStatusUpdated,
     eGameLobbyStartGame,
-    eInGamePlayerPosUpdate
+    eInGamePlayerPosUpdate,
+    eBulletInstanciateMessage,
+    ePlayerDiesMessage,
+    ePlayerQuitMessage,
+    eGameFinishedMessage,
+    ePlayerRespanwsMessage,
+    ePlayerBulletCountUpdate,
+    eHpPlayerUpdate
 };
 
 class NetMessage

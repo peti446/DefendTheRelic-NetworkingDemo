@@ -220,6 +220,101 @@ def handle_call({socket, _address, _port, [userID, "7", who, posX, posY, dir, st
       {:reply ,state, state}
   end
 end
+
+def handle_call({socket, _address, _port, [userID, "8", who, posX, posY, dir, speed]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              returnMSG = Utility.add_header_to_str(who) <>
+                          Utility.add_header_to_str(posX) <>
+                          Utility.add_header_to_str(posY) <>
+                          <<String.to_integer(dir)::unsigned-big-integer-16>> <>
+                          Utility.add_header_to_str(speed)
+              Enum.each(state.players, fn({uID, userMap}) ->
+                if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID != userID) do
+                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 8, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              {:reply ,state, state}
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived bullet instantiate message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+
+def handle_call({socket, _address, _port, [userID, "13", who, newAmmoAmount, newMaxAmmo]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              returnMSG = Utility.add_header_to_str(who) <>
+                          <<String.to_integer(newAmmoAmount)::big-integer-64>> <>
+                          <<String.to_integer(newMaxAmmo)::big-integer-64>>
+              Enum.each(state.players, fn({uID, userMap}) ->
+                if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID != userID) do
+                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 8, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              {:reply ,state, state}
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived ammo update message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+
+def handle_call({socket, _address, _port, [userID, "14", who, newHP]}, _from, state) do
+  case Map.fetch(state.players, userID) do
+    {:ok, cuserMap} ->
+      case Utility.networkStringSplitter(cuserMap.where_at) do
+        ["InGame", id] ->
+          case Map.fetch(state.lobbies, id) do
+            {:ok, lobby} ->
+              returnMSG = Utility.add_header_to_str(who) <>
+                          <<String.to_integer(newHP)::big-integer-64>>
+              Enum.each(state.players, fn({uID, userMap}) ->
+                if((userMap.display_name == lobby.t1_player1 or userMap.display_name == lobby.t1_player2
+                or userMap.display_name == lobby.t2_player1 or userMap.display_name == lobby.t2_player2) and uID != userID) do
+                  UDP.send_udp_encrypted_message(socket, userMap.udp_address, userMap.udp_port, 8, returnMSG, userMap.aesKey)
+                  :ok
+                end
+                :ok
+              end)
+              {:reply ,state, state}
+            :error ->
+              {:reply ,state, state}
+          end
+        [_] ->
+        {:reply ,state, state}
+      end
+    :error ->
+      IO.puts("Recived hp Update message from user #{inspect userID} but the user is not registered ?");
+      {:reply ,state, state}
+  end
+end
+
 ##---------------------------------------------------------------------------------------------------------------------------
 
 ##---------------------------------------------------------------------------------------------------------------------------

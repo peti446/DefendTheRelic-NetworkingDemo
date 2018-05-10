@@ -44,11 +44,11 @@ void Entity::setPos(const sf::Vector2f& pos)
     m_pos = pos;
     if(m_pos.x < 0)
         m_pos.x = 0;
-    if(m_pos.x > GameEngine::Instance().getRenderWindow().getSize().x)
+    if(m_pos.x >= GameEngine::Instance().getRenderWindow().getSize().x)
         m_pos.x = GameEngine::Instance().getRenderWindow().getSize().x;
     if(m_pos.y < 0)
         m_pos.y = 0;
-    if(m_pos.y > GameEngine::Instance().getRenderWindow().getSize().y)
+    if(m_pos.y >= GameEngine::Instance().getRenderWindow().getSize().y)
         m_pos.y = GameEngine::Instance().getRenderWindow().getSize().y;
     m_sprite.setPosition(m_pos);
 }
@@ -85,15 +85,15 @@ void Entity::setDirection(eEntityDirection newDire, bool shouldRotate)
                 break;
             case eEntityDirection::eSorth:
                     //180 Degrees
-                    m_sprite.setRotation(3.14159f);
+                    m_sprite.setRotation(180);
                 break;
             case eEntityDirection::eEast:
                     //90 Degrees
-                    m_sprite.setRotation(1.5708f);
+                    m_sprite.setRotation(90);
                 break;
             case eEntityDirection::eWest:
                     //270 Degrees
-                    m_sprite.setRotation(4.71239f);
+                    m_sprite.setRotation(270);
                 break;
         }
     }
